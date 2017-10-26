@@ -36,15 +36,15 @@
     </form:form>
 	
 			<!-- Login part -->
-			<form class="login-form" action="login" method="post">
-				<input type="email" placeholder="email" name="user_email" /> 
-				<input type="password" placeholder="password" name="password" />
+			<form:form class="login-form" method="post" commandName="user" >
+				<form:input path="email" type="email" placeholder="email" name="user_email" /> 
+				<form:input path="password" type="password" placeholder="password" name="password" />
 				<button type="submit">login</button>
 				<p class="message">
 				Not registered? <a href="#">
 				Create an account</a>
 				</p>
-			</form>
+			</form:form>
 		</div>
 	</div>
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.travelshare.util.Encrypter;
 import com.travelshare.util.UserException;
 
-
+@Component
 public class UserDAO {
 
 	private static final String INSERT_USER_SQL = "INSERT INTO users VALUES (null, ?, ?,?,?,?,?)";
@@ -57,27 +57,26 @@ public class UserDAO {
 
 	}
 
-	public boolean loginUser(String email, String password) throws UserException {
+	public boolean checkForUser(User user) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(SELECT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, email);
-			ps.setString(2, Encrypter.encrypt(password));
-			System.out.println(Encrypter.encrypt(password));
+			ps.setString(1, user.getEmail());
+			ps.setString(2, Encrypter.encrypt(user.getPassword()));
 			ps.executeQuery();
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			return rs.getInt(1) > 0;
 		} catch (SQLException e) {
-			throw new UserException("There is no such user in our system!", e);
+			return false;
 		}
 	}			
 
-	public User getUser(String userEmail) throws SQLException{
+	public User getUser(User u) throws SQLException{
 		Connection con = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement(GET_USER_FROM_SQL);
-		ps.setString(1, userEmail);
+		ps.setString(1, u.getEmail());
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		
