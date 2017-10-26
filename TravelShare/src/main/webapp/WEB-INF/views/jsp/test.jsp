@@ -21,6 +21,9 @@
 		margin: 16px;
 	}</style>
 <body>
+<<<<<<< HEAD
+	<p> </p>
+=======
 	<form:form commandName="user">
 		<!-- Handle errors -->
 		<form:errors path="*" cssClass="errorblock" element="div"/>
@@ -33,5 +36,6 @@
 		
 		<input type="submit"/>
 	</form:form>
+>>>>>>> d2cd1288b92d5921e704bea7fdbf3783a6a4beba
 </body>
 </html>
