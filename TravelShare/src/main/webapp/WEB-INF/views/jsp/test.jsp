@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<h1> ${text} </h1> 
+	<h1> ${test} </h1> 
 	<p> </p>
 </body>
 </html>
