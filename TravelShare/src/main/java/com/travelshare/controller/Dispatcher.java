@@ -23,10 +23,5 @@ public class Dispatcher {
 		}
 		return "index";
 	}
-	
-	@RequestMapping(value="/products/{product_id}",method = RequestMethod.POST)
-	public String registerUSser() {
-		return "redirect:login";
-	}
-	
+
 }

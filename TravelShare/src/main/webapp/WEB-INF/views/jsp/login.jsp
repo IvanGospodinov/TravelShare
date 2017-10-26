@@ -38,7 +38,7 @@
 <<<<<<< HEAD
 	<form:form method="post">
 	
-		<label for="textInput1"> Enter Name</label>
+		<label for="textInput1">Enter Name</label>
 
 		<input type="submit" value="Enter"/>
 	</form:form>
