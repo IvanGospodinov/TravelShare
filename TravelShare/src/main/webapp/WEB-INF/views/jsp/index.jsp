@@ -20,6 +20,9 @@
 <body>
 	<!--<![endif]-->
 	
+	<c:if test="${ sessionScope.user == null }">
+		<c:redirect url="login.jsp"></c:redirect>
+	</c:if>
 
 
 	 <script type="text/javascript">
@@ -65,33 +68,16 @@
 
 		</div>
 	</div>
-	<div id="secwrapper">
-		<section> <article id="featured"> <a href="post.jsp"> <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
-         url = "jdbc:mysql://localhost/travel_share"
-         user = "root"  password = "BratinDol14"/>
- 
-      <sql:query dataSource = "${snapshot}" var = "result">
-      	
-         SELECT * from users WHERE user_id = 36;
-      </sql:query>
+	
  
       <table>
          <tr>
             <th>Post</th>
-
+			
          </tr>
          
-         <c:forEach var = "row" items = "${result.rows}">
-            <tr>
-               <td><img src="<c:out value = "${row.user_pictureURL}"/>"/>
-               <h3>User: <c:out value = "${row.user_firstname}"/></h3>
-               </td>
-            </tr>
-         </c:forEach>
-      </table></a>
-		<p>This is a jar</p>
-		<a href="post.jsp" class="readmore">Read more</a> </article> <article> <a
-			href="#"><img src="images/2.jpg" alt="" /></a>
+         
+        <h1>${name}</h1>
 			
 		<h1>Tortor at Vulputate Blandit</h1>
 		<p>Aenean quis dignissim diam. Etiam venenatis congue velit,

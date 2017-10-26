@@ -39,26 +39,26 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 	
-	// localization configuration
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("messages");
-		return messageSource;
-	}
+//	// localization configuration
+//	@Bean
+//	public MessageSource messageSource() {
+//		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+//		messageSource.setBasename("messages");
+//		return messageSource;
+//	}
 	
-	@Bean
-	public LocaleResolver localeResolver() {
-		SessionLocaleResolver resolver = new SessionLocaleResolver();
-		resolver.setDefaultLocale(Locale.ENGLISH);
-		return resolver;
-	}
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		LocaleChangeInterceptor changeInterceptor = new LocaleChangeInterceptor();
-		changeInterceptor.setParamName("language");
-		registry.addInterceptor(changeInterceptor);
-	}
+//	@Bean
+//	public LocaleResolver localeResolver() {
+//		SessionLocaleResolver resolver = new SessionLocaleResolver();
+//		resolver.setDefaultLocale(Locale.ENGLISH);
+//		return resolver;
+//	}
+//	
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		LocaleChangeInterceptor changeInterceptor = new LocaleChangeInterceptor();
+//		changeInterceptor.setParamName("language");
+//		registry.addInterceptor(changeInterceptor);
+//	}
 	
 }
