@@ -20,10 +20,10 @@
 	<h1 class="travelShare">Welcome To Travel Share</h1><br/>	
 
 	
-	<form:form method="post" commandName="test">
+	<form:form method="post">
 	
 		<label for="textInput1"> Enter Name</label>
-		<form:input path="name"/>
+
 		<input type="submit" value="Enter"/>
 	</form:form>
 	
