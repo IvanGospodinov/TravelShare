@@ -2,9 +2,11 @@ package com.travelshare.model;
 
 import java.util.Set;
 
-public class User {
+import org.springframework.stereotype.Component;
 
-	
+
+@Component
+public class User {
 	
 	private int userID;
 	private String username;
@@ -14,6 +16,8 @@ public class User {
 	private String lastName;
 	private String pictureURL;
 	//Set<Post> posts;
+	
+	public User(){};
 	
 	public User(String username, String password, String email, String firstName, String lastName, String pictureURL) {
 		super();
