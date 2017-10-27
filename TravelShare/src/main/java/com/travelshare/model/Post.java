@@ -29,10 +29,11 @@ public class Post {
 
 //		private Set<Attachment> attachments=new HashSet<Attachment>() ;
 //		private Set<Coment> coments=new HashSet<Coment>() ;
-//		private Map<Emotion, Integer> emotions=new HashMap<Emotion, Integer>();
+//		private Map<Emotion, HashSet<User>> emotions=new HashMap<Emotion, HashSet<User>>();
 
 
-		
+	
+
 		public Post(String title, String description, LocalDate a, LocalDate b, int user_id, int category_id, String location) {
 			
 			this.title = title;
