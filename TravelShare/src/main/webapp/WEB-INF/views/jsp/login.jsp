@@ -35,15 +35,15 @@
       <button type="submit" >create</button><p class="message">Already registered? <a href="#">Sign In</a></p>
     </form:form>
 	
-<<<<<<< HEAD
-	<form:form method="post">
+<!--  HEAD -->
+<!--	<form:form method="post">
 	
 		<label for="textInput1">Enter Name</label>
 
 		<input type="submit" value="Enter"/>
 	</form:form>
-	
-=======
+	 -->
+
 			<!-- Login part -->
 			<form:form class="login-form" method="post" commandName="user" >
 				<form:input path="email" type="email" placeholder="email" name="user_email" /> 
@@ -62,7 +62,7 @@
 		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 	<script src="js/index.js"></script>
->>>>>>> d2cd1288b92d5921e704bea7fdbf3783a6a4beba
+
 
 </body>
 </html>
