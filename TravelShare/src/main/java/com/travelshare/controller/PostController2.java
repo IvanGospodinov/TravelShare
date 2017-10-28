@@ -52,7 +52,7 @@ public class PostController2 {
 		String description = request.getParameter("description");
 		
 
-		Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), 2, 2,location);
+		Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), 2, category_id,location);
 	//	long time=0;
 		int result = 0;
 		try {
