@@ -57,13 +57,13 @@ public class UserDAO {
 
 	}
 
-	public boolean checkForUser(User user) throws UserException {
+	public boolean checkForUser(String email, String password) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(SELECT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, user.getEmail());
-			ps.setString(2, Encrypter.encrypt(user.getPassword()));
+			ps.setString(1, email);
+			ps.setString(2, Encrypter.encrypt(password));
 			ps.executeQuery();
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -73,10 +73,10 @@ public class UserDAO {
 		}
 	}			
 
-	public User getUser(User u) throws SQLException{
+	public User getUser(String email) throws SQLException{
 		Connection con = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement(GET_USER_FROM_SQL);
-		ps.setString(1, u.getEmail());
+		ps.setString(1, email);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		

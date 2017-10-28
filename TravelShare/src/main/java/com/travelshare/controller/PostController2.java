@@ -21,7 +21,7 @@ import com.travelshare.model.User;
 
 
 @Controller
-public class PostController {
+public class PostController2 {
 
 	@RequestMapping(value= "/newPost", method = RequestMethod.GET)
 	protected String doGet(Model model, HttpServletRequest request) {
