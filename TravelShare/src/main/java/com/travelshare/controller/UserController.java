@@ -160,16 +160,21 @@ public class UserController {
 
 	@RequestMapping(value="/about", method = RequestMethod.GET)
 	public String aboutUs(Model model, HttpServletRequest request) {
-		System.out.println("GETTTTTTTTT ABOUT US");
+		System.err.println("GETTTTTTTTT ABOUT US");
 
 		return "aboutUs";	
 	}
 	
 	@RequestMapping(value="/contact", method = RequestMethod.GET)
 	public String contacts(Model model, HttpServletRequest request, HttpSession session) {
-		System.out.println("GETTTTTTTTT CONTACTS");
+		System.err.println("GETTTTTTTTT CONTACTS");
 		return "contacts";	
 	}
 
+	@RequestMapping(value="/myProfile", method = RequestMethod.GET)
+	public String myProfile(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT MY PROFILE");
+		return "myProfile";	
+	}
 
 }
