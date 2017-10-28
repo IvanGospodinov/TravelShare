@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,14 +22,13 @@ import com.travelshare.model.User;
 import com.travelshare.util.UserException;
 
 
+@MultipartConfig
 @Controller
 public class PostController2 {
 
 	@RequestMapping(value= "/newPost", method = RequestMethod.GET)
-	protected String doGet(Model model, HttpServletRequest request) {
+	protected String doGet(Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("POST GET METHOD");
-		Post post = new Post();
-		model.addAttribute(post);
 		return "newPost";
 	}
 	
@@ -41,7 +41,9 @@ public class PostController2 {
 		
 		String category = request.getParameter("category");
 		System.err.println("BEFORE PARSE " + category);
-		//int category_id = Integer.valueOf(category);
+		System.err.println("BEFORE PARSE " + request.getParameter("title"));
+		System.err.println("BEFORE PARSE " + request.getParameter("location"));
+		int category_id = Integer.valueOf(category);
 		
 		String title = request.getParameter("title");
 		System.err.println("BEFORE PARSE " + title);
