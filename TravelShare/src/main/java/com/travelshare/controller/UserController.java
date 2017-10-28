@@ -1,11 +1,10 @@
 package com.travelshare.controller;
 
-import java.sql.SQLException;
-
-import javax.servlet.ServletContext;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,67 +12,162 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.travelshare.model.User;
 import com.travelshare.model.UserDAO;
 import com.travelshare.util.UserException;
 
 @Controller
-@RequestMapping(value="/login")
-@SessionAttributes("user")
+@MultipartConfig
 public class UserController {
-
-	@Autowired
-	private UserDAO userDAO;
 
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String redirect(Model model, HttpServletRequest request) {
-		User user = new User();
-		model.addAttribute(user);
-		return "login";
+	public String redirect(Model model, HttpServletRequest request,HttpSession session) {
+		if(session.getAttribute("user") == null) {
+			System.err.println("GETTTTTTTTT IF USER SESSION DOES NOT EXIST");
+			return "login";
+		}
+		System.err.println("GETTTTTTTTT ELSE IF SESSION EXISTS");
+		return "home";
 	}
 
+	@RequestMapping(value = "/register",method = RequestMethod.GET)
+	public String login(Model model, HttpServletRequest request) {	
+		System.out.println("GETTTTTTTTT REGISTER METHOD");
+		return "register";
+	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute User user, Model model, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/register",method = RequestMethod.POST)
+	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		final String AVATAR_URL = "/Users/Ivan/Desktop/Java EE/ShareTravel/WebContent/images/";
 		//model.addAttribute("name",user.getFirstName());
+		System.err.println("POST REGISTER METHOD");
+		request.getSession().setAttribute("user", "user");
+		User user;
+		//		try {
+		//			Part avatarPart = request.getPart("user_pictureURL");
+		//			InputStream fis = avatarPart.getInputStream();
+		//			File myFile = new File(AVATAR_URL+request.getParameter("uname")+".jpg");
+		//			if(!myFile.exists()){
+		//				myFile.createNewFile();
+		//			}
+		//			FileOutputStream fos = new FileOutputStream(myFile);
+		//			int b = fis.read();
+		//			while(b != -1){
+		//				fos.write(b);
+		//				b = fis.read();
+		//			}
+		//			fis.close();
+		//			fos.close();
+		//		} catch (IOException | ServletException e) {
+		//			e.printStackTrace();
+		//		}
+
+		String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
+
+		user = new User(
+				request.getParameter("uname"),
+				request.getParameter("password"),
+				request.getParameter("user_email"),
+				request.getParameter("user_firstname"),
+				request.getParameter("user_lastname"),
+				avatarUrl
+				);
+		System.out.println(user.getPictureURL());
 
 		try {
-			if(user.getLastName() == null && user.getFirstName() == null && user.getUsername() == null) {
-				System.err.println("Log in");
-				boolean userExists = false;
-				userExists = userDAO.checkForUser(user);
-				if(userExists) {
-					User u = userDAO.getUser(user);
-					System.err.println("V if sa sym");
-					request.getSession().setAttribute("user", u);
-					request.getSession().setAttribute("userID", u.getUserID());
-					response.addCookie(new Cookie("username", u.getUsername()));
-					return "index";
-				} else {
-					System.err.println("V Else sa sym " + user.getEmail());
-					//User u = userDAO.getUser(user);
-					request.getSession().setAttribute("user", null);
-					request.getSession().setAttribute("userID", null);
-					response.addCookie(new Cookie("username", null));
-					return "login";
-				}
+			UserDAO.getInstance().registerUser(user);
+			if(user.getUserID() != 0) {
+				session.setAttribute("username", request.getParameter("uname"));
+				session.setAttribute("logged", true);
+				session.setAttribute("userID", user.getUserID());
+				session.setAttribute("user", user);
+				//String username = request.getParameter("name");
+				response.addCookie(new Cookie("username", user.getFirstName()));
+				return "home";
 			} else {
-				userDAO.registerUser(user);
-				request.getSession().setAttribute("userID", user.getUserID());
-				request.getSession().setAttribute("user", user);
-				response.addCookie(new Cookie("username", user.getUsername()));
+				request.setAttribute("user", null);
+				return "login";			
 			}
 		} catch (UserException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
-		System.err.println("EXIT");
-		return "index";
-
+		return "home";
 	}
+
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public String loginUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		System.out.println("POST LOGIN");
+
+		User user =  null;
+
+
+		boolean userExists = false;	
+		try {
+			userExists = UserDAO.getInstance().checkForUser(request.getParameter("user_email"),request.getParameter("password"));
+			if(userExists) {
+				//user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
+				//request.getSession().setAttribute("userID", user.getUserID());
+				request.getSession().setAttribute("user", "temp");
+				//String username = request.getParameter("uname");
+				//response.addCookie(new Cookie("name", user.getFirstName()));
+				System.err.println("LOGIN - FOUND USER");
+				return "home";
+			} else{
+				System.err.println("LOGIN - NO SUCH USER");
+				session.setAttribute("user", null);
+				return "login";
+			}
+		} catch (UserException e) {
+			request.setAttribute("error", "database problem : " + e.getMessage());
+		}
+		
+		return "login";		
+	}
+
+
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(Model model, HttpServletRequest request) {
+		System.out.println("GETTTTTTTTT LOGOUT");
+		request.getSession().invalidate();
+		request.getSession().setAttribute("user", null);
+		return "login";	
+	}
+
+	@RequestMapping(value="/TravelSharee/changeEmail", method = RequestMethod.GET)
+	public String changeEmail2(Model model, HttpServletRequest request) {
+		User user = new User();
+		model.addAttribute(user);
+		return "changeEmail";	
+	}
+
+//	@RequestMapping(value="/changeEmail", method = RequestMethod.POST)
+//	public String changeEmail(@ModelAttribute User user, Model model, HttpServletRequest request) {
+//		System.err.println("In the change email method");
+//		boolean passIsCorrect = userDAO.checkPass(request.getParameter("password"));
+//		if(passIsCorrect) {
+//			userDAO.changeEmail(request.getParameter("user_email"), request.getParameter("password"));
+//			return "index";
+//		}	
+//		return "changeEmail";
+//	}
+
+	@RequestMapping(value="/about", method = RequestMethod.GET)
+	public String aboutUs(Model model, HttpServletRequest request) {
+		System.out.println("GETTTTTTTTT ABOUT US");
+		request.getSession().invalidate();
+		request.getSession().setAttribute("user", null);
+		return "aboutUs";	
+	}
+	
+	@RequestMapping(value="/contact", method = RequestMethod.GET)
+	public String contacts(Model model, HttpServletRequest request) {
+		System.out.println("GETTTTTTTTT CONTACTS");
+		request.getSession().invalidate();
+		request.getSession().setAttribute("user", null);
+		return "contacts";	
+	}
+
 
 }

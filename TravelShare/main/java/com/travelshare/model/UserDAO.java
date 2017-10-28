@@ -57,13 +57,13 @@ public class UserDAO {
 
 	}
 
-	public boolean checkForUser(String email, String password) throws UserException {
+	public boolean checkForUser(User user) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(SELECT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, email);
-			ps.setString(2, Encrypter.encrypt(password));
+			ps.setString(1, user.getEmail());
+			ps.setString(2, Encrypter.encrypt(user.getPassword()));
 			ps.executeQuery();
 			ResultSet rs = ps.executeQuery();
 			rs.next();
