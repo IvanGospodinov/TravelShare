@@ -73,10 +73,10 @@ public class UserDAO {
 		}
 	}			
 
-	public User getUser(User u) throws SQLException{
+	public User getUser(String email) throws SQLException{
 		Connection con = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = con.prepareStatement(GET_USER_FROM_SQL);
-		ps.setString(1, u.getEmail());
+		ps.setString(1, email);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		

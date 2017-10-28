@@ -1,5 +1,7 @@
 package com.travelshare.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,8 @@ public class UserController {
 			return "login";
 		}
 		System.err.println("GETTTTTTTTT ELSE IF SESSION EXISTS");
+		System.err.println(session.getAttribute("user"));
+		System.err.println(session.getAttribute("name"));
 		return "home";
 	}
 
@@ -83,8 +87,7 @@ public class UserController {
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
-				//String username = request.getParameter("name");
-				response.addCookie(new Cookie("username", user.getFirstName()));
+				response.addCookie(new Cookie("name", user.getFirstName()));
 				return "home";
 			} else {
 				request.setAttribute("user", null);
@@ -107,11 +110,12 @@ public class UserController {
 		try {
 			userExists = UserDAO.getInstance().checkForUser(request.getParameter("user_email"),request.getParameter("password"));
 			if(userExists) {
-				//user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
-				//request.getSession().setAttribute("userID", user.getUserID());
-				request.getSession().setAttribute("user", "temp");
+				user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
+				request.getSession().setAttribute("user", user);
 				//String username = request.getParameter("uname");
-				//response.addCookie(new Cookie("name", user.getFirstName()));
+				request.getSession().setAttribute("name", user.getFirstName());
+				response.addCookie(new Cookie("name", user.getFirstName()));
+				request.getSession().setAttribute("userID", user.getUserID());
 				System.err.println("LOGIN - FOUND USER");
 				return "home";
 			} else{
@@ -121,6 +125,9 @@ public class UserController {
 			}
 		} catch (UserException e) {
 			request.setAttribute("error", "database problem : " + e.getMessage());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return "login";		
@@ -128,10 +135,12 @@ public class UserController {
 
 
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(Model model, HttpServletRequest request) {
+	public String logout(Model model, HttpServletRequest request, HttpSession session) {
 		System.out.println("GETTTTTTTTT LOGOUT");
 		request.getSession().invalidate();
 		request.getSession().setAttribute("user", null);
+		session.setAttribute("logged", false);
+		session.setAttribute("userID",  null);
 		return "login";	
 	}
 
@@ -162,10 +171,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/contact", method = RequestMethod.GET)
-	public String contacts(Model model, HttpServletRequest request) {
+	public String contacts(Model model, HttpServletRequest request, HttpSession session) {
 		System.out.println("GETTTTTTTTT CONTACTS");
-		request.getSession().invalidate();
-		request.getSession().setAttribute("user", null);
 		return "contacts";	
 	}
 
