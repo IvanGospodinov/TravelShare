@@ -5,10 +5,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <link rel="stylesheet" type="text/css" href="css/footer.css">
 
+    <style>
+    
+        .footerContainer {
+            position: relative;
+        }
+    </style>
+    
 </head>
 <body>
 
-    <footer>
       <div class="footerContainer">
           <ul class="about">
               <li><a href="about">About Us</a></li>
@@ -23,10 +29,8 @@
               <li><a href="http://www.snapchat.com" class="fa fa-snapchat-ghost" target="_blank"></a></li>
               <li id="follow">Follow us on:</li>  
           </ul>
-    
-    </div>
-      
-      </footer>
+    </div>  
+
     
 </body>
     

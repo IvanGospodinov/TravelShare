@@ -6,12 +6,15 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>  
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Login/Register Form</title>
-
+ <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
@@ -37,6 +40,7 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   background-color: transparent;
+
   
 }
 
@@ -44,7 +48,7 @@
 
   color: #000000;
   padding: 25px;
-  font-family: 'trebuchet ms';
+  font-family: 'Indie Flower', cursive;
   font-style: italic;
   font-weight: bold;
   font-variant: small-caps;
@@ -86,12 +90,15 @@
 }
 .form .message {
   margin: 15px 0 0;
-  color: #414141;
-  font-size: 15px;
+  color: #ffffff;
+  font-size: 18px;
+    font-weight: 600;
 }
 .form .message a {
-  color: #14a0c9;
+  color: #ffffff;
   text-decoration: none;
+    text-decoration: underline;
+
 }
 .form .register-form {
   display: none;
@@ -139,7 +146,7 @@ body {
   font-family: "Roboto", sans-serif;internet
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      */
-  background: url("http://sf.co.ua/13/02/wallpaper-948394.jpg")/*url("http://www.stlouisllcattorney.com/wp-content/uploads/2016/07/Fence-post.jpg")*/, no-repeat center center fixed; 
+  background: url("https://static.pexels.com/photos/547114/pexels-photo-547114.jpeg")/*url("http://sf.co.ua/13/02/wallpaper-948394.jpg")*//*url("http://www.stlouisllcattorney.com/wp-content/uploads/2016/07/Fence-post.jpg")*/, no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -207,6 +214,6 @@ body {
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>
-<jsp:include page="footer.jsp" />
+<footer><jsp:include page="footer.jsp" /></footer>
 </body>
 </html>

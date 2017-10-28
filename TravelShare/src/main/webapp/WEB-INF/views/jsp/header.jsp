@@ -21,8 +21,8 @@ body {
 
 .container {
     text-align: center;
-vertical-align: middle;
-background-color: transparent;
+    vertical-align: middle;
+    background-color: transparent;
 }
 .nav  {
     color: forestgreen;

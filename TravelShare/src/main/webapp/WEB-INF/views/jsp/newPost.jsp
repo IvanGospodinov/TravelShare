@@ -21,11 +21,18 @@
  -->
 
 <title>create post</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+    
 .form {
+    position: relative;
+    margin-top: 40px;
+    border-radius: 25px;
 	position: relative;
 	z-index: 1;
 	background: #FFFFFF;
@@ -43,6 +50,7 @@
 }
 
 .dropdown {
+    border-radius: 50px:
 	margin-bottom: 20px;
     background-color: #94def3;
 	color: white;
@@ -107,11 +115,20 @@
 
     
 p {
-     font-family: sans-serif;
+     font-family: 'Indie Flower', cursive;;
      font-size: 19px;
       margin-bottom: 10px;
       margin-top: 10px;
  }    
+    
+    .button {
+        border-radius: 25px:
+    }
+    
+    .footer {
+        margin-top: 100px;
+    }
+
     
 </style>
 
@@ -161,7 +178,7 @@ p {
 	</fieldset>
 </form>-->
 <div class="form">
-	<form action="newPost" method="post">
+	<form class="wrap" action="newPost" method="post">
 		<div class="dropdownPost">
 			<p>Choose a categoty</p>
 			<select class="dropdown" name="category">
@@ -190,11 +207,11 @@ p {
 			<p>Add your images(s)</p>
 			<input type="file" name="file1" multiple />
 		</div>
-		<button type="submit">Submit post</button>
+		<button class="button" type="submit">Submit post</button>
 	</form>
 
 </div>
 
 </body>
-<jsp:include page="footer.jsp" />
+    <footer class="footer"><jsp:include page="footer.jsp" /></footer>
 </html>
