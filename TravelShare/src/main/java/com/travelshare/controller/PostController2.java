@@ -1,6 +1,8 @@
+
 package com.travelshare.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ import com.travelshare.util.UserException;
 
 
 @Controller
-public class PostController {
+public class PostController2 {
 
 	@RequestMapping(value= "/newPost", method = RequestMethod.GET)
 	protected String doGet(Model model, HttpServletRequest request) {
@@ -29,25 +31,33 @@ public class PostController {
 		model.addAttribute(post);
 		return "newPost";
 	}
+	
+	
 
 	@RequestMapping(value= "/newPost",method = RequestMethod.POST)
 	protected String doPost(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.err.println("POST SUBMIT");
-		//String category = request.getParameter("category");
+		
+		String category = request.getParameter("category");
+		int category_id=Integer.parseInt(category);
+		
 		String title = request.getParameter("title");
 		String location = request.getParameter("location");
 		String description = request.getParameter("description");
 		
 
-		Post post = new Post(title, location, description);
+		Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), 2,category_id,location);
+	//	long time=0;
 		int result =0;
-//		try {
-//			result = PostDAO.getInstance().createPost(post);
-//		} catch (UserException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			result = PostDAO.getInstance().createPost(post);
+		} catch (UserException e) {
+			System.out.println("Tyka Grymna");
+		}
+		System.out.println("result");
+		
+		
 		//req.getRequestDispatcher("").forward(req, resp);
 		return "index";
 

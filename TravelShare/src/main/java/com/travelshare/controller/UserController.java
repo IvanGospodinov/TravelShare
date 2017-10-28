@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,7 +30,7 @@ public class UserController {
 		}
 		System.err.println("GETTTTTTTTT ELSE IF SESSION EXISTS");
 		System.err.println(session.getAttribute("user"));
-		System.err.println(session.getAttribute("name"));
+		System.err.println(session.getAttribute("username"));
 		return "home";
 	}
 
@@ -47,7 +45,6 @@ public class UserController {
 		final String AVATAR_URL = "/Users/Ivan/Desktop/Java EE/ShareTravel/WebContent/images/";
 		//model.addAttribute("name",user.getFirstName());
 		System.err.println("POST REGISTER METHOD");
-		request.getSession().setAttribute("user", "user");
 		User user;
 		//		try {
 		//			Part avatarPart = request.getPart("user_pictureURL");
@@ -83,14 +80,14 @@ public class UserController {
 		try {
 			UserDAO.getInstance().registerUser(user);
 			if(user.getUserID() != 0) {
-				session.setAttribute("username", request.getParameter("uname"));
+				session.setAttribute("username", user.getUsername());
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
 				response.addCookie(new Cookie("name", user.getFirstName()));
 				return "home";
 			} else {
-				request.setAttribute("user", null);
+				request.getSession().invalidate();
 				return "login";			
 			}
 		} catch (UserException e) {
@@ -101,7 +98,7 @@ public class UserController {
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String loginUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		System.out.println("POST LOGIN");
+		System.err.println("POST LOGIN");
 
 		User user =  null;
 
@@ -111,22 +108,21 @@ public class UserController {
 			userExists = UserDAO.getInstance().checkForUser(request.getParameter("user_email"),request.getParameter("password"));
 			if(userExists) {
 				user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
-				request.getSession().setAttribute("user", user);
-				//String username = request.getParameter("uname");
-				request.getSession().setAttribute("name", user.getFirstName());
+				session.setAttribute("username", user.getUsername());
+				session.setAttribute("logged", true);
+				session.setAttribute("userID", user.getUserID());
+				session.setAttribute("user", user);
 				response.addCookie(new Cookie("name", user.getFirstName()));
-				request.getSession().setAttribute("userID", user.getUserID());
 				System.err.println("LOGIN - FOUND USER");
 				return "home";
 			} else{
 				System.err.println("LOGIN - NO SUCH USER");
-				session.setAttribute("user", null);
+				request.getSession().invalidate();
 				return "login";
 			}
 		} catch (UserException e) {
 			request.setAttribute("error", "database problem : " + e.getMessage());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -138,9 +134,7 @@ public class UserController {
 	public String logout(Model model, HttpServletRequest request, HttpSession session) {
 		System.out.println("GETTTTTTTTT LOGOUT");
 		request.getSession().invalidate();
-		request.getSession().setAttribute("user", null);
-		session.setAttribute("logged", false);
-		session.setAttribute("userID",  null);
+
 		return "login";	
 	}
 
@@ -165,8 +159,7 @@ public class UserController {
 	@RequestMapping(value="/about", method = RequestMethod.GET)
 	public String aboutUs(Model model, HttpServletRequest request) {
 		System.out.println("GETTTTTTTTT ABOUT US");
-		request.getSession().invalidate();
-		request.getSession().setAttribute("user", null);
+
 		return "aboutUs";	
 	}
 	
