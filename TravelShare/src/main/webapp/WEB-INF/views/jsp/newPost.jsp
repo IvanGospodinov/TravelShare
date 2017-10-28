@@ -20,7 +20,7 @@
   <jsp:include page="header.jsp" />
  
  
-<form class="header-buttons" action="CreatePost" method="post" enctype="multipart/form-data">
+<form class="header-buttons" action="newPost" method="post" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Create post</legend>
 
@@ -29,7 +29,7 @@
 
 				<tr>
 					<td>Choose Category</td>
-					<td><select name="category">
+					<td><select  name="category">
 					<option value="1">Nature</option>
 					<option value="2">Animals</option>
 					<option value="3">Food</option>
@@ -69,7 +69,12 @@
 			</fieldset>
 	</form>
 
-
+ <form class="register-form" action="newPost" method="post" >
+     <input id="title" type="text" name="title" placeholder="title"/>
+      <input type="text" name="location" placeholder="location"/>
+      <input type="text" name="description" placeholder="description"/>
+      <button type="submit" >create</button><p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
 
 
 

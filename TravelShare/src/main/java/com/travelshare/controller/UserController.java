@@ -80,6 +80,7 @@ public class UserController {
 		try {
 			UserDAO.getInstance().registerUser(user);
 			if(user.getUserID() != 0) {
+				session.setMaxInactiveInterval(3600);
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
@@ -108,6 +109,7 @@ public class UserController {
 			userExists = UserDAO.getInstance().checkForUser(request.getParameter("user_email"),request.getParameter("password"));
 			if(userExists) {
 				user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
+				session.setMaxInactiveInterval(3600);
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());

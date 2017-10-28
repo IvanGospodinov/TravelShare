@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import com.travelshare.util.UserException;
 
@@ -36,8 +37,8 @@ private static PostDAO instance;
 			
 				ps.setString(1, post.getTitle());
 				ps.setString(2, post.getDescription());
-				ps.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-				ps.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+				ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+				ps.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 				ps.setInt(5, post.getCategory_id());
 				ps.setInt(6, post.getUser_id());
 				ps.setString(7, post.getLocation());
@@ -54,6 +55,7 @@ private static PostDAO instance;
 				post.setPostId(rs.getInt(1));
 				return post.getPostId();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new UserException("post cannot be registered now, please try again later!", e);
 			}
 

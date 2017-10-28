@@ -40,37 +40,31 @@ public class PostController2 {
 		System.err.println("POST SUBMIT");
 		
 		String category = request.getParameter("category");
-		int category_id=Integer.parseInt(category);
+		System.err.println("BEFORE PARSE " + category);
+		//int category_id = Integer.valueOf(category);
 		
 		String title = request.getParameter("title");
+		System.err.println("BEFORE PARSE " + title);
+		System.err.println(request.getParameter("title"));
 		String location = request.getParameter("location");
 		String description = request.getParameter("description");
 		
 
-		Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), 2,category_id,location);
+		Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), 2, 2,location);
 	//	long time=0;
-		int result =0;
+		int result = 0;
 		try {
 			result = PostDAO.getInstance().createPost(post);
 		} catch (UserException e) {
+			e.printStackTrace();
 			System.out.println("Tyka Grymna");
+			return "newPost";
 		}
 		System.out.println("result");
 		
 		
 		//req.getRequestDispatcher("").forward(req, resp);
-		return "index";
-
-
-
-
-
-		//doGet(request, response);
-
-
-
-
-
+		return "home";
 
 	}
 
