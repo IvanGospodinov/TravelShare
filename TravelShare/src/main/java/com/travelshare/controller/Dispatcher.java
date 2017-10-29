@@ -11,7 +11,7 @@ import com.travelshare.model.User;
 
 
 @Controller
-@RequestMapping(value="/index")
+@RequestMapping(value= {("/index"),("/")})
 public class Dispatcher {
 
 	@RequestMapping()
@@ -21,7 +21,7 @@ public class Dispatcher {
  			model.addAttribute(user);
 			return "redirect:login";
 		}
-		return "index";
+		return "home";
 	}
 
 }
