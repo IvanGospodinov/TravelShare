@@ -24,16 +24,16 @@ public class UserDAO {
 
 	private static UserDAO instance;
 	private UserDAO(){}
-	
+
 	public static synchronized UserDAO getInstance(){
 		if(instance == null){
 			instance = new UserDAO();
 		}
 		return instance;
 	}
-	
-	
-	
+
+
+
 	public void registerUser(User user) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();
 
@@ -81,7 +81,7 @@ public class UserDAO {
 		ps.setString(1, email);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		
+
 		User user = new User(
 				rs.getInt("user_id"), 
 				rs.getString("uname"), 
@@ -95,19 +95,19 @@ public class UserDAO {
 
 	public String checkForEmail(String s) {
 		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE user_email LIKE '"+ s + "%'";
-		Connection con = DBConnection.getInstance().getConnection();
+		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
 		try {
-			ps = con.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
-			Statement stmt = con.createStatement();
+			ps = connection.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
+			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
 			while (rs.next()) {
-				  return "such email exists";
-				}
+				return "such email exists";
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
@@ -132,5 +132,133 @@ public class UserDAO {
 		System.err.println("NO SUCH USER");
 		return false;
 	}
+
+	public int getUserID(User user) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		int id = 0;
+		try {
+			ps = connection.prepareStatement("SELECT user_id WHERE user_email = ?", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, user.getEmail());
+			ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
+			System.err.println("USER ID " + rs.getInt(1));
+			id = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
+
+	public boolean changeFirstName (String name, int userID) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("UPDATE users SET user_firstname = ? WHERE user_id = ?");
+			ps.setString(1, name);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			int result = ps.executeUpdate();
+			if(result > 0) {
+				System.err.println("USER FIRST NAME UPDATED");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
+	
+	public boolean changeLastName (String name, int userID) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("UPDATE users SET user_lastname = ? WHERE user_id = ?");
+			ps.setString(1, name);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			int result = ps.executeUpdate();
+			if(result > 0) {
+				System.err.println("USER LAST UPDATED");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
+
+	public boolean changeUsername (String username, int userID) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("UPDATE users SET uname = ? WHERE user_id = ?");
+			ps.setString(1, username);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			int result = ps.executeUpdate();
+			if(result > 0) {
+				System.err.println("USER USERNAME UPDATED");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
+
+	public boolean changeEmail (String email, int userID) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("UPDATE users SET user_email = ? WHERE user_id = ?");
+			ps.setString(1, email);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			int result = ps.executeUpdate();
+			if(result > 0) {
+				System.err.println("USER EMAIL UPDATED");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
+	
+	public boolean changePassword (String newPassword, int userID) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			ps = connection.prepareStatement("UPDATE users SET user_password = ? WHERE user_id = ?");
+			ps.setString(1, Encrypter.encrypt(newPassword));
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			int result = ps.executeUpdate();
+			if(result > 0) {
+				System.err.println("USER PASSWORD UPDATED");
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
+	
+	
+	
+	
+	
 	
 }

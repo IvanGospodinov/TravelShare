@@ -193,4 +193,66 @@ public class UserController {
 		return "deleteAccount";	
 	}
 
+	@RequestMapping(value="/updateProfile", method = RequestMethod.POST)
+	public String updateProfile(Model model, HttpServletRequest request, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		System.err.println("USER ID " + (int)session.getAttribute("userID"));
+		System.err.println("POST UPDATE MY PROFILE");
+		if(request.getParameter("avatar") != null) {
+			System.err.println("AVATAR");
+		}
+		if(request.getParameter("firstName") != null) {
+			if(UserDAO.getInstance().changeFirstName(request.getParameter("firstName"), (int)session.getAttribute("userID"))) {
+				System.err.println("FIRST NAME CHANGED");
+				return "myProfile";
+			}
+		}
+		if(request.getParameter("lastName") != null) {
+			if(UserDAO.getInstance().changeLastName(request.getParameter("lastName"), (int)session.getAttribute("userID"))) {
+				System.err.println("LAST CHANGED");
+				return "myProfile";
+			}
+		}
+		if(request.getParameter("email") != null) {
+			if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
+				System.err.println("EMAIL CHANGED");
+				return "myProfile";
+			}
+		}
+		if(request.getParameter("username") != null) {
+			if(UserDAO.getInstance().changeUsername(request.getParameter("username"), (int)session.getAttribute("userID"))) {
+				System.err.println("USERNAME CHANGED");
+				return "myProfile";
+			}
+		}
+		System.err.println("NE GO NAMIRA");
+		return "myProfile";	
+	}
+	
+	@RequestMapping(value="/changePassword", method = RequestMethod.GET)
+	public String changePasswordGET(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT CHANGE PASSWORD");
+		return "changePassword";	
+	}
+	
+	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
+	public String changePasswordPOST(Model model, HttpServletRequest request, HttpSession session) {
+		User user = (User)session.getAttribute("user");
+		System.err.println("POST CHANGE PASSWORD");
+		try {
+			if(UserDAO.getInstance().checkForUser(user.getEmail(), request.getParameter("oldPassword"))) {
+				if(UserDAO.getInstance().changePassword(request.getParameter("newPassword"), (int)session.getAttribute("userID"))) {
+					System.err.println("PASSWORD CHANGED");
+					return "myProfile";
+				}
+			}
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.err.println("PASSWORD IS NOT CHANGED");
+		return "changePassword";	
+	}
+	
 }

@@ -161,7 +161,8 @@ body {
   -moz-osx-font-smoothing: grayscale;      */
 	background:
 		url("https://static.pexels.com/photos/547114/pexels-photo-547114.jpeg")
-		/*url("http://sf.co.ua/13/02/wallpaper-948394.jpg")*/
+		/*url("http://sf.co.ua/13/02/wallpaper-948394.jpg")*/ 
+		
 		/*url("http://www.stlouisllcattorney.com/wp-content/uploads/2016/07/Fence-post.jpg")*/,
 		no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -172,34 +173,33 @@ body {
 </style>
 
 
-<script>  
-var request;  
-function sendInfo()  
-{  
-var v=document.vinform.t1.value;  
-var url="ajaxTest.jsp?val="+v;  
-  
-if(window.XMLHttpRequest){  
-request=new XMLHttpRequest();  
-}  
-else if(window.ActiveXObject){  
-request=new ActiveXObject("Microsoft.XMLHTTP");  
-}  
-  
-try{  
-request.onreadystatechange=getInfo;  
-request.open("GET",url,true);  
-request.send();  
-}catch(e){alert("Unable to connect to server");}  
-}  
-  
-function getInfo(){  
-if(request.readyState==4){  
-var val=request.responseText;  
-document.getElementById('amit').innerHTML=val;  
-}  
-}  
-  
+<script>
+	var request;
+	function sendInfo() {
+		var v = document.vinform.t1.value;
+		var url = "ajaxTest.jsp?val=" + v;
+
+		if (window.XMLHttpRequest) {
+			request = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			request = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		try {
+			request.onreadystatechange = getInfo;
+			request.open("GET", url, true);
+			request.send();
+		} catch (e) {
+			alert("Unable to connect to server");
+		}
+	}
+
+	function getInfo() {
+		if (request.readyState == 4) {
+			var val = request.responseText;
+			document.getElementById('amit').innerHTML = val;
+		}
+	}
 </script>
 
 </head>
@@ -214,13 +214,18 @@ document.getElementById('amit').innerHTML=val;
 			<!-- Register part -->
 
 			<form class="register-form" action="register" method="post">
-				<input id="username" type="username" name="username" placeholder="username" required="required" />
-				 <input id="email" type="email" name="user_email" placeholder="email address" onkeyup="return sendInfo()" required="required"/> 
-				<input id="password" type="password" name="password" placeholder="password" required="required"/> 
-				<input id="conpassword" type="password" name="conpassword" placeholder="confirm password" required="required"/>
-				<input type="text" name="user_firstname" placeholder="first name" required="required"/>
-				<input type="text" name="user_lastname" placeholder="last nname" required="required"/>
-				<input type="file" name="user_pictureURL" placeholder="avatar" />
+				<input id="username" type="username" name="username"
+					placeholder="username" required="required" /> <input id="email"
+					type="email" name="user_email" placeholder="email address"
+					onkeyup="return sendInfo()" required="required" /> <input
+					id="password" type="password" name="password"
+					placeholder="password" required="required" /> <input
+					id="conpassword" type="password" name="conpassword"
+					placeholder="confirm password" required="required" /> <input
+					type="text" name="user_firstname" placeholder="first name"
+					required="required" /> <input type="text" name="user_lastname"
+					placeholder="last nname" required="required" /> <input type="file"
+					name="user_pictureURL" placeholder="avatar" />
 				<button type="submit">create</button>
 				<p class="message">
 					Already registered? <a href="#">Sign In</a>
@@ -228,9 +233,11 @@ document.getElementById('amit').innerHTML=val;
 			</form>
 
 			<!-- Login part -->
-			<form class="login-form" action="login" method="post" required="required">
-				<input type="email" placeholder="email" name="user_email" />
-				<input type="password" placeholder="password" name="password" required="required"/>
+			<form class="login-form" action="login" method="post"
+				required="required">
+				<input type="email" placeholder="email" name="user_email" /> <input
+					type="password" placeholder="password" name="password"
+					required="required" />
 				<button type="submit">login</button>
 				<p class="message">
 					Not registered? <a href="#"> Create an account</a>
@@ -244,18 +251,21 @@ document.getElementById('amit').innerHTML=val;
 		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 	<script type="text/javascript">
-	$('.message a').click(function(){
-		   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+		$('.message a').click(function() {
+			$('form').animate({
+				height : "toggle",
+				opacity : "toggle"
+			}, "slow");
 		});
-		var password = document.getElementById("password")
-		, confirm_password = document.getElementById("conpassword");
+		var password = document.getElementById("password"), confirm_password = document
+				.getElementById("conpassword");
 
-		function validatePassword(){
-		if(password.value != confirm_password.value) {
-		  confirm_password.setCustomValidity("Passwords Don't Match");
-		} else {
-		  confirm_password.setCustomValidity('');
-		}
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
 		}
 
 		password.onchange = validatePassword;

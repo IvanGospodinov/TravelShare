@@ -285,7 +285,8 @@ article p {
 		<h1>Aenean Quis Dignissim Diam</h1>
 		<p>Vulputate ac sit aenean</p>
 		<a href="#" class="readmore">Read more</a> </article> </section>
-	</div> --> <jsp:include page="footer.jsp" />
+	</div>-->
+	<footer><jsp:include page="footer.jsp" /></footer>
 	 </c:if>
      <c:if test="${sessionScope.user == null }">
     	 <jsp:forward page="login.jsp"></jsp:forward>
