@@ -68,7 +68,7 @@ public class UserController {
 		String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
 
 		user = new User(
-				request.getParameter("uname"),
+				request.getParameter("username"),
 				request.getParameter("password"),
 				request.getParameter("user_email"),
 				request.getParameter("user_firstname"),
@@ -127,7 +127,7 @@ public class UserController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return "login";		
 	}
 
@@ -147,16 +147,16 @@ public class UserController {
 		return "changeEmail";	
 	}
 
-//	@RequestMapping(value="/changeEmail", method = RequestMethod.POST)
-//	public String changeEmail(@ModelAttribute User user, Model model, HttpServletRequest request) {
-//		System.err.println("In the change email method");
-//		boolean passIsCorrect = userDAO.checkPass(request.getParameter("password"));
-//		if(passIsCorrect) {
-//			userDAO.changeEmail(request.getParameter("user_email"), request.getParameter("password"));
-//			return "index";
-//		}	
-//		return "changeEmail";
-//	}
+	//	@RequestMapping(value="/changeEmail", method = RequestMethod.POST)
+	//	public String changeEmail(@ModelAttribute User user, Model model, HttpServletRequest request) {
+	//		System.err.println("In the change email method");
+	//		boolean passIsCorrect = userDAO.checkPass(request.getParameter("password"));
+	//		if(passIsCorrect) {
+	//			userDAO.changeEmail(request.getParameter("user_email"), request.getParameter("password"));
+	//			return "index";
+	//		}	
+	//		return "changeEmail";
+	//	}
 
 	@RequestMapping(value="/about", method = RequestMethod.GET)
 	public String aboutUs(Model model, HttpServletRequest request) {
@@ -164,7 +164,7 @@ public class UserController {
 
 		return "aboutUs";	
 	}
-	
+
 	@RequestMapping(value="/contact", method = RequestMethod.GET)
 	public String contacts(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("GETTTTTTTTT CONTACTS");
@@ -176,16 +176,20 @@ public class UserController {
 		System.err.println("GETTTTTTTTT MY PROFILE");
 		return "myProfile";	
 	}
-	
+
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.GET)
 	public String deleteAccountGET(Model model, HttpServletRequest request, HttpSession session) {
-		System.err.println("GETTTTTTTTT MY PROFILE");
+		System.err.println("GETTTTTTTTT DELETE MY DELETE");
 		return "deleteAccount";	
 	}
-	
+
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
-		System.err.println("GETTTTTTTTT MY PROFILE");
+		System.err.println("POST DELETE MY PROFILE");
+		if(UserDAO.getInstance().deleteAccount(request.getParameter("user_email"), request.getParameter("password"))) {
+			request.getSession().invalidate();
+			return "login";
+		} 
 		return "deleteAccount";	
 	}
 
