@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,7 +30,7 @@ public class UserController {
 		}
 		System.err.println("GETTTTTTTTT ELSE IF SESSION EXISTS");
 		System.err.println(session.getAttribute("user"));
-		System.err.println(session.getAttribute("name"));
+		System.err.println(session.getAttribute("username"));
 		return "home";
 	}
 
@@ -70,7 +68,7 @@ public class UserController {
 		String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
 
 		user = new User(
-				request.getParameter("uname"),
+				request.getParameter("username"),
 				request.getParameter("password"),
 				request.getParameter("user_email"),
 				request.getParameter("user_firstname"),
@@ -82,17 +80,15 @@ public class UserController {
 		try {
 			UserDAO.getInstance().registerUser(user);
 			if(user.getUserID() != 0) {
-				session.setAttribute("username", request.getParameter("uname"));
+				session.setMaxInactiveInterval(3600);
+				session.setAttribute("username", user.getUsername());
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
 				response.addCookie(new Cookie("name", user.getFirstName()));
 				return "home";
 			} else {
-				session.setAttribute("username", null);
-				session.setAttribute("logged", false);
-				session.setAttribute("userID", null);
-				session.setAttribute("user", null);
+				request.getSession().invalidate();
 				return "login";			
 			}
 		} catch (UserException e) {
@@ -103,7 +99,7 @@ public class UserController {
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String loginUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		System.out.println("POST LOGIN");
+		System.err.println("POST LOGIN");
 
 		User user =  null;
 
@@ -113,7 +109,8 @@ public class UserController {
 			userExists = UserDAO.getInstance().checkForUser(request.getParameter("user_email"),request.getParameter("password"));
 			if(userExists) {
 				user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
-				session.setAttribute("username", request.getParameter("uname"));
+				session.setMaxInactiveInterval(3600);
+				session.setAttribute("username", user.getUsername());
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
@@ -122,10 +119,7 @@ public class UserController {
 				return "home";
 			} else{
 				System.err.println("LOGIN - NO SUCH USER");
-				session.setAttribute("username", null);
-				session.setAttribute("logged", false);
-				session.setAttribute("userID", null);
-				session.setAttribute("user", null);
+				request.getSession().invalidate();
 				return "login";
 			}
 		} catch (UserException e) {
@@ -133,7 +127,7 @@ public class UserController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return "login";		
 	}
 
@@ -141,11 +135,8 @@ public class UserController {
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logout(Model model, HttpServletRequest request, HttpSession session) {
 		System.out.println("GETTTTTTTTT LOGOUT");
-		session.setAttribute("username", null);
-		session.setAttribute("logged", false);
-		session.setAttribute("userID", null);
-		session.setAttribute("user", null);
 		request.getSession().invalidate();
+
 		return "login";	
 	}
 
@@ -156,30 +147,50 @@ public class UserController {
 		return "changeEmail";	
 	}
 
-//	@RequestMapping(value="/changeEmail", method = RequestMethod.POST)
-//	public String changeEmail(@ModelAttribute User user, Model model, HttpServletRequest request) {
-//		System.err.println("In the change email method");
-//		boolean passIsCorrect = userDAO.checkPass(request.getParameter("password"));
-//		if(passIsCorrect) {
-//			userDAO.changeEmail(request.getParameter("user_email"), request.getParameter("password"));
-//			return "index";
-//		}	
-//		return "changeEmail";
-//	}
+	//	@RequestMapping(value="/changeEmail", method = RequestMethod.POST)
+	//	public String changeEmail(@ModelAttribute User user, Model model, HttpServletRequest request) {
+	//		System.err.println("In the change email method");
+	//		boolean passIsCorrect = userDAO.checkPass(request.getParameter("password"));
+	//		if(passIsCorrect) {
+	//			userDAO.changeEmail(request.getParameter("user_email"), request.getParameter("password"));
+	//			return "index";
+	//		}	
+	//		return "changeEmail";
+	//	}
 
 	@RequestMapping(value="/about", method = RequestMethod.GET)
 	public String aboutUs(Model model, HttpServletRequest request) {
-		System.out.println("GETTTTTTTTT ABOUT US");
-		request.getSession().invalidate();
-		request.getSession().setAttribute("user", null);
+		System.err.println("GETTTTTTTTT ABOUT US");
+
 		return "aboutUs";	
 	}
-	
+
 	@RequestMapping(value="/contact", method = RequestMethod.GET)
 	public String contacts(Model model, HttpServletRequest request, HttpSession session) {
-		System.out.println("GETTTTTTTTT CONTACTS");
+		System.err.println("GETTTTTTTTT CONTACTS");
 		return "contacts";	
 	}
 
+	@RequestMapping(value="/myProfile", method = RequestMethod.GET)
+	public String myProfile(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT MY PROFILE");
+		return "myProfile";	
+	}
+
+	@RequestMapping(value="/deleteAccount", method = RequestMethod.GET)
+	public String deleteAccountGET(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT DELETE MY DELETE");
+		return "deleteAccount";	
+	}
+
+	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
+	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("POST DELETE MY PROFILE");
+		if(UserDAO.getInstance().deleteAccount(request.getParameter("user_email"), request.getParameter("password"))) {
+			request.getSession().invalidate();
+			return "login";
+		} 
+		return "deleteAccount";	
+	}
 
 }

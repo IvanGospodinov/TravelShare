@@ -51,6 +51,15 @@ public class Post {
 		}
 
 
+		public Post(String title, String location, String description) {
+
+			this.title = title;
+			this.location = location;
+			this.description = description;
+			
+		}
+
+
 		public String getLocation() {
 			return location;
 		}

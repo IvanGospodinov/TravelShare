@@ -20,6 +20,7 @@ public class UserDAO {
 	private static final String CHECK_FOR_EMAIL = "SELECT user_id from users WHERE user_email LIKE ?%";
 	private static final String SELECT_USER_SQL = "SELECT user_id FROM users WHERE user_email = ? AND user_password = ?";
 	private static final String GET_USER_FROM_SQL = "SELECT user_id, uname, user_password, user_firstname, user_lastname, user_pictureURL FROM users WHERE user_email = ?";
+	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE user_email = ?";
 
 	private static UserDAO instance;
 	private UserDAO(){}
@@ -52,6 +53,7 @@ public class UserDAO {
 			user.setUserID(rs.getInt(1));
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new UserException("User cannot be registered now, please try again later!", e);
 		}
 
@@ -109,4 +111,26 @@ public class UserDAO {
 		return null;
 	}
 
+	public boolean deleteAccount (String email, String password) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		try {
+			if(checkForUser(email, password)) {
+				ps = connection.prepareStatement(DELETE_USER_ACCOUNT);
+				ps.setString(1, email);
+				ps.executeUpdate();
+				if(checkForUser(email, password)) {
+					System.err.println("Neshto ne se iztri");
+					return false;
+				}
+				System.err.println("USER DELETED");
+				return true;
+			}
+		} catch (UserException | SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
+	
 }

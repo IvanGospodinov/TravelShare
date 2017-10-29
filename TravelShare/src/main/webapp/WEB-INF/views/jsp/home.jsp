@@ -261,7 +261,7 @@ article p {
 
 </head>
 <body>
-
+	<c:if test="${sessionScope.user != null }">
 	<header> <jsp:include page="header.jsp" /> <!-- <h1>Curabitur ut Eros a Justo Fermentum Vulputate</h1>
 		<p>Etiam tempor felis ac eros dictum </p>
 		<a href="#" class="readmore">Read more</a> </article> <article id="photobox">
@@ -286,5 +286,9 @@ article p {
 		<p>Vulputate ac sit aenean</p>
 		<a href="#" class="readmore">Read more</a> </article> </section>
 	</div> --> <jsp:include page="footer.jsp" />
+	 </c:if>
+     <c:if test="${sessionScope.user == null }">
+    	 <jsp:forward page="login.jsp"></jsp:forward>
+     </c:if>
 </body>
 </html>
