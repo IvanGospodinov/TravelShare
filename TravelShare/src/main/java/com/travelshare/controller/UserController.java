@@ -82,6 +82,7 @@ public class UserController {
 			if(user.getUserID() != 0) {
 				session.setMaxInactiveInterval(3600);
 				session.setAttribute("username", user.getUsername());
+				session.setAttribute("email", request.getParameter("user_email"));
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
@@ -111,6 +112,7 @@ public class UserController {
 				user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
 				session.setMaxInactiveInterval(3600);
 				session.setAttribute("username", user.getUsername());
+				session.setAttribute("email", request.getParameter("user_email"));
 				session.setAttribute("logged", true);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
@@ -194,33 +196,40 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/updateProfile", method = RequestMethod.POST)
-	public String updateProfile(Model model, HttpServletRequest request, HttpSession session) {
+	public String updateProfile(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 		User user = (User) session.getAttribute("user");
-		System.err.println("USER ID " + (int)session.getAttribute("userID"));
+		System.err.println("USER ID "+ user + (int)session.getAttribute("userID"));
 		System.err.println("POST UPDATE MY PROFILE");
 		if(request.getParameter("avatar") != null) {
 			System.err.println("AVATAR");
 		}
 		if(request.getParameter("firstName") != null) {
 			if(UserDAO.getInstance().changeFirstName(request.getParameter("firstName"), (int)session.getAttribute("userID"))) {
+				user.setFirstName(request.getParameter("firstName"));
+				response.addCookie(new Cookie("name", user.getFirstName()));
 				System.err.println("FIRST NAME CHANGED");
 				return "myProfile";
 			}
 		}
 		if(request.getParameter("lastName") != null) {
 			if(UserDAO.getInstance().changeLastName(request.getParameter("lastName"), (int)session.getAttribute("userID"))) {
+				user.setFirstName(request.getParameter("lastName"));
 				System.err.println("LAST CHANGED");
 				return "myProfile";
 			}
 		}
 		if(request.getParameter("email") != null) {
 			if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
+				user.setFirstName(request.getParameter("email"));
+				session.setAttribute("email", request.getParameter("email"));
 				System.err.println("EMAIL CHANGED");
 				return "myProfile";
 			}
 		}
 		if(request.getParameter("username") != null) {
 			if(UserDAO.getInstance().changeUsername(request.getParameter("username"), (int)session.getAttribute("userID"))) {
+				user.setFirstName(request.getParameter("username"));
+				session.setAttribute("username",request.getParameter("username"));
 				System.err.println("USERNAME CHANGED");
 				return "myProfile";
 			}
@@ -231,20 +240,32 @@ public class UserController {
 	
 	@RequestMapping(value="/changePassword", method = RequestMethod.GET)
 	public String changePasswordGET(Model model, HttpServletRequest request, HttpSession session) {
-		System.err.println("GETTTTTTTTT CHANGE PASSWORD");
+		System.err.println("GETTTTTTTTT CHANGE PASSWORD " + session.getAttribute("user")+ " " + session.getAttribute("userID"));
+		System.err.println("user id " + session.getAttribute("userID"));
+//		session.setMaxInactiveInterval(3600);
+//		session.setAttribute("username", user.getUsername());
+//		session.setAttribute("logged", true);
+//		session.setAttribute("userID", user.getUserID());
+//		session.setAttribute("user", user);
+		
 		return "changePassword";	
 	}
 	
 	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
 	public String changePasswordPOST(Model model, HttpServletRequest request, HttpSession session) {
-		User user = (User)session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
+		System.err.println("useremail " + " " + user.getEmail());
+		System.err.println("user id " + session.getAttribute("userID"));
 		System.err.println("POST CHANGE PASSWORD");
 		try {
-			if(UserDAO.getInstance().checkForUser(user.getEmail(), request.getParameter("oldPassword"))) {
+			if(UserDAO.getInstance().checkForUser((String) session.getAttribute("email"), request.getParameter("oldPassword"))) {
 				if(UserDAO.getInstance().changePassword(request.getParameter("newPassword"), (int)session.getAttribute("userID"))) {
 					System.err.println("PASSWORD CHANGED");
 					return "myProfile";
 				}
+			} else {
+				System.err.println("WRONG PASSWORD ENTERED");
+				return "changePassword";
 			}
 		} catch (UserException e) {
 			// TODO Auto-generated catch block

@@ -25,7 +25,7 @@
 </head>
 <body>
 
-	<form class="register-form" action="register" method="post">
+	<form class="register-form" action="changePassword" method="post">
 				 	<input id="oldPassword" type="password" name="oldPassword" placeholder="Current Password" required="required"/> 
 				 	<input id="newPassword" type="password" name="newPassword" placeholder="New Password" required="required"/> 
 					<input id="conpassword" type="password" name="conpassword" placeholder="Confirm New Password" required="required" /> 
