@@ -1,11 +1,14 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+
 
 <html>
 <head>
 <title>My Profile</title>
 
 </head>
-<body class="">
+<body>
+<c:if test="${sessionScope.user != null }">
 	<div class="page-wrap">
 
 		<div class="navbar-overlay"></div>
@@ -71,7 +74,11 @@
 			</div>
 		</div>
 	</div>
-
+</c:if>
+	 
+     <c:if test="${sessionScope.user == null }">
+    	 <jsp:forward page="login.jsp"></jsp:forward>
+     </c:if>
 <script>
 var deleteLinks = document.querySelectorAll('.delete');
 

@@ -139,6 +139,10 @@ background-color: transparent;
 	<form class="login-form" action="deleteAccount" method="post">
 		<p>Please enter your email:</p>
 		<input id="email" type="email" name="user_email" placeholder="email address" onkeyup="return sendInfo()" required="required"/> <br/><br/>
+		<!-- Checking if the user is not trying to delete another acount -->
+		<c:if test="${sessionScope.user.getEmail() != param.user_email }">
+		 <jsp:forward page="aboutUs.jsp"></jsp:forward>
+		</c:if>
 		<p>Please enter your password:</p>
 		<input id="password" type="password" name="password" placeholder="password" required="required" /><br/> <br/>
 		<p>Please confirm your password:</p>

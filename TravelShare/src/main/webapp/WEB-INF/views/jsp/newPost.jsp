@@ -177,6 +177,7 @@ p {
 		</table>
 	</fieldset>
 </form>-->
+<c:if test="${sessionScope.user != null }">
 <div class="form">
 	<form class="wrap" action="newPost" method="post">
 		<div class="dropdownPost">
@@ -211,7 +212,12 @@ p {
 	</form>
 
 </div>
-
+	
 </body>
     <footer class="footer"><jsp:include page="footer.jsp" /></footer>
+     </c:if>
+	 
+     <c:if test="${sessionScope.user == null }">
+    	 <jsp:forward page="login.jsp"></jsp:forward>
+     </c:if>
 </html>
