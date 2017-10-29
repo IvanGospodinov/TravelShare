@@ -178,7 +178,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.GET)
-	public String deleteAccountGet(Model model, HttpServletRequest request, HttpSession session) {
+	public String deleteAccountGET(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT MY PROFILE");
+		return "deleteAccount";	
+	}
+	
+	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
+	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("GETTTTTTTTT MY PROFILE");
 		return "deleteAccount";	
 	}
