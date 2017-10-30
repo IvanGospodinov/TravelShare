@@ -250,6 +250,13 @@ public class UserController extends HttpServlet{
 
 		return "changePassword";	
 	}
+	
+	@RequestMapping(value="/sendEmail", method = RequestMethod.GET)
+	public String testT(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT EMAIL");
+
+		return "sendEmail";	
+	}
 
 	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
 	public String changePasswordPOST(Model model, HttpServletRequest request, HttpSession session) {

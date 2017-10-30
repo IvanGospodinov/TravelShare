@@ -1,6 +1,12 @@
+<%@page import="java.io.IOException"%>
+<%@page import="javax.xml.bind.DatatypeConverter"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.awt.image.BufferedImage"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,6 +17,8 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 <title>Travel Share</title>
+
+
 
 
 <style type="text/css">
@@ -260,44 +268,121 @@ article p {
 
 
 </head>
+
+
 <body>
+
+
+
+
 	<c:if test="${sessionScope.user != null }">
-	<header> <jsp:include page="header.jsp" />
+		<header> <jsp:include page="header.jsp" />
+
+
+		<p>If you click on me, I will disappear.</p>
+		<p>Click me away!</p>
+		<p>Click me too!</p>
+
+		<form name="fileform" action="uploadPicture" method="post"
+			enctype="multipart/form-data">
+			<h4 align="center">Select new picture:</h4>
+			<input type="file" id="fileInput" name="picture" required /></label><br>
+			<input class="btn" type="submit" value="Upload" />
+		</form>
+
+		<form action="sendEmail" method="get">
+			<button type="submit">Push</button>
+		</form>
+
+		<button id="get-image">Show the Image</button>
+		<div id="image-container"></div>
+
+<!--  
+		<div id="secwrapper">
+			<section> <article id="featured"> <a
+				href="post.jsp"> <sql:setDataSource var="snapshot"
+					driver="com.mysql.jdbc.Driver"
+					url="jdbc:mysql://localhost/travel_share" user="root"
+					password="BratinDol14" /> <sql:query dataSource="${snapshot}"
+					var="result">
+      	
+         SELECT user_pictureURL FROM users;
+      </sql:query>
+		 <table>
+         <tr>
+            <th>Post</th>
+
+         </tr>
+         
+         <c:forEach var = "row" items = "${result.rows}">
+            <tr>
+               <td><img src="<c:out value = "${row.user_pictureURL}"/>"/>
+               <h3>User: <c:out value = "${row.user_pictureURL}"/></h3>
+               </td>
+            </tr>
+         </c:forEach>
+      </table></a>
+		</article>
+		</section>
+		-->
+		<h1>FILE</h1>
+		<img alt="" src="C:/Users/Ivan\Desktop/Sneji's birthday/pbs1.jpg">
+		 <%
+    //write image
+    try{
+      String imgName="C:\\Users\\Ivan\\Desktop\\Sneji's birthday\\pbs1.jpg";
+      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write( bImage, "jpg", baos );
+        baos.flush();
+        byte[] imageInByteArray = baos.toByteArray();
+        baos.close();                                   
+        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+        %>
+        <img  class="img-responsive" src="data:image/jpg;base64, <%=b64%>"/>                            
+        <% 
+    }catch(IOException e){
+      System.out.println("Error: "+e);
+    } 
+
+
+    %>
+		</header>
+
+
+
+		<footer><jsp:include page="footer.jsp" /></footer>
+
+
+
+
+	</c:if>
+	<c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
+	</c:if>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.7.1.js"
+		type="text/javascript"></script>
+
+	<script type="text/javascript">
+      $(document).ready(function() {
+
+    	   $("#get-image").click(function() {
+    	      alert("Hello, world!");
+    	   });
+    		
+    	});
 	
-	<form name="fileform" action="uploadPicture" method= "post" enctype="multipart/form-data" > 
-                     <h4 align="center">Select new picture:  </h4>
-                     <input type="file" id = "fileInput" name="picture" required/></label><br>
-                     <input class="btn" type="submit" value="Upload" />           
-                  </form>
 	
-	 <!-- <h1>Curabitur ut Eros a Justo Fermentum Vulputate</h1>
-		<p>Etiam tempor felis ac eros dictum </p>
-		<a href="#" class="readmore">Read more</a> </article> <article id="photobox">
-		<h1>Photos Box</h1>
-		<img src="images/pbs1.jpg" alt="" />
-		<img src="images/pbs2.jpg" alt="" />
-		<img src="images/pbs3.jpg" alt="" /> <img src="images/pbs4.jpg"
-			alt="" />
-		<img src="images/pbs5.jpg" alt="" />
-		<img src="images/pbs6.jpg" alt="" /> <img src="images/pbs7.jpg"
-			alt="" /> </article> <article> <a href="#"><img
-			
-			src="images/4.jpg" alt="" /></a> --> <!-- <h1>Fermentum Vulputate Ac Sit Amet Metus</h1>
-		<p>Mauris sed lectus dui.</p>
-		<a href="#" class="readmore">Read more</a> </article> <article id="sponsors"> -->
-	<!-- <h1>Categories</h1>
-		<a href="#"><p>Nature</p></a>
-		<a href="#"><p>Animals</p></a>
-		<a href="#"><p>People</p></a>
-		<a href="#"> --> <!-- </a> </article> <article> <a href="#"><img src="images/5.jpg" alt="" /></a>
-		<h1>Aenean Quis Dignissim Diam</h1>
-		<p>Vulputate ac sit aenean</p>
-		<a href="#" class="readmore">Read more</a> </article> </section>
-	</div>-->
-	<footer><jsp:include page="footer.jsp" /></footer>
-	 </c:if>
-     <c:if test="${sessionScope.user == null }">
-    	 <jsp:forward page="login.jsp"></jsp:forward>
-     </c:if>
+	</script>
+	<script>
+$(document).ready(function(){
+    $("p").click(function(){
+        $(this).hide();
+    });
+});
+</script>
 </body>
 </html>
