@@ -34,14 +34,14 @@ public class Post {
 
 	
 
-		public Post(String title, String description, LocalDate a, LocalDate b, int user_id, int category_id, String location) {
+		public Post(String title, String description, LocalDate a, LocalDate b,int category_id, int user_id, String location) {
 			
 			this.title = title;
 			this.description = description;
 			this.upload = a;
 			this.modify = b;
-			this.user_id = 1;
-			this.category_id = 1;
+			this.category_id = category_id;
+			this.user_id =  user_id;
 			this.location = location;
 		}
 		

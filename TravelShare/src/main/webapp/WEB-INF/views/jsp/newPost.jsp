@@ -179,7 +179,7 @@ p {
 </form>-->
 <c:if test="${sessionScope.user != null }">
 <div class="form">
-	<form class="wrap" action="newPost" method="post">
+	<form class="wrap" action="newPost" method="post" enctype="multipart/form-data">
 		<div class="dropdownPost">
 			<p>Choose a categoty</p>
 			<select class="dropdown" name="category">
@@ -206,7 +206,7 @@ p {
 		</div>
 		<div class="postImage">
 			<p>Add your images(s)</p>
-			<input type="file" name="file1" multiple />
+			<input type="file" name="picture" multiple />
 		</div>
 		<button class="button" type="submit">Submit post</button>
 	</form>
@@ -218,6 +218,6 @@ p {
      </c:if>
 	 
      <c:if test="${sessionScope.user == null }">
-    	 <jsp:forward page="login.jsp"></jsp:forward>
+    	 <jsp page="login.jsp"></jsp>
      </c:if>
 </html>

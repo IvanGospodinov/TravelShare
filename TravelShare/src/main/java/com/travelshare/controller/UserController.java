@@ -43,8 +43,8 @@ public class UserController extends HttpServlet{
 			return "login";
 		}
 		System.err.println("GETTTTTTTTT ELSE IF SESSION EXISTS");
-		System.err.println(session.getAttribute("user"));
-		System.err.println(session.getAttribute("username"));
+		System.err.println("USER class " + session.getAttribute("user"));
+		System.err.println("USERNAME " + session.getAttribute("username"));
 		return "home";
 	}
 
