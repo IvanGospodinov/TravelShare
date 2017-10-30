@@ -212,29 +212,22 @@ body {
 	<div class="login-page">
 		<div class="form">
 			<!-- Register part -->
-
-			<form class="register-form" action="register" method="post">
-				<input id="username" type="username" name="username"
-					placeholder="username" required="required" /> <input id="email"
-					type="email" name="user_email" placeholder="email address"
-					onkeyup="return sendInfo()" required="required" /> <input
-					id="password" type="password" name="password"
-					placeholder="password" required="required" /> <input
-					id="conpassword" type="password" name="conpassword"
-					placeholder="confirm password" required="required" /> <input
-					type="text" name="user_firstname" placeholder="first name"
-					required="required" /> <input type="text" name="user_lastname"
-					placeholder="last nname" required="required" /> <input type="file"
-					name="user_pictureURL" placeholder="avatar" />
+			<form class="register-form" action="register" method="post" enctype="">
+				<input id="username" type="text" name="username" placeholder="username" required="required" /> 
+				<input id="email" type="email" name="user_email" placeholder="email address" onkeyup="return passwordLength()" required="required" /> 
+				<input id="password" type="password" name="password" placeholder="password" required="required" /> 
+				<input id="conpassword" type="password" name="conpassword" placeholder="confirm password" required="required" /> 
+				<input type="text" name="user_firstname" placeholder="first name" required="required" /> 
+				<input type="text" name="user_lastname" placeholder="last nname" required="required" /> 
+				<input type="file" name="user_pictureURL" placeholder="avatar" />
 				<button type="submit">create</button>
 				<p class="message">
-					Already registered? <a href="#">Sign In</a>
+				Already registered? <a href="#">Sign In</a>
 				</p>
 			</form>
 
 			<!-- Login part -->
-			<form class="login-form" action="login" method="post"
-				required="required">
+			<form class="login-form" action="login" method="post" required="required">
 				<input type="email" placeholder="email" name="user_email" /> <input
 					type="password" placeholder="password" name="password"
 					required="required" />
@@ -261,13 +254,13 @@ body {
 				.getElementById("conpassword");
 
 		function validatePassword() {
+
 			if (password.value != confirm_password.value) {
 				confirm_password.setCustomValidity("Passwords Don't Match");
 			} else {
 				confirm_password.setCustomValidity('');
 			}
-		}
-
+		}		
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>

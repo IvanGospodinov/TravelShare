@@ -262,7 +262,15 @@ article p {
 </head>
 <body>
 	<c:if test="${sessionScope.user != null }">
-	<header> <jsp:include page="header.jsp" /> <!-- <h1>Curabitur ut Eros a Justo Fermentum Vulputate</h1>
+	<header> <jsp:include page="header.jsp" />
+	
+	<form name="fileform" action="uploadPicture" method= "post" enctype="multipart/form-data" > 
+                     <h4 align="center">Select new picture:  </h4>
+                     <input type="file" id = "fileInput" name="picture" required/></label><br>
+                     <input class="btn" type="submit" value="Upload" />           
+                  </form>
+	
+	 <!-- <h1>Curabitur ut Eros a Justo Fermentum Vulputate</h1>
 		<p>Etiam tempor felis ac eros dictum </p>
 		<a href="#" class="readmore">Read more</a> </article> <article id="photobox">
 		<h1>Photos Box</h1>

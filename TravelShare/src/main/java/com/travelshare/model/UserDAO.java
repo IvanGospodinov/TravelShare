@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.travelshare.util.Encrypter;
@@ -32,7 +30,21 @@ public class UserDAO {
 		return instance;
 	}
 
+	public void addProfilePic(User u) throws SQLException {
+		Connection connection = DBConnection.getInstance().getConnection();		  
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement("UPDATE users SET user_pictureURL = ? WHERE user_id = ?");
+			ps.setString(1, u.getPictureURL());
+			ps.setLong(2, u.getUserID());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("Adding picture url failed!" + e.getMessage());
+			throw e;
+		}
 
+	}
 
 	public void registerUser(User user) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -147,7 +159,7 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return id;
 	}
 
@@ -171,7 +183,7 @@ public class UserDAO {
 		System.err.println("NO SUCH USER");
 		return false;
 	}
-	
+
 	public boolean changeLastName (String name, int userID) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
@@ -234,7 +246,7 @@ public class UserDAO {
 		System.err.println("NO SUCH USER");
 		return false;
 	}
-	
+
 	public boolean changePassword (String newPassword, int userID) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
@@ -255,10 +267,10 @@ public class UserDAO {
 		System.err.println("NO SUCH USER");
 		return false;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 }

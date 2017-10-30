@@ -1,26 +1,40 @@
 package com.travelshare.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.travelshare.model.User;
 import com.travelshare.model.UserDAO;
 import com.travelshare.util.UserException;
 
-@Controller
 @MultipartConfig
-public class UserController {
+@Controller
+public class UserController extends HttpServlet{
 
+	final String AVATAR_URL = "/Users/Ivan/Desktop/images/";
+
+	private static final long serialVersionUID = 2477388678189213947L;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String redirect(Model model, HttpServletRequest request,HttpSession session) {
@@ -41,29 +55,28 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
-	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		final String AVATAR_URL = "/Users/Ivan/Desktop/Java EE/ShareTravel/WebContent/images/";
+	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("picture") MultipartFile multiPartFile) {
 		//model.addAttribute("name",user.getFirstName());
 		System.err.println("POST REGISTER METHOD");
 		User user;
-		//		try {
-		//			Part avatarPart = request.getPart("user_pictureURL");
-		//			InputStream fis = avatarPart.getInputStream();
-		//			File myFile = new File(AVATAR_URL+request.getParameter("uname")+".jpg");
-		//			if(!myFile.exists()){
-		//				myFile.createNewFile();
-		//			}
-		//			FileOutputStream fos = new FileOutputStream(myFile);
-		//			int b = fis.read();
-		//			while(b != -1){
-		//				fos.write(b);
-		//				b = fis.read();
-		//			}
-		//			fis.close();
-		//			fos.close();
-		//		} catch (IOException | ServletException e) {
-		//			e.printStackTrace();
-		//		}
+		try {
+			Part avatarPart = request.getPart("user_pictureURL");
+			InputStream fis = avatarPart.getInputStream();
+			File myFile = new File(AVATAR_URL+request.getParameter("uname")+".jpg");
+			if(!myFile.exists()){
+				myFile.createNewFile();
+			}
+			FileOutputStream fos = new FileOutputStream(myFile);
+			int b = fis.read();
+			while(b != -1){
+				fos.write(b);
+				b = fis.read();
+			}
+			fis.close();
+			fos.close();
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
 
 		String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
 
@@ -142,24 +155,6 @@ public class UserController {
 		return "login";	
 	}
 
-	@RequestMapping(value="/TravelSharee/changeEmail", method = RequestMethod.GET)
-	public String changeEmail2(Model model, HttpServletRequest request) {
-		User user = new User();
-		model.addAttribute(user);
-		return "changeEmail";	
-	}
-
-	//	@RequestMapping(value="/changeEmail", method = RequestMethod.POST)
-	//	public String changeEmail(@ModelAttribute User user, Model model, HttpServletRequest request) {
-	//		System.err.println("In the change email method");
-	//		boolean passIsCorrect = userDAO.checkPass(request.getParameter("password"));
-	//		if(passIsCorrect) {
-	//			userDAO.changeEmail(request.getParameter("user_email"), request.getParameter("password"));
-	//			return "index";
-	//		}	
-	//		return "changeEmail";
-	//	}
-
 	@RequestMapping(value="/about", method = RequestMethod.GET)
 	public String aboutUs(Model model, HttpServletRequest request) {
 		System.err.println("GETTTTTTTTT ABOUT US");
@@ -237,20 +232,15 @@ public class UserController {
 		System.err.println("NE GO NAMIRA");
 		return "myProfile";	
 	}
-	
+
 	@RequestMapping(value="/changePassword", method = RequestMethod.GET)
 	public String changePasswordGET(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("GETTTTTTTTT CHANGE PASSWORD " + session.getAttribute("user")+ " " + session.getAttribute("userID"));
 		System.err.println("user id " + session.getAttribute("userID"));
-//		session.setMaxInactiveInterval(3600);
-//		session.setAttribute("username", user.getUsername());
-//		session.setAttribute("logged", true);
-//		session.setAttribute("userID", user.getUserID());
-//		session.setAttribute("user", user);
-		
+
 		return "changePassword";	
 	}
-	
+
 	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
 	public String changePasswordPOST(Model model, HttpServletRequest request, HttpSession session) {
 		User user = (User) session.getAttribute("user");
@@ -271,9 +261,54 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.err.println("PASSWORD IS NOT CHANGED");
 		return "changePassword";	
 	}
-	
+
+	@RequestMapping(value="/uploadPicture", method=RequestMethod.POST)
+	public String receiveUpload(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) {
+		User u = null;
+		try {
+			String email = (String) session.getAttribute("email");
+			String username = (String) session.getAttribute("username");
+
+			try {
+				u = UserDAO.getInstance().getUser(email);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//		if(u.getPictureURL()!=null) {
+			//			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
+			//			usersPicture.delete();
+			//		}
+			File file = new File(AVATAR_URL + username+"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
+			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			try {
+				UserDAO.getInstance().addProfilePic(u);
+				model.addAttribute("profilePic", file.getAbsolutePath());
+				//errorMsg= "Picture successfully uploaded!";
+			} catch (SQLException e) {
+				e.printStackTrace();
+				//errorMsg = "something went wrong, please try again later";
+			}
+
+			/*response.setStatus(200);
+		response.getWriter().append("Picture successfully uploaded!");*/
+
+		} catch (IOException e) {
+			//errorMsg="Picture failed to upload!";
+			e.printStackTrace();
+		}
+		//model.addAttribute("errorMsg", errorMsg);
+		//errorMsg=null;
+
+		return "home";
+
+
+	}
+
+
+
 }
