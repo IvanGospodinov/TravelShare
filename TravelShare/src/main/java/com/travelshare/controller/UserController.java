@@ -57,28 +57,38 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("picture") MultipartFile multiPartFile) {
 		//model.addAttribute("name",user.getFirstName());
+		File file = new File(AVATAR_URL + request.getParameter("username") +
+				"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
+		String urlDB = AVATAR_URL + request.getParameter("username") +
+				"-profile-pic." + multiPartFile.getContentType().split("/")[1];
+		try {
+			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+			model.addAttribute("profilePic", file.getAbsolutePath());
 		System.err.println("POST REGISTER METHOD");
 		User user;
-		try {
-			Part avatarPart = request.getPart("user_pictureURL");
-			InputStream fis = avatarPart.getInputStream();
-			File myFile = new File(AVATAR_URL+request.getParameter("uname")+".jpg");
-			if(!myFile.exists()){
-				myFile.createNewFile();
-			}
-			FileOutputStream fos = new FileOutputStream(myFile);
-			int b = fis.read();
-			while(b != -1){
-				fos.write(b);
-				b = fis.read();
-			}
-			fis.close();
-			fos.close();
-		} catch (IOException | ServletException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Part avatarPart = request.getPart("user_pictureURL");
+//			InputStream fis = avatarPart.getInputStream();
+//			File myFile = new File(AVATAR_URL+request.getParameter("uname")+".jpg");
+//			if(!myFile.exists()){
+//				myFile.createNewFile();
+//			}
+//			FileOutputStream fos = new FileOutputStream(myFile);
+//			int b = fis.read();
+//			while(b != -1){
+//				fos.write(b);
+//				b = fis.read();
+//			}
+//			fis.close();
+//			fos.close();
+//		} catch (IOException | ServletException e) {
+//			e.printStackTrace();
+//		}
 
-		String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
+		//String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
 
 		user = new User(
 				request.getParameter("username"),
@@ -86,7 +96,7 @@ public class UserController extends HttpServlet{
 				request.getParameter("user_email"),
 				request.getParameter("user_firstname"),
 				request.getParameter("user_lastname"),
-				avatarUrl
+				urlDB
 				);
 		System.out.println(user.getPictureURL());
 
