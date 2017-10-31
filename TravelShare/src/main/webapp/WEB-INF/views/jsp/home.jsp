@@ -282,6 +282,8 @@ article p {
 		<p>If you click on me, I will disappear.</p>
 		<p>Click me away!</p>
 		<p>Click me too!</p>
+		
+		
 
 		<form name="fileform" action="uploadPicture" method="post"
 			enctype="multipart/form-data">

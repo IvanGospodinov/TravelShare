@@ -129,6 +129,7 @@ footer {
                     <ul class="nav nav-pills nav-justified ">
                         <li><h1 class="title">Travel <small id="smallText">Share</small></h1></li>
                         <li class="active"><a href="/TravelShare/home">Home</a></li>
+                        <li><a href="/TravelShare/posts">Posts</a></li>
                         <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/TravelShare/myProfile">Settings</a></li>

@@ -28,6 +28,13 @@
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+    body {
+  background: url("https://static.pexels.com/photos/547114/pexels-photo-547114.jpeg"), no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
     
 .form {
     position: relative;

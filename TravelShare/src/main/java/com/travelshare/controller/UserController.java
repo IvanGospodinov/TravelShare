@@ -322,8 +322,13 @@ public class UserController extends HttpServlet{
 		//errorMsg=null;
 
 		return "home";
+	}
+	
+	@RequestMapping(value="/posts", method = RequestMethod.GET)
+	public String posts(Model model, HttpServletRequest request) {
+		System.err.println("GETTTTTTTTT POSTS");
 
-
+		return "posts";	
 	}
 
 
