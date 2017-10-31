@@ -130,14 +130,17 @@ body {
 					<h4 id="description">Description</h4>
 				</div>
 				<br>
-				<br> <img id="likeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>543</p>
-				<br> <img id="dislikeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>23</p>
-				<br> <img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png">
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
 				<p>543</p>
 			</div>
 			<hr id="line">
@@ -170,14 +173,17 @@ body {
 					<h4 id="description">Description</h4>
 				</div>
 				<br>
-				<br> <img id="likeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>543</p>
-				<br> <img id="dislikeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>23</p>
-				<br> <img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png">
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
 				<p>543</p>
 			</div>
 			<div class="bottomPosts">
@@ -209,14 +215,17 @@ body {
 					<h4 id="description">Description</h4>
 				</div>
 				<br>
-				<br> <img id="likeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>543</p>
-				<br> <img id="dislikeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>23</p>
-				<br> <img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png">
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
 				<p>543</p>
 			</div>
 			<div class="bottomPosts">
@@ -248,14 +257,17 @@ body {
 					<h4 id="description">Description</h4>
 				</div>
 				<br>
-				<br> <img id="likeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>543</p>
-				<br> <img id="dislikeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>23</p>
-				<br> <img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png">
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
 				<p>543</p>
 			</div>
 			<div class="bottomPosts">
@@ -287,14 +299,17 @@ body {
 					<h4 id="description">Description</h4>
 				</div>
 				<br>
-				<br> <img id="likeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>543</p>
-				<br> <img id="dislikeButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
 				<p>23</p>
-				<br> <img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png">
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
 				<p>543</p>
 			</div>
 		</header>
