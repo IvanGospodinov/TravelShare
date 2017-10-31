@@ -17,10 +17,10 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String pictureURL;
-	private List<String> posts;
+	private List<User> posts;
 	
 	public User(){
-		posts = new ArrayList<String>();
+		posts = new ArrayList<User>();
 	};
 	
 	public User(String username, String password, String email, String firstName, String lastName, String pictureURL) {
@@ -137,7 +137,7 @@ public class User {
 		return true;
 	}
 
-	public List<String> getPosts() {
+	public List<User> getPosts() {
 		return posts;
 	}
 

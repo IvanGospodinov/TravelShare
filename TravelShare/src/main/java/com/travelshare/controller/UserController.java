@@ -89,7 +89,7 @@ public class UserController extends HttpServlet{
 				session.setAttribute("user", user);
 				session.setAttribute("errorRegister", null);
 				session.setAttribute("errorDeleteAccount", null);
-				response.addCookie(new Cookie("name", user.getFirstName()));
+				session.setAttribute("name", user.getFirstName());
 				return "home";
 			} else {
 				System.err.println("ERROR MESSAGE REGISTER TEST");
@@ -124,7 +124,7 @@ public class UserController extends HttpServlet{
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
 				session.setAttribute("errorDeleteAccount", null);
-				response.addCookie(new Cookie("name", user.getFirstName()));
+				session.setAttribute("name", user.getFirstName());
 				System.err.println("LOGIN - FOUND USER");
 				return "home";
 			} else{

@@ -129,17 +129,19 @@ body {
 			<!--BODY-->
 
 			<header><link rel="import" href="header.html"></header>
-
-			<h1 id="title">Posts</h1>
+			<h1>Hi <c:out value="${name}"></c:out></h1><br>
+			<h1 id="title">Here are the latest user posts</h1>
 			<hr>
 
 			<div class="post">
 				<%
     try{
     	User user = UserDAO.getInstance().getTopUsers();
+    	session.setAttribute("postUsername", user.getPosts().get(0).getUsername());
+    	System.err.println("!!!!!!!!!!!!!!!!!!!!!postUsername " + user.getUsername());
         String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(0));
-        BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+        imgName = imgName.concat(user.getPosts().get(0).getPictureURL());
+        BufferedImage bImage = ImageIO.read(new File(imgName));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
         baos.flush();
@@ -156,7 +158,7 @@ body {
     %>
 				<h2 id="user">
 					Title - ... Uploaded by 
-					<c:out value="${username}"></c:out>
+					<c:out value="${postUsername}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
 				<div class="descriptionBox">
@@ -181,8 +183,9 @@ body {
 				<%
     try{
     	User user = UserDAO.getInstance().getTopUsers();
+    	session.setAttribute("postUsername", user.getPosts().get(1).getUsername());
         String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(1));
+        imgName = imgName.concat(user.getPosts().get(1).getPictureURL());
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -200,7 +203,7 @@ body {
     %>
 				<h2 id="user">
 					Title - ... Uploaded by 
-					<c:out value="${username}"></c:out>
+					<c:out value="${postUsername}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
 				<div class="descriptionBox">
@@ -224,8 +227,9 @@ body {
 				<%
     try{
     	User user = UserDAO.getInstance().getTopUsers();
+    	session.setAttribute("postUsername", user.getPosts().get(2).getUsername());
         String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(2));
+        imgName = imgName.concat(user.getPosts().get(2).getPictureURL());;
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -243,7 +247,7 @@ body {
     %>
 				<h2 id="user">
 					Title - ... Uploaded by 
-					<c:out value="${username}"></c:out>
+					<c:out value="${postUsername}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
 				<div class="descriptionBox">
@@ -267,8 +271,9 @@ body {
 				<%
     try{
     	User user = UserDAO.getInstance().getTopUsers();
+    	session.setAttribute("postUsername", user.getPosts().get(3).getUsername());
         String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(3));
+        imgName = imgName.concat(user.getPosts().get(3).getPictureURL());
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -286,7 +291,7 @@ body {
     %>
 				<h2 id="user">
 					Title - ... Uploaded by  
-					<c:out value="${username}"></c:out>
+					<c:out value="${postUsername}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
 				<div class="descriptionBox">
@@ -310,8 +315,9 @@ body {
 				<%
     try{
     	User user = UserDAO.getInstance().getTopUsers();
+    	session.setAttribute("postUsername", user.getPosts().get(4).getUsername());
         String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(4));
+        imgName = imgName.concat(user.getPosts().get(4).getPictureURL());
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -329,7 +335,7 @@ body {
     %>
 				<h2 id="user">
 					Title - ... Uploaded by 
-					<c:out value="${username}"></c:out>
+					<c:out value="${postUsername}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
 				<div class="descriptionBox">

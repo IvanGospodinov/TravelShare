@@ -300,17 +300,16 @@ public class UserDAO {
 		User user = new User();
 		Statement stmt = null;
 		ResultSet rs = null;
-		Urls = new ArrayList<String>();
 		
 		try {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery( "SELECT * FROM users ORDER BY user_pictureURL asc" );
-			int i = 1;
 			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
-			while ( rs.next() && user.getPosts().size()<5) {			 
-				user.getPosts().add(rs.getString("user_pictureURL"));
-				i++;
-				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("user_pictureURL"));
+			while ( rs.next() && user.getPosts().size()<5) {
+				System.out.println("USERA "+UserDAO.getInstance().getUser(rs.getString("user_email")));
+				user.getPosts().add(UserDAO.getInstance().getUser(rs.getString("user_email")));
+				//user.getPosts().add(rs.getString("user_pictureURL"));
+				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("user_email"));
 			}		 			
 		} catch (SQLException e) {
 			e.printStackTrace();
