@@ -170,6 +170,22 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
+
+.error {
+color: #000000;
+	padding: 25px;
+	font-family: 'Indie Flower', cursive;
+	font-style: italic;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-align: center;
+	text-decoration: blink;
+	text-transform: capitalize;
+	cursor: move;
+	visibility: visible;
+	text-shadow: 0px 1px 0px #800000;
+}
+
 </style>
 
 
@@ -220,12 +236,15 @@ body {
 				<input type="text" name="user_firstname" placeholder="first name" required="required" /> 
 				<input type="text" name="user_lastname" placeholder="last nname" required="required" /> 
 				<input type="file" name="picture" placeholder="avatar" />
-				<button type="submit">create</button>
+				<button type="submit">Create</button>
 				<p class="message">
 				Already registered? <a href="#">Sign In</a>
+				Forgot Password? <a href="resetPassword">Click Here</a>
 				</p>
 			</form>
-
+		`	<c:if test="${sessionScope.error != null }">
+		<h1 class = "error"><c:out value="${error}"></c:out></h1>
+		</c:if>
 			<!-- Login part -->
 			<form class="login-form" action="login" method="post" required="required">
 				<input type="email" placeholder="email" name="user_email" /> <input

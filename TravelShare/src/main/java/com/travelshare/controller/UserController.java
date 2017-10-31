@@ -121,7 +121,9 @@ public class UserController extends HttpServlet{
 				return "home";
 			} else{
 				System.err.println("LOGIN - NO SUCH USER");
-				request.getSession().invalidate();
+				session.setAttribute("error", "Wrong Email Address or Password!");
+				System.err.println("Session USER " + session.getAttribute("user"));
+				//request.getSession().invalidate();
 				return "login";
 			}
 		} catch (UserException e) {
