@@ -129,7 +129,8 @@ background-color: transparent;
     }
 
 .error {
-	color: #000000;
+	color: red;
+	font-size: 20px;
 	padding: 0px;
 	padding-bottom: 0px; 
 	font-family : 'Indie Flower', cursive;
@@ -149,13 +150,13 @@ background-color: transparent;
 </head>
 <body>
 
-	<c:if test="${sessionScope.error != null }">
+	<c:if test="${sessionScope.errorDeleteAccount != null }">
 		<h1 class="error">
-			<c:out value="${error}"></c:out>
+			<c:out value="${errorDeleteAccount}"></c:out>
 		</h1>
 	</c:if>
 	<!-- Checking if the user is not trying to delete another acount -->
-		<c:if test="${sessionScope.email != param.user_email }">
+		<c:if test="${sessionScope.email != param.user_email && param.user_email != null }">
 		 <h1 class="error">The email you have entered does not match your email!</h1>
 			<h1 class="error">Please try again</h1>
 		</c:if>

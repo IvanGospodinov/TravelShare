@@ -66,7 +66,8 @@ public class UserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("User cannot be registered now, please try again later!", e);
+			//throw new UserException("User cannot be registered now, please try again later!", e);
+		
 		}
 
 	}

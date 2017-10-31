@@ -87,11 +87,16 @@ public class UserController extends HttpServlet{
 				session.setAttribute("error", null);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
+				session.setAttribute("errorRegister", null);
+				session.setAttribute("errorDeleteAccount", null);
 				response.addCookie(new Cookie("name", user.getFirstName()));
 				return "home";
 			} else {
-				request.getSession().invalidate();
-				return "errorRegister";			
+				System.err.println("ERROR MESSAGE REGISTER TEST");
+				//request.getSession().invalidate();
+				request.getSession(true);
+				session.setAttribute("errorRegister", "A user with the same email is already registered!");
+				return "login";			
 			}
 		} catch (UserException e) {
 			e.printStackTrace();
@@ -115,15 +120,16 @@ public class UserController extends HttpServlet{
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("email", request.getParameter("user_email"));
 				session.setAttribute("logged", true);
-				session.setAttribute("error", null);
+				session.setAttribute("errorLogin", null);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
+				session.setAttribute("errorDeleteAccount", null);
 				response.addCookie(new Cookie("name", user.getFirstName()));
 				System.err.println("LOGIN - FOUND USER");
 				return "home";
 			} else{
 				System.err.println("LOGIN - NO SUCH USER");
-				session.setAttribute("error", "Wrong Email Address or Password!");
+				session.setAttribute("errorLogin", "Wrong Email Address or Password!");
 				System.err.println("Session USER " + session.getAttribute("user"));
 				//request.getSession().invalidate();
 				return "login";
@@ -141,6 +147,7 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logout(Model model, HttpServletRequest request, HttpSession session) {
 		System.out.println("GETTTTTTTTT LOGOUT");
+		session.setAttribute("errorDeleteAccount", null);
 		request.getSession().invalidate();
 
 		return "login";	
@@ -175,10 +182,11 @@ public class UserController extends HttpServlet{
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("POST DELETE MY PROFILE");
 		if(UserDAO.getInstance().deleteAccount(request.getParameter("user_email"), request.getParameter("password"))) {
+			session.setAttribute("errorDeleteAccount", null);
 			request.getSession().invalidate();
 			return "login";
 		} 
-		session.setAttribute("error", "Wrong Email Address or password!");
+		session.setAttribute("errorDeleteAccount", "Wrong Email Address or password!");
 		return "deleteAccount";	
 	}
 
@@ -259,10 +267,12 @@ public class UserController extends HttpServlet{
 			if(UserDAO.getInstance().checkForUser((String) session.getAttribute("email"), request.getParameter("oldPassword"))) {
 				if(UserDAO.getInstance().changePassword(request.getParameter("newPassword"), (int)session.getAttribute("userID"))) {
 					System.err.println("PASSWORD CHANGED");
+					session.setAttribute("errorChangePass", null);
 					return "myProfile";
 				}
 			} else {
 				System.err.println("WRONG PASSWORD ENTERED");
+				session.setAttribute("errorChangePass", "Your password is wrong!");
 				return "changePassword";
 			}
 		} catch (UserException e) {

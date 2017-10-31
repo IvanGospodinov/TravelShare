@@ -173,7 +173,8 @@ body {
 }
 
 .error {
-	color: #000000;
+	color: red;
+	font-size: 20px;
 	padding: 0px;
 	padding-bottom: 0px; 
 	font-family : 'Indie Flower', cursive;
@@ -227,12 +228,17 @@ body {
 	<h1 class="travelShare">Welcome To Travel Share</h1>
 	<br />
 
-	<c:if test="${sessionScope.error != null }">
+	<c:if test="${sessionScope.errorLogin != null }">
 		<h1 class="error">
-			<c:out value="${error}"></c:out>
+			<c:out value="${errorLogin}"></c:out>
 		</h1>
 	</c:if>
 
+<c:if test="${sessionScope.errorRegister != null }">
+		<h1 class="error">
+			<c:out value="${errorRegister}"></c:out>
+		</h1>
+	</c:if>
 	<div class="login-page">
 		<div class="form">
 			<!-- Register part -->
