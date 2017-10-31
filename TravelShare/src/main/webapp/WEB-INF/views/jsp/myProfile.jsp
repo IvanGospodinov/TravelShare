@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.sql.*"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
@@ -88,7 +88,7 @@ a {
 		<div class="navbar-overlay"></div>
 		<div class="l-container centered-box">
 			<div class="centered-box__content l-row">
-				<h1 class="centered-box__title">Edit Your Profile</h1>
+				<h1>Hello <c:out value="${user.getFirstName()}"></c:out></h1>
                 
                 <!--AVATAR-->
                 <div img class="pull-left avatar-form__img" width="60" height="60">

@@ -87,6 +87,13 @@ body {
 .footerContainer {
 	display: inline;
 }
+
+body {
+	background-color: silver;
+	background-image: none;
+}
+
+
 </style>
 
 <body>
@@ -96,7 +103,7 @@ body {
 			<jsp:include page="header.jsp" />
 			<!--BODY-->
 
-			<link rel="import" href="header.html">
+			<header><link rel="import" href="header.html"></header>
 
 			<h1 id="title">Posts</h1>
 			<hr>

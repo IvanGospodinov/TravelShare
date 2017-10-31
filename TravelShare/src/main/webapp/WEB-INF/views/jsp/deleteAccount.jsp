@@ -147,7 +147,10 @@ background-color: transparent;
 }
 
 </style>
+
+
 </head>
+
 <body>
 
 	<c:if test="${sessionScope.errorDeleteAccount != null }">
