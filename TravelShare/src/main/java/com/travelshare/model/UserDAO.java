@@ -1,5 +1,6 @@
 package com.travelshare.model;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,6 +52,7 @@ public class UserDAO {
 	}
 
 	public void registerUser(User user) throws UserException {
+		new File("/Users/Ivan/Desktop/images/POSTS/"+user.getEmail()).mkdir();
 		Connection connection = DBConnection.getInstance().getConnection();
 
 		try {
@@ -110,7 +112,7 @@ public class UserDAO {
 		return user;
 	}
 
-	public String checkForEmail(String s) {
+	public boolean checkForEmail(String s) {
 		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE user_email LIKE '"+ s + "%'";
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
@@ -119,13 +121,13 @@ public class UserDAO {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
 			while (rs.next()) {
-				return "such email exists";
+				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return false;
 	}
 
 	public boolean deleteAccount (String email, String password) {

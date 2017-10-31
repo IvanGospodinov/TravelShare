@@ -1,8 +1,12 @@
 
 package com.travelshare.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -26,17 +30,11 @@ import com.travelshare.model.User;
 import com.travelshare.util.UserException;
 
 
-@MultipartConfig
 @Controller
-public class PostController2 extends HttpServlet {
+public class PostController2 {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7985015971859803829L;
-
-
-
+	final String POST_URL = "/Users/Ivan/Desktop/images/POSTS/";
+	
 	@RequestMapping(value= "/newPost", method = RequestMethod.GET)
 	protected String newPost(Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("POST GET METHOD");
@@ -47,6 +45,19 @@ public class PostController2 extends HttpServlet {
 
 	@RequestMapping(value= "/newPost",method = RequestMethod.POST)
 	protected String addPost(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam("picture") MultipartFile multiPartFile) throws ServletException, IOException {
+
+		File file = new File(POST_URL + session.getAttribute("email") + "/" + session.getAttribute("email") + (new Random().nextInt(100)*13) +
+				"-post-pic."+ multiPartFile.getContentType().split("/")[1]);
+		String urlDB = POST_URL + session.getAttribute("email") + "/" + session.getAttribute("email") + new Random().nextInt(100) + 
+				"-post-pic." + multiPartFile.getContentType().split("/")[1];
+		try {
+			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("profilePic", file.getAbsolutePath());
+		
+		
 		User user = (User) session.getAttribute("user");
 		System.err.println("POST SUBMIT");
 		
@@ -67,7 +78,7 @@ public class PostController2 extends HttpServlet {
 	//	long time=0;
 		int result = 0;
 		try {
-			result = PostDAO.getInstance().createPost(post);
+			result = PostDAO.getInstance().createPost(post, urlDB);
 		} catch (UserException e) {
 			e.printStackTrace();
 			System.err.println("Tyka Grymna");

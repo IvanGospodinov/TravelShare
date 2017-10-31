@@ -6,7 +6,7 @@
 <%@page import="java.awt.image.BufferedImage"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,17 +41,14 @@
 	font-style: normal;
 }
 
-
 body {
 	padding-bottom: 30px;
-	
 }
- .footer{
- display:inline;
-position: fixed;
 
-  }
-
+.footer {
+	display: inline;
+	position: fixed;
+}
 </style>
 
 </head>
@@ -63,10 +60,7 @@ position: fixed;
 
 
 	<c:if test="${sessionScope.user != null }">
-		<header> <jsp:include page="header.jsp" />
-
-
-	<!-- 	<p>If you click on me, I will disappear.</p>
+		<header> <jsp:include page="header.jsp" /> <!-- 	<p>If you click on me, I will disappear.</p>
 		<p>Click me away!</p>
 		<p>Click me too!</p>
 		
@@ -89,8 +83,7 @@ position: fixed;
 		
 		<button id="get-image">Show the Image</button>
 		<div id="image-container"></div>
- -->
-<!--  
+ --> <!--  
 		<div id="secwrapper">
 			<section> <article id="featured"> <a
 				href="post.jsp"> <sql:setDataSource var="snapshot"
@@ -118,8 +111,11 @@ position: fixed;
 		</article>
 		</section>
 		-->
-		<h1 style="text-align: center">Hello <c:out value="${username}"></c:out></h1>
-		 <%
+		<h1 style="text-align: center">
+			Hello
+			<c:out value="${username}"></c:out>
+		</h1>
+		<%
     try{
       String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
       imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
@@ -130,20 +126,18 @@ position: fixed;
         byte[] imageInByteArray = baos.toByteArray();
         baos.close();                                   
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-        <img width="300" height="300" class="img-responsive" src="data:image/jpg;base64, <%=b64%>"/>                            
-        <% 
+        %> <img width="300" height="300" class="img-responsive"
+			src="data:image/jpg;base64, <%=b64%>" /> <% 
     }catch(IOException e){
       System.out.println("Error: "+e);
     } 
-    %>
-		</header>
-		
+    %> </header>
+
 		<%-- <h1>Email <c:out value="${email}"></c:out></h1>
 		<h1>AVATAR URL <c:out value="${user.getPictureURL()}"></c:out></h1> --%>
 
-	<div class="footer">
-		<jsp:include page="footer.jsp" />
+		<div class="footer">
+			<jsp:include page="footer.jsp" />
 		</div>
 	</c:if>
 	<c:if test="${sessionScope.user == null }">

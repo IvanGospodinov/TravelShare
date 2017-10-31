@@ -56,41 +56,45 @@ public class UserController extends HttpServlet{
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("picture") MultipartFile multiPartFile) {
-		File file = new File(AVATAR_URL + request.getParameter("user_email") +
-				"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
-		String urlDB = AVATAR_URL + request.getParameter("user_email") +
-				"-profile-pic." + multiPartFile.getContentType().split("/")[1];
 		try {
-			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		model.addAttribute("profilePic", file.getAbsolutePath());
-		System.err.println("POST REGISTER METHOD");
-		User user = new User(
-				request.getParameter("username"),
-				request.getParameter("password"),
-				request.getParameter("user_email"),
-				request.getParameter("user_firstname"),
-				request.getParameter("user_lastname"),
-				urlDB
-				);
-		System.out.println(user.getPictureURL());
-
-		try {
-			UserDAO.getInstance().registerUser(user);
-			if(user.getUserID() != 0) {
-				session.setMaxInactiveInterval(3600);
-				session.setAttribute("username", user.getUsername());
-				session.setAttribute("email", request.getParameter("user_email"));
-				session.setAttribute("logged", true);
-				session.setAttribute("error", null);
-				session.setAttribute("userID", user.getUserID());
-				session.setAttribute("user", user);
-				session.setAttribute("errorRegister", null);
-				session.setAttribute("errorDeleteAccount", null);
-				session.setAttribute("name", user.getFirstName());
-				return "home";
+			if(!UserDAO.getInstance().checkForEmail(request.getParameter("user_email"))) {
+				File file = new File(AVATAR_URL + request.getParameter("user_email") +
+						"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
+				String urlDB = AVATAR_URL + request.getParameter("user_email") +
+						"-profile-pic." + multiPartFile.getContentType().split("/")[1];
+				try {
+					Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				model.addAttribute("profilePic", file.getAbsolutePath());
+				System.err.println("POST REGISTER METHOD");
+				User user = new User(
+						request.getParameter("username"),
+						request.getParameter("password"),
+						request.getParameter("user_email"),
+						request.getParameter("user_firstname"),
+						request.getParameter("user_lastname"),
+						urlDB
+						);
+				System.out.println(user.getPictureURL());
+				UserDAO.getInstance().registerUser(user);
+				if(user.getUserID() != 0) {
+					session.setMaxInactiveInterval(3600);
+					session.setAttribute("username", user.getUsername());
+					session.setAttribute("email", request.getParameter("user_email"));
+					session.setAttribute("logged", true);
+					session.setAttribute("error", null);
+					session.setAttribute("userID", user.getUserID());
+					session.setAttribute("user", user);
+					session.setAttribute("errorRegister", null);
+					session.setAttribute("errorDeleteAccount", null);
+					session.setAttribute("name", user.getFirstName());
+					return "home";
+				} else {	
+					session.setAttribute("errorRegister", "There was a problem with our server please try again later!");
+					return "login";		
+				}
 			} else {
 				System.err.println("ERROR MESSAGE REGISTER TEST");
 				//request.getSession().invalidate();
