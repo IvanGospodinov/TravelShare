@@ -44,7 +44,7 @@ public class PostDAO {
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
 			post.setPostId(rs.getInt(1));
-			
+
 			//ATACHMENT PART
 			Attachment a = new Attachment();
 			ps = connection.prepareStatement(INSERT_ATTACHMENT_SQL, Statement.RETURN_GENERATED_KEYS);
@@ -64,8 +64,30 @@ public class PostDAO {
 		}
 
 	}
-	
-	
+
+	public String getLastPostURL(int userID) {
+		String postPic = null;
+		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts where user_id="+ userID + " order by date desc limit 1" );
+			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+			rs.next();
+			int postID = rs.getInt(1);
+			System.err.println("POST ID-TO OT BAZATA E " + postID);
+			rs = stmt.executeQuery( "select * from attachments where post_id ="+ postID);
+			rs.next();
+			postPic = rs.getString("attachmentURL");
+			System.err.println("PYTQ E " + postPic);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return postPic;
+	}
 
 
 }

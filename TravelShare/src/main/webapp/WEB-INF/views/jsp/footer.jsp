@@ -8,7 +8,7 @@
 
 <style>
 .footerContainer {
-	position:;
+	position: fixed;
 	bottom: 0;
 }
 </style>

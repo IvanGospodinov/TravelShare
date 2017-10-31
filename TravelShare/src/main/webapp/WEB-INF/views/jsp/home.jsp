@@ -1,3 +1,4 @@
+<%@page import="com.travelshare.model.PostDAO"%>
 <%@page import="java.io.IOException"%>
 <%@page import="javax.xml.bind.DatatypeConverter"%>
 <%@page import="java.io.ByteArrayOutputStream"%>
@@ -22,33 +23,96 @@
 
 
 <style type="text/css">
-@font-face {
-	margin: 0;
-	font-family: 'Leckerli One', cursive;
-	text-shadow: 0 2px rgba(0, 0, 0, .5);
+@import "compass/css3";
+
+.hvr-grow {
+    display: inline-block;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    float: left;
 }
 
-@font-face {
-	font-family: 'SourceSansProLight';
-	src: url('fonts/SourceSansPro-Light-webfont.eot');
-	src: url('fonts/SourceSansPro-Light-webfont.eot?#iefix')
-		format('embedded-opentype'),
-		url('fonts/SourceSansPro-Light-webfont.woff') format('woff'),
-		url('fonts/SourceSansPro-Light-webfont.ttf') format('truetype'),
-		url('fonts/SourceSansPro-Light-webfont.svg#SourceSansProLight')
-		format('svg');
-	font-weight: normal;
-	font-style: normal;
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
+}
+
+
+body {
+	background-color: beige;
+}
+
+#image {
+	padding: 1px;
+	padding-right: 5px;
+	height: 350px;
+	width: 400px;
+	float: left;
+	border: 1px solid black;
+}
+
+#description {
+	display: block;
+}
+
+#likeButton {
+	transform: rotate(360deg);
+	height: 35px;
+	width: 35px;
+	float: left;
+}
+
+#dislikeButton {
+
+	transform: rotate(180deg);
+	height: 35px;
+	width: 35px;
+	float: left;
+}
+
+#loveButton {
+	transform: rotate(360deg);
+	height: 35px;
+	width: 35px;
+	float: left;
+}
+
+.post {
+	border: 1px;
+	border-color: aqua;
+}
+
+.bottomPosts {
+	margin-bottom: 20px;
+	margin-top: 70px;
+}
+
+#title {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.descriptionBox {
+	border: 1px solid;
+	border-color: black;
+	max-height: 80px;
+}
+
+.footerContainer {
+	display: inline;
 }
 
 body {
-	padding-bottom: 30px;
+	background-color: silver;
+	background-image: none;
 }
 
-.footer {
-	display: inline;
-	position: fixed;
-}
+
 </style>
 
 </head>
@@ -116,22 +180,45 @@ body {
 			<c:out value="${username}"></c:out>
 		</h1>
 		<%
-    try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %> <img width="300" height="300" class="img-responsive"
-			src="data:image/jpg;base64, <%=b64%>" /> <% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %> </header>
+			try {
+					String picPath = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
+					String imgName = "C:/" + picPath;
+					System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
+					BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					ImageIO.write(bImage, "jpg", baos);
+					baos.flush();
+					byte[] imageInByteArray = baos.toByteArray();
+					baos.close();
+					String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+		%> <h2>Your latest post is</h2>
+		<div class="post">
+		<a class="hvr-grow" href="TravelShare/home"><img width="300" height="300" class="img-responsive"
+			src="data:image/jpg;base64, <%=b64%>" /></a>
+			</h2>
+				<h3 id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 id="description">Description</h4>
+				</div>
+				<br>
+				<br> 
+				<button  id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
+				<p>543</p>
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
+				<p>23</p>
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+				<p>543</p>
+			</div>
+			 <%
+ 	} catch (IOException e) {
+ 			System.out.println("Error: " + e);
+ 		}
+ %> </header>
 
 		<%-- <h1>Email <c:out value="${email}"></c:out></h1>
 		<h1>AVATAR URL <c:out value="${user.getPictureURL()}"></c:out></h1> --%>

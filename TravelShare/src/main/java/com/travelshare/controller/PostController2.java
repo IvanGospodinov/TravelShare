@@ -34,21 +34,21 @@ import com.travelshare.util.UserException;
 public class PostController2 {
 
 	final String POST_URL = "/Users/Ivan/Desktop/images/POSTS/";
-	
+
 	@RequestMapping(value= "/newPost", method = RequestMethod.GET)
 	protected String newPost(Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("POST GET METHOD");
 		return "newPost";
 	}
-	
-	
+
+
 
 	@RequestMapping(value= "/newPost",method = RequestMethod.POST)
 	protected String addPost(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam("picture") MultipartFile multiPartFile) throws ServletException, IOException {
-
-		File file = new File(POST_URL + session.getAttribute("email") + "/" + session.getAttribute("email") + (new Random().nextInt(100)*13) +
+		int random = new Random().nextInt(100)*13;
+		File file = new File(POST_URL + session.getAttribute("email") + "/" + session.getAttribute("email") + random +
 				"-post-pic."+ multiPartFile.getContentType().split("/")[1]);
-		String urlDB = POST_URL + session.getAttribute("email") + "/" + session.getAttribute("email") + new Random().nextInt(100) + 
+		String urlDB = POST_URL + session.getAttribute("email") + "/" + session.getAttribute("email") + random + 
 				"-post-pic." + multiPartFile.getContentType().split("/")[1];
 		try {
 			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -56,11 +56,11 @@ public class PostController2 {
 			e.printStackTrace();
 		}
 		model.addAttribute("profilePic", file.getAbsolutePath());
-		
-		
+
+
 		User user = (User) session.getAttribute("user");
 		System.err.println("POST SUBMIT");
-		
+
 		String category = request.getParameter("category");
 		System.err.println("BEFORE PARSE CATEGORY " + category);
 		System.err.println("BEFORE PARSE TITLE " + request.getParameter("title"));
@@ -68,14 +68,14 @@ public class PostController2 {
 		System.err.println("BEFORE PARSE USER ID " + user.getUserID());
 		System.err.println("BEFORE PARSE DESCRIPTION " + request.getParameter("description"));
 		int category_id = Integer.valueOf(category);
-		
+
 		String title = request.getParameter("title");
 		String location = request.getParameter("location");
 		String description = request.getParameter("description");
-		
+
 
 		Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), category_id, user.getUserID(), location);
-	//	long time=0;
+		//	long time=0;
 		int result = 0;
 		try {
 			result = PostDAO.getInstance().createPost(post, urlDB);
@@ -85,12 +85,20 @@ public class PostController2 {
 			return "newPost";
 		}
 		System.err.println(result);
-		
-		
+
+
 		//req.getRequestDispatcher("").forward(req, resp);
 		return "home";
 
 	}
+	
+	/*@RequestMapping(value= "/home", method = RequestMethod.GET)
+	protected String showLastPost(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		String picLocation = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
+		
+		return "picLocation";
+	}*/
 
 
 }

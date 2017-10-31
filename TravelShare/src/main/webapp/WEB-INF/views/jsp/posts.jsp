@@ -141,6 +141,7 @@ body {
     	System.err.println("!!!!!!!!!!!!!!!!!!!!!postUsername " + user.getUsername());
         String imgName="C:/";
         imgName = imgName.concat(user.getPosts().get(0).getPictureURL());
+        System.err.println("!!!!!!!!!!!!!!!!!!!!!PATH postUsername " + imgName + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         BufferedImage bImage = ImageIO.read(new File(imgName));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
