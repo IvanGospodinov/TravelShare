@@ -326,11 +326,10 @@ article p {
 		</section>
 		-->
 		<h1>FILE</h1>
-		<img alt="" src="C:/Users/Ivan\Desktop/Sneji's birthday/pbs1.jpg">
 		 <%
-    //write image
     try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\Sneji's birthday\\pbs1.jpg";
+      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
+      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -339,21 +338,21 @@ article p {
         baos.close();                                   
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
         %>
-        <img  class="img-responsive" src="data:image/jpg;base64, <%=b64%>"/>                            
+        <img width="300" height="300" class="img-responsive" src="data:image/jpg;base64, <%=b64%>"/>                            
         <% 
     }catch(IOException e){
       System.out.println("Error: "+e);
     } 
-
-
     %>
 		</header>
-
+		<h1>Hello <c:out value="${username}"></c:out></h1>
+		<h1>Email <c:out value="${email}"></c:out></h1>
+		<h1>AVATAR URL <c:out value="${user.getPictureURL()}"></c:out></h1>
 
 
 		<footer><jsp:include page="footer.jsp" /></footer>
-
-
+<h1>Current Profile Picture</h1>
+<img alt="" src="/Desktop/images/ivangospodinov88-profile-pic.jpeg"/>">
 
 
 	</c:if>
@@ -369,7 +368,7 @@ article p {
 	<script type="text/javascript">
       $(document).ready(function() {
 
-    	   $("#get-image").click(function() {
+    	   $("get-image").click(function() {
     	      alert("Hello, world!");
     	   });
     		

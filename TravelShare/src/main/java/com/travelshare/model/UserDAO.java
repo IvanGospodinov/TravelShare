@@ -268,7 +268,26 @@ public class UserDAO {
 		return false;
 	}
 
+	public boolean changeAvatarURL (String URL, int userID) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
 
+		try {
+			ps = connection.prepareStatement("UPDATE users SET user_pictureURL = ? WHERE user_id = ?");
+			ps.setString(1, URL);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+			int result = ps.executeUpdate();
+			if(result > 0) {
+				System.err.println("USER AVATAR URL UPDATED " + URL);
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("NO SUCH USER");
+		return false;
+	}
 
 
 

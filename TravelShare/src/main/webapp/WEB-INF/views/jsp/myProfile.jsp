@@ -1,3 +1,9 @@
+<%@page import="java.io.IOException"%>
+<%@page import="javax.xml.bind.DatatypeConverter"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.awt.image.BufferedImage"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,7 +21,7 @@
 <style type="text/css">
 
 	footer {
-	position: re
+	/* position: re */
 	}
 
 .deleteButton {
@@ -85,18 +91,37 @@ a {
 				<h1 class="centered-box__title">Edit Your Profile</h1>
                 
                 <!--AVATAR-->
-				<form class="l-row form" action="updateProfile" accept-charset="UTF-8"method="post" enctype="multipart/form-data">
-                    <label class="form__label" for="user_avatar">Avatar</label>
+                <div img class="pull-left avatar-form__img" width="60" height="60">
+                 <%
+    try{
+      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
+      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
+      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write( bImage, "jpg", baos );
+        baos.flush();
+        byte[] imageInByteArray = baos.toByteArray();
+        baos.close();                                   
+        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+        %>
+        <img  width="300" height="300"  class="img-responsive" src="data:image/jpg;base64, <%=b64%>"/>                            
+        <% 
+    }catch(IOException e){
+      System.out.println("Error: "+e);
+    } 
+    %>
+    </div>
+				<form class="l-row form" action="uploadPicture" accept-charset="UTF-8"method="post" enctype="multipart/form-data">
+                    <label class="form__label" for="picture">Avatar</label>
+                    <button type="submit">Update Avatar</button>
+						<input accept="image/jpg, image/jpeg, image/png"
+							type="file" name="picture"/>
                     </form>
 						</div>
 						<div class="avatar-form__img-container">
-							<img class="pull-left avatar-form__img" width="60" height="60"src="https://marketplace.canva.com/MAB6v043Ud8/1/thumbnail/canva-robot-electric-avatar-icon-MAB6v043Ud8.png"
-								alt="0160dcc0668dfd402690cd54b9d2a5df?s=200&amp;d=mm"/>
+							<!-- <img class="pull-left avatar-form__img" width="60" height="60"src="https://marketplace.canva.com/MAB6v043Ud8/1/thumbnail/canva-robot-electric-avatar-icon-MAB6v043Ud8.png"
+								alt="0160dcc0668dfd402690cd54b9d2a5df?s=200&amp;d=mm"/> -->
 						</div>
-						<button class="btn-secondary avatar-form__btn btn--sm"
-							type="button">Choose file</button>
-						<input accept="image/jpg, image/jpeg, image/png"
-							type="file" name="avatar"/>
 					</div>
                     
                     <!--FIRST NAME-->

@@ -56,41 +56,18 @@ public class UserController extends HttpServlet{
 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("picture") MultipartFile multiPartFile) {
-		//model.addAttribute("name",user.getFirstName());
-		File file = new File(AVATAR_URL + request.getParameter("username") +
+		File file = new File(AVATAR_URL + request.getParameter("user_email") +
 				"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
-		String urlDB = AVATAR_URL + request.getParameter("username") +
+		String urlDB = AVATAR_URL + request.getParameter("user_email") +
 				"-profile-pic." + multiPartFile.getContentType().split("/")[1];
 		try {
 			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-			model.addAttribute("profilePic", file.getAbsolutePath());
+		model.addAttribute("profilePic", file.getAbsolutePath());
 		System.err.println("POST REGISTER METHOD");
-		User user;
-//		try {
-//			Part avatarPart = request.getPart("user_pictureURL");
-//			InputStream fis = avatarPart.getInputStream();
-//			File myFile = new File(AVATAR_URL+request.getParameter("uname")+".jpg");
-//			if(!myFile.exists()){
-//				myFile.createNewFile();
-//			}
-//			FileOutputStream fos = new FileOutputStream(myFile);
-//			int b = fis.read();
-//			while(b != -1){
-//				fos.write(b);
-//				b = fis.read();
-//			}
-//			fis.close();
-//			fos.close();
-//		} catch (IOException | ServletException e) {
-//			e.printStackTrace();
-//		}
-
-		//String avatarUrl = "images/"+request.getParameter("uname")+".jpg";
-
-		user = new User(
+		User user = new User(
 				request.getParameter("username"),
 				request.getParameter("password"),
 				request.getParameter("user_email"),
@@ -113,7 +90,7 @@ public class UserController extends HttpServlet{
 				return "home";
 			} else {
 				request.getSession().invalidate();
-				return "login";			
+				return "errorRegister";			
 			}
 		} catch (UserException e) {
 			e.printStackTrace();
@@ -227,6 +204,9 @@ public class UserController extends HttpServlet{
 			if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
 				user.setFirstName(request.getParameter("email"));
 				session.setAttribute("email", request.getParameter("email"));
+				String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
+				user.setPictureURL(URL);
+				UserDAO.getInstance().changeAvatarURL(URL, (int)session.getAttribute("userID"));
 				System.err.println("EMAIL CHANGED");
 				return "myProfile";
 			}
@@ -250,12 +230,18 @@ public class UserController extends HttpServlet{
 
 		return "changePassword";	
 	}
-	
+
 	@RequestMapping(value="/sendEmail", method = RequestMethod.GET)
 	public String testT(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("GETTTTTTTTT EMAIL");
 
 		return "sendEmail";	
+	}
+	@RequestMapping(value="/errorRegister", method = RequestMethod.GET)
+	public String errorRegister(Model model, HttpServletRequest request, HttpSession session) {
+		System.err.println("GETTTTTTTTT ERROR REGISTER");
+
+		return "errorRegister";	
 	}
 
 	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
@@ -284,7 +270,7 @@ public class UserController extends HttpServlet{
 	}
 
 	@RequestMapping(value="/uploadPicture", method=RequestMethod.POST)
-	public String receiveUpload(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) {
+	public String changeAvatar(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) {
 		User u = null;
 		try {
 			String email = (String) session.getAttribute("email");
@@ -310,7 +296,6 @@ public class UserController extends HttpServlet{
 				e.printStackTrace();
 				//errorMsg = "something went wrong, please try again later";
 			}
-
 			/*response.setStatus(200);
 		response.getWriter().append("Picture successfully uploaded!");*/
 
