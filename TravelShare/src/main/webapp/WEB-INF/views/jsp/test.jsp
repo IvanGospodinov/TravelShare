@@ -7,23 +7,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Demo page</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
 </head>
-<style type="text/css">
-	.error{
-		color: #ff0000;
-	}
-	.errorblock{
-		color: #000;
-		background-color: #ffEEEE;
-		border: 3px solid #ff0000;
-		padding: 8px;
-		margin: 16px;
-	}</style>
-<body>
 
-	<p> </p>
+<div id="demo">
 
-	<form action="register" enctype=""></form>
+<h1>The XMLHttpRequest Object</h1>
+
+<button type="button"
+onclick="loadDoc('/TravelShare/html/ajax_info.html', myFunction)">Change Content
+</button>
+</div>
+
+<script>
+function loadDoc(url, cFunction) {
+  var xhttp;
+  xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      cFunction(this);
+    }
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+function myFunction(xhttp) {
+  document.getElementById("demo").innerHTML =
+  xhttp.responseText;
+}
+</script>
+
+
+
 
 </body>
 </html>

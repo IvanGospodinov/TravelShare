@@ -1,3 +1,5 @@
+<%@page import="com.travelshare.model.UserDAO"%>
+<%@page import="com.travelshare.model.User"%>
 <%@page import="java.io.IOException"%>
 <%@page import="javax.xml.bind.DatatypeConverter"%>
 <%@page import="java.io.ByteArrayOutputStream"%>
@@ -27,6 +29,26 @@
 </head>
 
 <style type="text/css">
+@import "compass/css3";
+
+.hvr-grow {
+    display: inline-block;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    float: left;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
+}
+
+
 body {
 	background-color: beige;
 }
@@ -45,12 +67,14 @@ body {
 }
 
 #likeButton {
+	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
 	float: left;
 }
 
 #dislikeButton {
+
 	transform: rotate(180deg);
 	height: 35px;
 	width: 35px;
@@ -58,6 +82,7 @@ body {
 }
 
 #loveButton {
+	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
 	float: left;
@@ -111,9 +136,10 @@ body {
 			<div class="post">
 				<%
     try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+    	User user = UserDAO.getInstance().getTopUsers();
+        String imgName="C:/";
+        imgName = imgName.concat(user.getPosts().get(0));
+        BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
         baos.flush();
@@ -121,15 +147,15 @@ body {
         baos.close();                                   
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
         %>
-				<img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" />
+				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
+					src="data:image/jpg;base64, <%=b64%>" /></a>
 				<% 
     }catch(IOException e){
       System.out.println("Error: "+e);
     } 
     %>
 				<h2 id="user">
-					Title - ... Post was uploaded by 
+					Title - ... Uploaded by 
 					<c:out value="${username}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
@@ -154,8 +180,9 @@ body {
 			<div class="bottomPosts">
 				<%
     try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
+    	User user = UserDAO.getInstance().getTopUsers();
+        String imgName="C:/";
+        imgName = imgName.concat(user.getPosts().get(1));
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -164,15 +191,58 @@ body {
         baos.close();                                   
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
         %>
-				<img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" />
+				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
+					src="data:image/jpg;base64, <%=b64%>" /></a>
 				<% 
     }catch(IOException e){
       System.out.println("Error: "+e);
     } 
     %>
 				<h2 id="user">
-					Title - ... Post was uploaded by 
+					Title - ... Uploaded by 
+					<c:out value="${username}"></c:out>
+				</h2>
+				<h3 id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 id="description">Description</h4>
+				</div>
+				<br>
+				<br> 
+				<button  id="likeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
+				<p>543</p>
+				<br> 
+				<button id="dislikeButton"><img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
+				<p>23</p>
+				<br> 
+				<button id="loveButton"><img id="loveButton"
+					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+				<p>543</p>
+			</div>
+			<div class="bottomPosts">
+				<%
+    try{
+    	User user = UserDAO.getInstance().getTopUsers();
+        String imgName="C:/";
+        imgName = imgName.concat(user.getPosts().get(2));
+      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write( bImage, "jpg", baos );
+        baos.flush();
+        byte[] imageInByteArray = baos.toByteArray();
+        baos.close();                                   
+        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+        %>
+				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
+					src="data:image/jpg;base64, <%=b64%>" /></a>
+				<% 
+    }catch(IOException e){
+      System.out.println("Error: "+e);
+    } 
+    %>
+				<h2 id="user">
+					Title - ... Uploaded by 
 					<c:out value="${username}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
@@ -196,8 +266,9 @@ body {
 			<div class="bottomPosts">
 				<%
     try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
+    	User user = UserDAO.getInstance().getTopUsers();
+        String imgName="C:/";
+        imgName = imgName.concat(user.getPosts().get(3));
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -206,15 +277,15 @@ body {
         baos.close();                                   
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
         %>
-				<img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" />
+				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
+					src="data:image/jpg;base64, <%=b64%>" /></a>
 				<% 
     }catch(IOException e){
       System.out.println("Error: "+e);
     } 
     %>
 				<h2 id="user">
-					Title - ... Post was uploaded by 
+					Title - ... Uploaded by  
 					<c:out value="${username}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
@@ -238,8 +309,9 @@ body {
 			<div class="bottomPosts">
 				<%
     try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
+    	User user = UserDAO.getInstance().getTopUsers();
+        String imgName="C:/";
+        imgName = imgName.concat(user.getPosts().get(4));
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
@@ -248,57 +320,15 @@ body {
         baos.close();                                   
         String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
         %>
-				<img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" />
+				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
+					src="data:image/jpg;base64, <%=b64%>" /></a>
 				<% 
     }catch(IOException e){
       System.out.println("Error: "+e);
     } 
     %>
 				<h2 id="user">
-					Title - ... Post was uploaded by 
-					<c:out value="${username}"></c:out>
-				</h2>
-				<h3 id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
-				</div>
-				<br>
-				<br> 
-				<button id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
-				<p>543</p>
-			</div>
-			<div class="bottomPosts">
-				<%
-    try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-				<img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" />
-				<% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %>
-				<h2 id="user">
-					Title - ... Post was uploaded by 
+					Title - ... Uploaded by 
 					<c:out value="${username}"></c:out>
 				</h2>
 				<h3 id="description">Description</h3>
@@ -346,6 +376,11 @@ body {
 			</div>
 
 		</footer>
+
+<script type="text/javascript">
+
+
+</script>
 
 	</c:if>
 	<c:if test="${sessionScope.user == null }">

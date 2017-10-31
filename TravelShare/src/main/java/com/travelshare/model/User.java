@@ -1,5 +1,7 @@
 package com.travelshare.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
@@ -15,9 +17,11 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String pictureURL;
-	//Set<Post> posts;
+	private List<String> posts;
 	
-	public User(){};
+	public User(){
+		posts = new ArrayList<String>();
+	};
 	
 	public User(String username, String password, String email, String firstName, String lastName, String pictureURL) {
 		super();
@@ -133,13 +137,13 @@ public class User {
 		return true;
 	}
 
-//	public Set<Post> getPosts() {
-//		return posts;
-//	}
-//
-//	public void setPosts(Set<Post> posts) {
-//		this.posts = posts;
-//	}
+	public List<String> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(Set<Post> posts) {
+		//this.posts = posts;
+	}
 
 	
 }

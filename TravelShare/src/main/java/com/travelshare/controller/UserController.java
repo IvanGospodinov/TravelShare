@@ -208,14 +208,14 @@ public class UserController extends HttpServlet{
 		}
 		if(request.getParameter("lastName") != null) {
 			if(UserDAO.getInstance().changeLastName(request.getParameter("lastName"), (int)session.getAttribute("userID"))) {
-				user.setFirstName(request.getParameter("lastName"));
+				user.setLastName(request.getParameter("lastName"));
 				System.err.println("LAST CHANGED");
 				return "myProfile";
 			}
 		}
 		if(request.getParameter("email") != null) {
 			if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
-				user.setFirstName(request.getParameter("email"));
+				user.setEmail(request.getParameter("email"));
 				session.setAttribute("email", request.getParameter("email"));
 				String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
 				user.setPictureURL(URL);
@@ -226,7 +226,7 @@ public class UserController extends HttpServlet{
 		}
 		if(request.getParameter("username") != null) {
 			if(UserDAO.getInstance().changeUsername(request.getParameter("username"), (int)session.getAttribute("userID"))) {
-				user.setFirstName(request.getParameter("username"));
+				user.setUsername(request.getParameter("username"));
 				session.setAttribute("username",request.getParameter("username"));
 				System.err.println("USERNAME CHANGED");
 				return "myProfile";
@@ -330,6 +330,15 @@ public class UserController extends HttpServlet{
 
 		return "posts";	
 	}
+	
+	
+	@RequestMapping(value="/test", method = RequestMethod.GET)
+	public String test(Model model, HttpServletRequest request) {
+		System.err.println("GETTTTTTTTT POSTS");
+
+		return "test";	
+	}
+
 
 
 }

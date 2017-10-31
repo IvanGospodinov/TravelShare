@@ -112,10 +112,10 @@ a {
     %>
     </div>
 				<form class="l-row form" action="uploadPicture" accept-charset="UTF-8"method="post" enctype="multipart/form-data">
-                    <label class="form__label" for="picture">Avatar</label>
-                    <button type="submit">Update Avatar</button>
+                   <button type="submit">Update Avatar</button>
+                    <label class="form__label" for="picture"></label>
 						<input accept="image/jpg, image/jpeg, image/png"
-							type="file" name="picture"/>
+							type="file" name="picture" value="Add New Avatar" required="required"/>
                     </form>
 						</div>
 						<div class="avatar-form__img-container">

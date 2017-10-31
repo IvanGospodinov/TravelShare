@@ -295,7 +295,11 @@ article p {
 		<form action="sendEmail" method="get">
 			<button type="submit">Push</button>
 		</form>
-
+		
+		<form action="test" method="get">
+			<button type="submit">Ajax Test</button>
+		</form>
+		
 		<button id="get-image">Show the Image</button>
 		<div id="image-container"></div>
 
