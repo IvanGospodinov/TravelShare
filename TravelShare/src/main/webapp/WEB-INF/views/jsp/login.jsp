@@ -49,7 +49,7 @@
 
 .travelShare {
 	color: #000000;
-	padding: 25px;
+	padding: 10px;
 	font-family: 'Indie Flower', cursive;
 	font-style: italic;
 	font-weight: bold;
@@ -161,7 +161,8 @@ body {
   -moz-osx-font-smoothing: grayscale;      */
 	background:
 		url("https://static.pexels.com/photos/547114/pexels-photo-547114.jpeg")
-		/*url("http://sf.co.ua/13/02/wallpaper-948394.jpg")*/ 
+		/*url("http://sf.co.ua/13/02/wallpaper-948394.jpg")*/  
+		
 		
 		/*url("http://www.stlouisllcattorney.com/wp-content/uploads/2016/07/Fence-post.jpg")*/,
 		no-repeat center center fixed;
@@ -172,9 +173,10 @@ body {
 }
 
 .error {
-color: #000000;
-	padding: 25px;
-	font-family: 'Indie Flower', cursive;
+	color: #000000;
+	padding: 0px;
+	padding-bottom: 0px; 
+	font-family : 'Indie Flower', cursive;
 	font-style: italic;
 	font-weight: bold;
 	font-variant: small-caps;
@@ -184,8 +186,8 @@ color: #000000;
 	cursor: move;
 	visibility: visible;
 	text-shadow: 0px 1px 0px #800000;
+	font-family: 'Indie Flower', cursive;
 }
-
 </style>
 
 
@@ -225,28 +227,39 @@ color: #000000;
 	<h1 class="travelShare">Welcome To Travel Share</h1>
 	<br />
 
+	<c:if test="${sessionScope.error != null }">
+		<h1 class="error">
+			<c:out value="${error}"></c:out>
+		</h1>
+	</c:if>
+
 	<div class="login-page">
 		<div class="form">
 			<!-- Register part -->
-			<form class="register-form" action="register" method="post" enctype="multipart/form-data">
-				<input id="username" type="text" name="username" placeholder="username" required="required" /> 
-				<input id="email" type="email" name="user_email" placeholder="email address" onkeyup="return passwordLength()" required="required" /> 
-				<input id="password" type="password" name="password" placeholder="password" required="required" /> 
-				<input id="conpassword" type="password" name="conpassword" placeholder="confirm password" required="required" /> 
-				<input type="text" name="user_firstname" placeholder="first name" required="required" /> 
-				<input type="text" name="user_lastname" placeholder="last nname" required="required" /> 
-				<input type="file" name="picture" placeholder="avatar" />
+			<form class="register-form" action="register" method="post"
+				enctype="multipart/form-data">
+				<input id="username" type="text" name="username"
+					placeholder="username" required="required" /> <input id="email"
+					type="email" name="user_email" placeholder="email address"
+					onkeyup="return passwordLength()" required="required" /> <input
+					id="password" type="password" name="password"
+					placeholder="password" required="required" /> <input
+					id="conpassword" type="password" name="conpassword"
+					placeholder="confirm password" required="required" /> <input
+					type="text" name="user_firstname" placeholder="first name"
+					required="required" /> <input type="text" name="user_lastname"
+					placeholder="last nname" required="required" /> <input type="file"
+					name="picture" placeholder="avatar" />
 				<button type="submit">Create</button>
 				<p class="message">
-				Already registered? <a href="#">Sign In</a>
-				Forgot Password? <a href="resetPassword">Click Here</a>
+					Already registered? <a href="#">Sign In</a> Forgot Password? <a
+						href="resetPassword">Click Here</a>
 				</p>
 			</form>
-		`	<c:if test="${sessionScope.error != null }">
-		<h1 class = "error"><c:out value="${error}"></c:out></h1>
-		</c:if>
+			`
 			<!-- Login part -->
-			<form class="login-form" action="login" method="post" required="required">
+			<form class="login-form" action="login" method="post"
+				required="required">
 				<input type="email" placeholder="email" name="user_email" /> <input
 					type="password" placeholder="password" name="password"
 					required="required" />
@@ -279,7 +292,7 @@ color: #000000;
 			} else {
 				confirm_password.setCustomValidity('');
 			}
-		}		
+		}
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>

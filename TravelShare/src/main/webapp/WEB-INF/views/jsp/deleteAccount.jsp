@@ -128,9 +128,37 @@ background-color: transparent;
 	font-weight: 700;
     }
 
+.error {
+	color: #000000;
+	padding: 0px;
+	padding-bottom: 0px; 
+	font-family : 'Indie Flower', cursive;
+	font-style: italic;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-align: center;
+	text-decoration: blink;
+	text-transform: capitalize;
+	cursor: move;
+	visibility: visible;
+	text-shadow: 0px 1px 0px #800000;
+	font-family: 'Indie Flower', cursive;
+}
+
 </style>
 </head>
 <body>
+
+	<c:if test="${sessionScope.error != null }">
+		<h1 class="error">
+			<c:out value="${error}"></c:out>
+		</h1>
+	</c:if>
+	<!-- Checking if the user is not trying to delete another acount -->
+		<c:if test="${sessionScope.email != param.user_email }">
+		 <h1 class="error">The email you have entered does not match your email!</h1>
+			<h1 class="error">Please try again</h1>
+		</c:if>
 
 	<div class="delete-Account-form">
 		<div class="form">
@@ -139,10 +167,6 @@ background-color: transparent;
 	<form class="login-form" action="deleteAccount" method="post">
 		<p>Please enter your email:</p>
 		<input id="email" type="email" name="user_email" placeholder="email address" onkeyup="return sendInfo()" required="required"/> <br/><br/>
-		<!-- Checking if the user is not trying to delete another acount -->
-		<c:if test="${sessionScope.user.getEmail() != param.user_email }">
-		 <jsp:forward page="aboutUs.jsp"></jsp:forward>
-		</c:if>
 		<p>Please enter your password:</p>
 		<input id="password" type="password" name="password" placeholder="password" required="required" /><br/> <br/>
 		<p>Please confirm your password:</p>

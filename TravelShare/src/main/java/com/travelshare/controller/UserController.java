@@ -84,6 +84,7 @@ public class UserController extends HttpServlet{
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("email", request.getParameter("user_email"));
 				session.setAttribute("logged", true);
+				session.setAttribute("error", null);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
 				response.addCookie(new Cookie("name", user.getFirstName()));
@@ -114,6 +115,7 @@ public class UserController extends HttpServlet{
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("email", request.getParameter("user_email"));
 				session.setAttribute("logged", true);
+				session.setAttribute("error", null);
 				session.setAttribute("userID", user.getUserID());
 				session.setAttribute("user", user);
 				response.addCookie(new Cookie("name", user.getFirstName()));
@@ -176,6 +178,7 @@ public class UserController extends HttpServlet{
 			request.getSession().invalidate();
 			return "login";
 		} 
+		session.setAttribute("error", "Wrong Email Address or password!");
 		return "deleteAccount";	
 	}
 
@@ -312,7 +315,6 @@ public class UserController extends HttpServlet{
 
 
 	}
-
 
 
 }
