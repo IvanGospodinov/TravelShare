@@ -56,8 +56,8 @@ body {
 .img-responsive {
 	padding: 1px;
 	padding-right: 5px;
-	height: 450px;
-	width: 500px;
+	height: 550px;
+	width: 550px;
 	align: middle;
 	margin: 0 auto;
 }
@@ -200,7 +200,7 @@ body {
 						String imgName = "C:/"
 								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
 						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
-						BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+						BufferedImage bImage = ImageIO.read(new File(imgName));
 						ByteArrayOutputStream baos = new ByteArrayOutputStream();
 						ImageIO.write(bImage, "jpg", baos);
 						baos.flush();
@@ -210,7 +210,7 @@ body {
 		%>
 		<h2 class="text">This Is Your Latest Post</h2>
 		<div class="post">
-			<a class="hvr-grow" href="TravelShare/home"><img
+			<a class="hvr-grow" href="mapTest"><img
 				class="img-responsive" src="data:image/jpg;base64, <%=b64%>" /></a>
 			</h2>
 			<h3 id="description">Description</h3>
