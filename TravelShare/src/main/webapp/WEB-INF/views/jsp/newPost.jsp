@@ -29,7 +29,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
     body {
-  background: url("https://static.pexels.com/photos/547114/pexels-photo-547114.jpeg"), no-repeat center center fixed; 
+  background: url("https://static.pexels.com/photos/625820/pexels-photo-625820.jpeg"), no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -132,9 +132,7 @@ p {
         border-radius: 25px:
     }
     
-    .footer {
-        margin-top: 100px;
-    }
+
 
     
 </style>
@@ -216,8 +214,9 @@ p {
 			<input type="file" name="picture" multiple />
 		</div>
 		<button class="button" type="submit">Submit post</button>
+		<hr>
 	</form>
-
+	<hr>
 </div>
 	
 </body>

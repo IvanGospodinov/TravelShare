@@ -60,6 +60,7 @@
 #description {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
+	font-weight: 700;
 }
 
 .buttons {
@@ -184,11 +185,11 @@
 				%>
 				<h2 class="text" style="color: black">
 					Post Title is
-					<c:out value="${postTitle}"></c:out>
+					"<c:out value="${postTitle}"></c:out>"
 				</h2>
 				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
-					<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
 				</div>
 				<br> <br>
 				<div class="buttons">
@@ -242,11 +243,11 @@
 					%>
 					<h2 class="text" style="color: black">
 						Post Title is
-						<c:out value="${postTitle}"></c:out>
+						"<c:out value="${postTitle}"></c:out>"
 					</h2>
 					<h3 style="color: black" id="description">Description</h3>
 					<div class="descriptionBox">
-						<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
+						<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
 					</div>
 					<br> <br>
 					<div class="buttons">
@@ -296,11 +297,11 @@
 						%>
 						<h2 class="text" style="color: black">
 							Post Title is
-							<c:out value="${postTitle}"></c:out>
+							"<c:out value="${postTitle}"></c:out>"
 						</h2>
 						<h3 style="color: black" id="description">Description</h3>
 						<div class="descriptionBox">
-							<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
+							<h4 style="color: white"id="description"><c:out value="${postDescription}"></c:out></h4>
 						</div>
 						<br> <br>
 						<div class="buttons">
@@ -350,11 +351,11 @@
 							%>
 							<h2 class="text" style="color: black">
 								Post Title is
-								<c:out value="${postTitle}"></c:out>
+								"<c:out value="${postTitle}"></c:out>"
 							</h2>
 							<h3 style="color: black" id="description">Description</h3>
 							<div class="descriptionBox">
-								<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
+								<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
 							</div>
 							<br> <br>
 							<div class="buttons">
@@ -404,11 +405,11 @@
 								%>
 								<h2 class="text" style="color: black">
 									Post Title is
-								<c:out value="${postTitle}"></c:out>
+								"<c:out value="${postTitle}"></c:out>"
 								</h2>
 								<h3 style="color: black" id="description">Description</h3>
 								<div class="descriptionBox">
-									<h4 id="description"><c:out value="${postDescription}"></c:out></h4>
+									<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
 								</div>
 								<br> <br>
 								<div class="buttons">

@@ -62,14 +62,6 @@
 }
 /*Footer*/
 
-footer {
-    background-color: beige;
-/*
-    position: fixed; 
-    bottom: 0;
-*/
-}
-
 .footerContainer {
     position: absolute;
     bottom: 0;
