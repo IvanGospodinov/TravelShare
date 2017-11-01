@@ -18,7 +18,8 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 <title>Travel Share</title>
-
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower"
+	rel="stylesheet">
 
 
 
@@ -41,6 +42,8 @@
 }
 
 body {
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
 	background:
 		url("https://static.pexels.com/photos/229014/pexels-photo-229014.jpeg")
 		no-repeat center center fixed;
@@ -60,10 +63,21 @@ body {
 }
 
 #description {
-	display: block;
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
+}
+
+.buttons {
+	border-radius: 15px 50px 30px 5px:  
+	margin-left: 35px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: transparent;
 }
 
 #likeButton {
+	margin-left: 25px;
+	margin-right: 25px;
 	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
@@ -71,6 +85,9 @@ body {
 }
 
 #dislikeButton {
+	align: middle;
+	margin-left: 25px;
+	margin-right: 25px;
 	padding-left: 0px;
 	transform: rotate(180deg);
 	height: 35px;
@@ -78,6 +95,8 @@ body {
 }
 
 #loveButton {
+	margin-left: 25px;
+	margin-right: 25px;
 	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
@@ -90,15 +109,19 @@ body {
 	align: middle;
 }
 
-
-#title {
+.text {
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
 	text-align: center;
-	padding-top: 10px;
+	color: gray;
 }
 
-.img-responsive {
-	align: middle;
+#numbers {
+	display:inline-table;
+	font-size: 20px;
 }
+
+
 
 </style>
 
@@ -162,62 +185,65 @@ body {
 		</article>
 		</section>
 		-->
-		<h1 style="text-align: center">
+		<h1 class="text">
 			Hello
 			<c:out value="${username}"></c:out>
 		</h1>
 		<%
 			try {
-				String picPath = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
-				if(picPath == null) {
-				 %><h1>You have no posts yet. Click on the New Post button to
-			get started.</h1>
+					String picPath = PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+					if (picPath == null) {
+		%><h1 class="text">You have no posts yet. Click on the New Post
+			button to get started.</h1>
 		<%
-				} else {
-					String imgName = "C:/" + PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
-					System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
-					BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					ImageIO.write(bImage, "jpg", baos);
-					baos.flush();
-					byte[] imageInByteArray = baos.toByteArray();
-					baos.close();
-					String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+			} else {
+						String imgName = "C:/"
+								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
+						BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						ImageIO.write(bImage, "jpg", baos);
+						baos.flush();
+						byte[] imageInByteArray = baos.toByteArray();
+						baos.close();
+						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 		%>
-		<h2>Your latest post is</h2>
+		<h2 class="text">This Is Your Latest Post</h2>
 		<div class="post">
-			<a class="hvr-grow" href="TravelShare/home"><img class="img-responsive"
-				src="data:image/jpg;base64, <%=b64%>" /></a>
+			<a class="hvr-grow" href="TravelShare/home"><img
+				class="img-responsive" src="data:image/jpg;base64, <%=b64%>" /></a>
 			</h2>
 			<h3 id="description">Description</h3>
 			<div class="descriptionBox">
 				<h4 id="description">Description</h4>
 			</div>
 			<br> <br>
-			<button id="likeButton">
-				<img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
-			</button>
-			<p>543</p>
-			<br>
-			<button id="dislikeButton">
-				<img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
-			</button>
-			<p>23</p>
-			<br>
-			<button id="loveButton">
-				<img id="loveButton"
-					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png">
-			</button>
-			<p>543</p>
+			<div class="buttons">
+				<button class="buttons">
+					<img id="likeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">543</p>
+				<br>
+				<button class="buttons">
+					<img id="dislikeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">23</p>
+				<br>
+				<button class="buttons">
+					<img id="loveButton"
+						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+				</button>
+				<p id="numbers">543</p>
+			</div>
 		</div>
 		<%
-				}
- 	} catch (IOException e) {
- 			System.out.println("Error: " + e);
 			}
- %> </header>
+				} catch (IOException e) {
+					System.out.println("Error: " + e);
+				}
+		%> </header>
 
 		<%-- <h1>Email <c:out value="${email}"></c:out></h1>
 		<h1>AVATAR URL <c:out value="${user.getPictureURL()}"></c:out></h1> --%>

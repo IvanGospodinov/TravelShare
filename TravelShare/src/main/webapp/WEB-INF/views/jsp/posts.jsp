@@ -45,12 +45,7 @@
 .hvr-grow:hover,
 .hvr-grow:focus,
 .hvr-grow:active {
-    transform: scale(1.1);
-}
-
-
-body {
-	background-color: beige;
+    transform: scale(1.2);
 }
 
 #image {
@@ -59,38 +54,49 @@ body {
 	height: 350px;
 	width: 400px;
 	float: left;
-	border: 1px solid black;
 	z-index: 1;
 	
 }
 
 #description {
-	display: block;
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
+}
+
+.buttons {
+	border-radius: 15px 50px 30px 5px:  
+	margin-left: 35px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	background: transparent;
 }
 
 #likeButton {
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
-	float: left;
-	padding-left: 0px;
 }
 
 #dislikeButton {
-
+	align: middle;
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
 	transform: rotate(180deg);
 	height: 35px;
 	width: 35px;
-	float: left;
-	padding-left: 0px;
 }
 
 #loveButton {
+	margin-left: 25px;
+	margin-right: 25px;
 	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
-	float: left;
 }
 
 .post {
@@ -118,11 +124,17 @@ body {
 	display: inline;
 }
 
-body {
-	background-color: silver;
-	background-image: none;
+#numbers {
+	display:inline-table;
+	font-size: 20px;
 }
 
+.text {
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
+	text-align: center;
+	color: black;
+}
 
 </style>
 
@@ -134,9 +146,9 @@ body {
 			<!--BODY-->
 
 			<header><link rel="import" href="header.html"></header>
-			<h1>Hi <c:out value="${name}"></c:out></h1><br>
-			<h1 id="title">Here are the latest user posts</h1>
-			<hr>
+			<h1 class="text" style="color: black">Hi <c:out value="${name}"></c:out></h1><br>
+			<h1 class="text" style="color: black">Here are the latest user posts</h1>
+			<hr class="descriptionBox">
 
 			<div class="post">
 				<%
@@ -162,29 +174,35 @@ body {
       System.out.println("Error: "+e);
     } 
     %>
-				<h2 id="user">
+				<h2 class="text" style="color: black">
 					Title - ... Uploaded by 
 					<c:out value="${postUsername}"></c:out>
 				</h2>
-				<h3 id="description">Description</h3>
+				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
 					<h4 id="description">Description</h4>
 				</div>
+				<br><br> 
+				<div class="buttons">
+				<button class="buttons">
+					<img id="likeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">543</p>
 				<br>
-				<br> 
-				<button id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
-				<p>543</p>
+				<button class="buttons">
+					<img id="dislikeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">23</p>
+				<br>
+				<button class="buttons">
+					<img id="loveButton"
+						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+				</button>
+				<p id="numbers">543</p>
 			</div>
-			<hr id="line">
+			<hr class="descriptionBox">
 			<div class="bottomPosts">
 				<%
     try{
@@ -207,28 +225,35 @@ body {
       System.out.println("Error: "+e);
     } 
     %>
-				<h2 id="user">
+				<h2 class="text" style="color: black">
 					Title - ... Uploaded by 
 					<c:out value="${postUsername}"></c:out>
 				</h2>
-				<h3 id="description">Description</h3>
+				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
 					<h4 id="description">Description</h4>
 				</div>
+				<br><br> 
+				<div class="buttons">
+				<button class="buttons">
+					<img id="likeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">543</p>
 				<br>
-				<br> 
-				<button  id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
-				<p>543</p>
+				<button class="buttons">
+					<img id="dislikeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">23</p>
+				<br>
+				<button class="buttons">
+					<img id="loveButton"
+						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+				</button>
+				<p id="numbers">543</p>
 			</div>
+			<hr class="descriptionBox">
 			<div class="bottomPosts">
 				<%
     try{
@@ -251,28 +276,35 @@ body {
       System.out.println("Error: "+e);
     } 
     %>
-				<h2 id="user">
+				<h2 class="text" style="color: black">
 					Title - ... Uploaded by 
 					<c:out value="${postUsername}"></c:out>
 				</h2>
-				<h3 id="description">Description</h3>
+				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
 					<h4 id="description">Description</h4>
 				</div>
+				<br><br> 
+				<div class="buttons">
+				<button class="buttons">
+					<img id="likeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">543</p>
 				<br>
-				<br> 
-				<button id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
-				<p>543</p>
+				<button class="buttons">
+					<img id="dislikeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">23</p>
+				<br>
+				<button class="buttons">
+					<img id="loveButton"
+						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+				</button>
+				<p id="numbers">543</p>
 			</div>
+			<hr class="descriptionBox">
 			<div class="bottomPosts">
 				<%
     try{
@@ -295,28 +327,35 @@ body {
       System.out.println("Error: "+e);
     } 
     %>
-				<h2 id="user">
+				<h2 class="text" style="color: black">
 					Title - ... Uploaded by  
 					<c:out value="${postUsername}"></c:out>
 				</h2>
-				<h3 id="description">Description</h3>
+				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
 					<h4 id="description">Description</h4>
 				</div>
+				<br><br> 
+				<div class="buttons">
+				<button class="buttons">
+					<img id="likeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">543</p>
 				<br>
-				<br> 
-				<button id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
-				<p>543</p>
+				<button class="buttons">
+					<img id="dislikeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">23</p>
+				<br>
+				<button class="buttons">
+					<img id="loveButton"
+						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+				</button>
+				<p id="numbers">543</p>
 			</div>
+			<hr class="descriptionBox">
 			<div class="bottomPosts">
 				<%
     try{
@@ -339,27 +378,35 @@ body {
       System.out.println("Error: "+e);
     } 
     %>
-				<h2 id="user">
+				<h2 class="text" style="color: black">
 					Title - ... Uploaded by 
 					<c:out value="${postUsername}"></c:out>
 				</h2>
-				<h3 id="description">Description</h3>
+				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
 					<h4 id="description">Description</h4>
 				</div>
+				<br><br> 
+				<div class="buttons">
+				<button class="buttons">
+					<img id="likeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">543</p>
 				<br>
-				<br> 
-				<button id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
-				<p>543</p>
+				<button class="buttons">
+					<img id="dislikeButton"
+						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+				</button>
+				<p id="numbers">23</p>
+				<br>
+				<button class="buttons">
+					<img id="loveButton"
+						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+				</button>
+				<p id="numbers">543</p>
+			</div>
+			<hr class="descriptionBox">
 			</div>
 		</header>
 		<footer>
