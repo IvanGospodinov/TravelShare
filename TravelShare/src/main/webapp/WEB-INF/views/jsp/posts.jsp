@@ -160,6 +160,7 @@
 					try {
 							Post post = PostDAO.getInstance().getLastFivePosts();
 							session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
+							session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
 							///System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 							String imgName = "C:/";
 							imgName = imgName.concat(post.getAttachments().get(0).getURL());
@@ -187,7 +188,7 @@
 				</h2>
 				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
+					<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
 				</div>
 				<br> <br>
 				<div class="buttons">
@@ -219,6 +220,7 @@
 								imgName = imgName.concat(user.getPosts().get(1).getPictureURL()); */
 								Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
+								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
 								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
@@ -244,7 +246,7 @@
 					</h2>
 					<h3 style="color: black" id="description">Description</h3>
 					<div class="descriptionBox">
-						<h4 id="description">Description</h4>
+						<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
 					</div>
 					<br> <br>
 					<div class="buttons">
@@ -272,6 +274,7 @@
 							try {
 									Post post = PostDAO.getInstance().getLastFivePosts();
 									session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
+									session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
 									//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 									String imgName = "C:/";
 									imgName = imgName.concat(post.getAttachments().get(2).getURL());
@@ -297,7 +300,7 @@
 						</h2>
 						<h3 style="color: black" id="description">Description</h3>
 						<div class="descriptionBox">
-							<h4 id="description">Description</h4>
+							<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
 						</div>
 						<br> <br>
 						<div class="buttons">
@@ -325,6 +328,7 @@
 								try {
 										Post post = PostDAO.getInstance().getLastFivePosts();
 										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
+										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
@@ -350,7 +354,7 @@
 							</h2>
 							<h3 style="color: black" id="description">Description</h3>
 							<div class="descriptionBox">
-								<h4 id="description">Description</h4>
+								<h4 id="description"><h4 id="description"><c:out value="${postDescription}"></c:out></h4></h4>
 							</div>
 							<br> <br>
 							<div class="buttons">
@@ -378,6 +382,7 @@
 									try {
 											Post post = PostDAO.getInstance().getLastFivePosts();
 											session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
+											session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 											//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 											String imgName = "C:/";
 											imgName = imgName.concat(post.getAttachments().get(4).getURL());
@@ -398,12 +403,12 @@
 										}
 								%>
 								<h2 class="text" style="color: black">
-									Title - ... Uploaded by
-									<c:out value="${postUsername}"></c:out>
+									Post Title is
+								<c:out value="${postTitle}"></c:out>
 								</h2>
 								<h3 style="color: black" id="description">Description</h3>
 								<div class="descriptionBox">
-									<h4 id="description">Description</h4>
+									<h4 id="description"><c:out value="${postDescription}"></c:out></h4>
 								</div>
 								<br> <br>
 								<div class="buttons">
