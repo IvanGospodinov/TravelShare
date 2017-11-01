@@ -217,9 +217,7 @@ p {
         width: 345px;
       }
 
-.locationBox, .textArea {
-	border: solid black;
-}
+
     
 </style>
 
@@ -245,13 +243,12 @@ p {
 			<div class="postTitle">
 				<input class="text" type="text" name="title" placeholder="Title" />
 			</div>
-			<div class="locationBox">
-            <p >Please select a location from the search box above the map</p>
-			<!-- <div class="postLocation">
+            <p>Please select a location from the search box above the map</p>
+			 <div class="postLocation">
 				<input id="location" type="text" name="location" placeholder="Location" />
 				
-			</div> -->
-			</div>
+			</div> 
+			
 		</div>
 		<div class="textArea">
 			<p>So what do you want to share with this post</p>
@@ -348,6 +345,30 @@ p {
       }
 
     </script>
+
+
+<script type="text/javascript">
+
+window.onkeydown = function() {
+    var src = document.getElementById("pac-input"),
+        dst = document.getElementById("location");
+    src.addEventListener('input', function() {
+        dst.value = src.value;
+    });
+};
+
+// jQuery implementation
+
+/* $(function () {
+    var $src = $('#three'),
+        $dst = $('#four');
+    $src.on('input', function () {
+        $dst.val($src.val());
+    });
+}); */
+
+</script>
+
 
 	 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn71hrTuEuIOj38M-tZ2tQN6KHIvZmvjU&libraries=places&callback=initAutocomplete"
