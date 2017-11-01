@@ -1,3 +1,5 @@
+<%@page import="com.travelshare.model.PostDAO"%>
+<%@page import="com.travelshare.model.Post"%>
 <%@page import="com.travelshare.model.UserDAO"%>
 <%@page import="com.travelshare.model.User"%>
 <%@page import="java.io.IOException"%>
@@ -32,20 +34,18 @@
 @import "compass/css3";
 
 .hvr-grow {
-    display: inline-block;
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    transition-duration: 0.3s;
-    transition-property: transform;
-    float: left;
+	display: inline-block;
+	transform: translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+	transition-duration: 0.3s;
+	transition-property: transform;
+	float: left;
 }
 
-.hvr-grow:hover,
-.hvr-grow:focus,
-.hvr-grow:active {
-    transform: scale(1.2);
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+	transform: scale(1.2);
 }
 
 #image {
@@ -55,7 +55,6 @@
 	width: 400px;
 	float: left;
 	z-index: 1;
-	
 }
 
 #description {
@@ -64,7 +63,7 @@
 }
 
 .buttons {
-	border-radius: 15px 50px 30px 5px:  
+	border-radius: 15px 50px 30px 5px:    
 	margin-left: 35px;
 	margin-top: 10px;
 	margin-bottom: 20px;
@@ -125,7 +124,7 @@
 }
 
 #numbers {
-	display:inline-table;
+	display: inline-table;
 	font-size: 20px;
 }
 
@@ -135,7 +134,6 @@
 	text-align: center;
 	color: black;
 }
-
 </style>
 
 <body>
@@ -145,269 +143,290 @@
 			<jsp:include page="header.jsp" />
 			<!--BODY-->
 
-			<header><link rel="import" href="header.html"></header>
-			<h1 class="text" style="color: black">Hi <c:out value="${name}"></c:out></h1><br>
-			<h1 class="text" style="color: black">Here are the latest user posts</h1>
+			<header>
+				<link rel="import" href="header.html">
+			</header>
+			<h1 class="text" style="color: black">
+				Hi
+				<c:out value="${name}"></c:out>
+			</h1>
+			<br>
+			<h1 class="text" style="color: black">Here are the latest user
+				posts</h1>
 			<hr class="descriptionBox">
 
 			<div class="post">
 				<%
-    try{
-    	User user = UserDAO.getInstance().getTopUsers();
-    	session.setAttribute("postUsername", user.getPosts().get(0).getUsername());
-    	System.err.println("!!!!!!!!!!!!!!!!!!!!!postUsername " + user.getUsername());
-        String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(0).getPictureURL());
-        System.err.println("!!!!!!!!!!!!!!!!!!!!!PATH postUsername " + imgName + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        BufferedImage bImage = ImageIO.read(new File(imgName));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
+					try {
+							Post post = PostDAO.getInstance().getLastFivePosts();
+							session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
+							///System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
+							String imgName = "C:/";
+							imgName = imgName.concat(post.getAttachments().get(0).getURL());
+							System.err.println("!!!!!!!!!!!!!!!!!!!!!PATH URL " + post.getAttachments().get(0).getURL()
+									+ " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+							BufferedImage bImage = ImageIO.read(new File(imgName));
+							ByteArrayOutputStream baos = new ByteArrayOutputStream();
+							ImageIO.write(bImage, "jpg", baos);
+							baos.flush();
+							byte[] imageInByteArray = baos.toByteArray();
+							baos.close();
+							String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+				%>
+				<a class="hvr-grow" href="TravelShare/home"><img id="image"
+					width="300" height="300" class="img-responsive"
 					src="data:image/jpg;base64, <%=b64%>" /></a>
-				<% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %>
-				<h2 class="text" style="color: black">
-					Title - ... Uploaded by 
-					<c:out value="${postUsername}"></c:out>
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
-				</div>
-				<br><br> 
-				<div class="buttons">
-				<button class="buttons">
-					<img id="likeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">543</p>
-				<br>
-				<button class="buttons">
-					<img id="dislikeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">23</p>
-				<br>
-				<button class="buttons">
-					<img id="loveButton"
-						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-				</button>
-				<p id="numbers">543</p>
-			</div>
-			<hr class="descriptionBox">
-			<div class="bottomPosts">
 				<%
-    try{
-    	User user = UserDAO.getInstance().getTopUsers();
-    	session.setAttribute("postUsername", user.getPosts().get(1).getUsername());
-        String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(1).getPictureURL());
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" /></a>
-				<% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %>
+					} catch (IOException e) {
+							System.out.println("Error: " + e);
+						}
+				%>
 				<h2 class="text" style="color: black">
-					Title - ... Uploaded by 
-					<c:out value="${postUsername}"></c:out>
+					Post Title is
+					<c:out value="${postTitle}"></c:out>
 				</h2>
 				<h3 style="color: black" id="description">Description</h3>
 				<div class="descriptionBox">
 					<h4 id="description">Description</h4>
 				</div>
-				<br><br> 
+				<br> <br>
 				<div class="buttons">
-				<button class="buttons">
-					<img id="likeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">543</p>
-				<br>
-				<button class="buttons">
-					<img id="dislikeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">23</p>
-				<br>
-				<button class="buttons">
-					<img id="loveButton"
-						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-				</button>
-				<p id="numbers">543</p>
-			</div>
-			<hr class="descriptionBox">
-			<div class="bottomPosts">
-				<%
-    try{
-    	User user = UserDAO.getInstance().getTopUsers();
-    	session.setAttribute("postUsername", user.getPosts().get(2).getUsername());
-        String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(2).getPictureURL());;
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" /></a>
-				<% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %>
-				<h2 class="text" style="color: black">
-					Title - ... Uploaded by 
-					<c:out value="${postUsername}"></c:out>
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
 				</div>
-				<br><br> 
-				<div class="buttons">
-				<button class="buttons">
-					<img id="likeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">543</p>
-				<br>
-				<button class="buttons">
-					<img id="dislikeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">23</p>
-				<br>
-				<button class="buttons">
-					<img id="loveButton"
-						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-				</button>
-				<p id="numbers">543</p>
-			</div>
-			<hr class="descriptionBox">
-			<div class="bottomPosts">
-				<%
-    try{
-    	User user = UserDAO.getInstance().getTopUsers();
-    	session.setAttribute("postUsername", user.getPosts().get(3).getUsername());
-        String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(3).getPictureURL());
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" /></a>
-				<% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %>
-				<h2 class="text" style="color: black">
-					Title - ... Uploaded by  
-					<c:out value="${postUsername}"></c:out>
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
-				</div>
-				<br><br> 
-				<div class="buttons">
-				<button class="buttons">
-					<img id="likeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">543</p>
-				<br>
-				<button class="buttons">
-					<img id="dislikeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">23</p>
-				<br>
-				<button class="buttons">
-					<img id="loveButton"
-						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-				</button>
-				<p id="numbers">543</p>
-			</div>
-			<hr class="descriptionBox">
-			<div class="bottomPosts">
-				<%
-    try{
-    	User user = UserDAO.getInstance().getTopUsers();
-    	session.setAttribute("postUsername", user.getPosts().get(4).getUsername());
-        String imgName="C:/";
-        imgName = imgName.concat(user.getPosts().get(4).getPictureURL());
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write( bImage, "jpg", baos );
-        baos.flush();
-        byte[] imageInByteArray = baos.toByteArray();
-        baos.close();                                   
-        String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        %>
-				<a class="hvr-grow" href="TravelShare/home"><img id="image" width="300" height="300" class="img-responsive"
-					src="data:image/jpg;base64, <%=b64%>" /></a>
-				<% 
-    }catch(IOException e){
-      System.out.println("Error: "+e);
-    } 
-    %>
-				<h2 class="text" style="color: black">
-					Title - ... Uploaded by 
-					<c:out value="${postUsername}"></c:out>
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
-				</div>
-				<br><br> 
-				<div class="buttons">
-				<button class="buttons">
-					<img id="likeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">543</p>
-				<br>
-				<button class="buttons">
-					<img id="dislikeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">23</p>
-				<br>
-				<button class="buttons">
-					<img id="loveButton"
-						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-				</button>
-				<p id="numbers">543</p>
-			</div>
-			<hr class="descriptionBox">
-			</div>
+				<hr class="descriptionBox">
+				<div class="bottomPosts">
+					<%
+						try {
+								/* User user = UserDAO.getInstance().getTopUsers();
+								session.setAttribute("postUsername", user.getPosts().get(1).getUsername());
+								String imgName="C:/";
+								imgName = imgName.concat(user.getPosts().get(1).getPictureURL()); */
+								Post post = PostDAO.getInstance().getLastFivePosts();
+								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
+								String imgName = "C:/";
+								imgName = imgName.concat(post.getAttachments().get(1).getURL());
+								BufferedImage bImage = ImageIO.read(new File(imgName));
+								ByteArrayOutputStream baos = new ByteArrayOutputStream();
+								ImageIO.write(bImage, "jpg", baos);
+								baos.flush();
+								byte[] imageInByteArray = baos.toByteArray();
+								baos.close();
+								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+					%>
+					<a class="hvr-grow" href="TravelShare/home"><img id="image"
+						width="300" height="300" class="img-responsive"
+						src="data:image/jpg;base64, <%=b64%>" /></a>
+					<%
+						} catch (IOException e) {
+								System.out.println("Error: " + e);
+							}
+					%>
+					<h2 class="text" style="color: black">
+						Post Title is
+						<c:out value="${postTitle}"></c:out>
+					</h2>
+					<h3 style="color: black" id="description">Description</h3>
+					<div class="descriptionBox">
+						<h4 id="description">Description</h4>
+					</div>
+					<br> <br>
+					<div class="buttons">
+						<button class="buttons">
+							<img id="likeButton"
+								src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+						</button>
+						<p id="numbers">543</p>
+						<br>
+						<button class="buttons">
+							<img id="dislikeButton"
+								src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+						</button>
+						<p id="numbers">23</p>
+						<br>
+						<button class="buttons">
+							<img id="loveButton"
+								src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+						</button>
+						<p id="numbers">543</p>
+					</div>
+					<hr class="descriptionBox">
+					<div class="bottomPosts">
+						<%
+							try {
+									Post post = PostDAO.getInstance().getLastFivePosts();
+									session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
+									//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
+									String imgName = "C:/";
+									imgName = imgName.concat(post.getAttachments().get(2).getURL());
+									BufferedImage bImage = ImageIO.read(new File(imgName));
+									ByteArrayOutputStream baos = new ByteArrayOutputStream();
+									ImageIO.write(bImage, "jpg", baos);
+									baos.flush();
+									byte[] imageInByteArray = baos.toByteArray();
+									baos.close();
+									String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+						%>
+						<a class="hvr-grow" href="TravelShare/home"><img id="image"
+							width="300" height="300" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+						<%
+							} catch (IOException e) {
+									System.out.println("Error: " + e);
+								}
+						%>
+						<h2 class="text" style="color: black">
+							Post Title is
+							<c:out value="${postTitle}"></c:out>
+						</h2>
+						<h3 style="color: black" id="description">Description</h3>
+						<div class="descriptionBox">
+							<h4 id="description">Description</h4>
+						</div>
+						<br> <br>
+						<div class="buttons">
+							<button class="buttons">
+								<img id="likeButton"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<p id="numbers">543</p>
+							<br>
+							<button class="buttons">
+								<img id="dislikeButton"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<p id="numbers">23</p>
+							<br>
+							<button class="buttons">
+								<img id="loveButton"
+									src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+							</button>
+							<p id="numbers">543</p>
+						</div>
+						<hr class="descriptionBox">
+						<div class="bottomPosts">
+							<%
+								try {
+										Post post = PostDAO.getInstance().getLastFivePosts();
+										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
+										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
+										String imgName = "C:/";
+										imgName = imgName.concat(post.getAttachments().get(3).getURL());
+										BufferedImage bImage = ImageIO.read(new File(imgName));
+										ByteArrayOutputStream baos = new ByteArrayOutputStream();
+										ImageIO.write(bImage, "jpg", baos);
+										baos.flush();
+										byte[] imageInByteArray = baos.toByteArray();
+										baos.close();
+										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+							%>
+							<a class="hvr-grow" href="TravelShare/home"><img id="image"
+								width="300" height="300" class="img-responsive"
+								src="data:image/jpg;base64, <%=b64%>" /></a>
+							<%
+								} catch (IOException e) {
+										System.out.println("Error: " + e);
+									}
+							%>
+							<h2 class="text" style="color: black">
+								Post Title is
+								<c:out value="${postTitle}"></c:out>
+							</h2>
+							<h3 style="color: black" id="description">Description</h3>
+							<div class="descriptionBox">
+								<h4 id="description">Description</h4>
+							</div>
+							<br> <br>
+							<div class="buttons">
+								<button class="buttons">
+									<img id="likeButton"
+										src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+								</button>
+								<p id="numbers">543</p>
+								<br>
+								<button class="buttons">
+									<img id="dislikeButton"
+										src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+								</button>
+								<p id="numbers">23</p>
+								<br>
+								<button class="buttons">
+									<img id="loveButton"
+										src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+								</button>
+								<p id="numbers">543</p>
+							</div>
+							<hr class="descriptionBox">
+							<div class="bottomPosts">
+								<%
+									try {
+											Post post = PostDAO.getInstance().getLastFivePosts();
+											session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
+											//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+											String imgName = "C:/";
+											imgName = imgName.concat(post.getAttachments().get(4).getURL());
+											BufferedImage bImage = ImageIO.read(new File(imgName));
+											ByteArrayOutputStream baos = new ByteArrayOutputStream();
+											ImageIO.write(bImage, "jpg", baos);
+											baos.flush();
+											byte[] imageInByteArray = baos.toByteArray();
+											baos.close();
+											String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+								%>
+								<a class="hvr-grow" href="TravelShare/home"><img id="image"
+									width="300" height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a>
+								<%
+									} catch (IOException e) {
+											System.out.println("Error: " + e);
+										}
+								%>
+								<h2 class="text" style="color: black">
+									Title - ... Uploaded by
+									<c:out value="${postUsername}"></c:out>
+								</h2>
+								<h3 style="color: black" id="description">Description</h3>
+								<div class="descriptionBox">
+									<h4 id="description">Description</h4>
+								</div>
+								<br> <br>
+								<div class="buttons">
+									<button class="buttons">
+										<img id="likeButton"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<p id="numbers">543</p>
+									<br>
+									<button class="buttons">
+										<img id="dislikeButton"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<p id="numbers">23</p>
+									<br>
+									<button class="buttons">
+										<img id="loveButton"
+											src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+									</button>
+									<p id="numbers">543</p>
+								</div>
+								<hr class="descriptionBox">
+							</div>
 		</header>
 		<footer>
 			<div class="footerContainer">
@@ -436,7 +455,7 @@
 
 		</footer>
 
-<script type="text/javascript">
+		<script type="text/javascript">
 
 
 </script>

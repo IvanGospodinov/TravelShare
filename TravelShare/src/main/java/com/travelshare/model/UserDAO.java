@@ -22,7 +22,6 @@ public class UserDAO {
 	private static final String SELECT_USER_SQL = "SELECT user_id FROM users WHERE user_email = ? AND user_password = ?";
 	private static final String GET_USER_FROM_SQL = "SELECT user_id, uname, user_password, user_firstname, user_lastname, user_pictureURL FROM users WHERE user_email = ?";
 	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE user_email = ?";
-	List<String> Urls;
 
 
 	private static UserDAO instance;
@@ -308,7 +307,7 @@ public class UserDAO {
 			rs = stmt.executeQuery( "SELECT * FROM users ORDER BY user_pictureURL asc" );
 			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
 			while ( rs.next() && user.getPosts().size()<5) {
-				System.out.println("USERA "+UserDAO.getInstance().getUser(rs.getString("user_email")));
+				System.out.println("USER-A " + UserDAO.getInstance().getUser(rs.getString("user_email")));
 				user.getPosts().add(UserDAO.getInstance().getUser(rs.getString("user_email")));
 				//user.getPosts().add(rs.getString("user_pictureURL"));
 				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("user_email"));

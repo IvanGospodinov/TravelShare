@@ -1,10 +1,9 @@
 package com.travelshare.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 
@@ -14,15 +13,13 @@ public class Post {
 		private String category;
 		private String title;
 		private String location;
-		private String description;
-	
+		private String description;	
 		private int user_id;
-		private int category_id;
-	
+		private int category_id;	
 		private LocalDate upload;
-		private LocalDate modify;
-		
+		private LocalDate modify;		
 		private User user;
+		private List<Attachment> attachments;
 		
 		
 	
@@ -47,7 +44,7 @@ public class Post {
 		
 	
 		public Post() {
-			// TODO Auto-generated constructor stub
+			attachments = new ArrayList<Attachment>();
 		}
 
 
@@ -110,9 +107,9 @@ public class Post {
 			return category_id;
 		}
 
-//		public Set<Attachment> getAttachments() {
-//			return attachments;
-//		}
+		public List<Attachment> getAttachments() {
+			return attachments;
+	}
 	//
 //		public Set<Coment> getComents() {
 //			return coments;
