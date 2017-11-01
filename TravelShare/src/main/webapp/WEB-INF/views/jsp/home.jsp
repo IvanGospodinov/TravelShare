@@ -26,34 +26,37 @@
 @import "compass/css3";
 
 .hvr-grow {
-    display: inline-block;
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    transition-duration: 0.3s;
-    transition-property: transform;
-    float: left;
+	display: inline-block;
+	transform: translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	backface-visibility: hidden;
+	-moz-osx-font-smoothing: grayscale;
+	transition-duration: 0.3s;
+	transition-property: transform;
+	float: left;
 }
 
-.hvr-grow:hover,
-.hvr-grow:focus,
-.hvr-grow:active {
-    transform: scale(1.1);
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+	transform: scale(1.3);
 }
-
 
 body {
-	background-color: beige;
+	background:
+		url("https://static.pexels.com/photos/229014/pexels-photo-229014.jpeg")
+		no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
-#image {
+.img-responsive {
 	padding: 1px;
 	padding-right: 5px;
-	height: 350px;
-	width: 400px;
-	float: left;
-	border: 1px solid black;
+	height: 450px;
+	width: 500px;
+	align: middle;
+	margin: 0 auto;
 }
 
 #description {
@@ -61,57 +64,41 @@ body {
 }
 
 #likeButton {
+	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
-	float: left;
 }
 
 #dislikeButton {
-
+	padding-left: 0px;
 	transform: rotate(180deg);
 	height: 35px;
 	width: 35px;
-	float: left;
 }
 
 #loveButton {
+	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
-	float: left;
 }
 
 .post {
 	border: 1px;
 	border-color: aqua;
+	align: middle;
 }
 
-.bottomPosts {
-	margin-bottom: 20px;
-	margin-top: 70px;
-}
 
 #title {
 	text-align: center;
 	padding-top: 10px;
 }
 
-.descriptionBox {
-	border: 1px solid;
-	border-color: black;
-	max-height: 80px;
+.img-responsive {
+	align: middle;
 }
-
-.footerContainer {
-	display: inline;
-}
-
-body {
-	background-color: silver;
-	background-image: none;
-}
-
 
 </style>
 
@@ -181,8 +168,13 @@ body {
 		</h1>
 		<%
 			try {
-					String picPath = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
-					String imgName = "C:/" + picPath;
+				String picPath = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
+				if(picPath == null) {
+				 %><h1>You have no posts yet. Click on the New Post button to
+			get started.</h1>
+		<%
+				} else {
+					String imgName = "C:/" + PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
 					System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
 					BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -191,33 +183,40 @@ body {
 					byte[] imageInByteArray = baos.toByteArray();
 					baos.close();
 					String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-		%> <h2>Your latest post is</h2>
+		%>
+		<h2>Your latest post is</h2>
 		<div class="post">
-		<a class="hvr-grow" href="TravelShare/home"><img width="300" height="300" class="img-responsive"
-			src="data:image/jpg;base64, <%=b64%>" /></a>
+			<a class="hvr-grow" href="TravelShare/home"><img class="img-responsive"
+				src="data:image/jpg;base64, <%=b64%>" /></a>
 			</h2>
-				<h3 id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 id="description">Description</h4>
-				</div>
-				<br>
-				<br> 
-				<button  id="likeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>543</p>
-				<br> 
-				<button id="dislikeButton"><img id="loveButton"
-					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg"></button>
-				<p>23</p>
-				<br> 
-				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
-				<p>543</p>
+			<h3 id="description">Description</h3>
+			<div class="descriptionBox">
+				<h4 id="description">Description</h4>
 			</div>
-			 <%
+			<br> <br>
+			<button id="likeButton">
+				<img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+			</button>
+			<p>543</p>
+			<br>
+			<button id="dislikeButton">
+				<img id="loveButton"
+					src="https://3.bp.blogspot.com/-e2tr8NkXBjc/TbWuwAQNiJI/AAAAAAAABlA/FwW7T9aKmRE/s1600/Thumbs+Up.jpg">
+			</button>
+			<p>23</p>
+			<br>
+			<button id="loveButton">
+				<img id="loveButton"
+					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png">
+			</button>
+			<p>543</p>
+		</div>
+		<%
+				}
  	} catch (IOException e) {
  			System.out.println("Error: " + e);
- 		}
+			}
  %> </header>
 
 		<%-- <h1>Email <c:out value="${email}"></c:out></h1>

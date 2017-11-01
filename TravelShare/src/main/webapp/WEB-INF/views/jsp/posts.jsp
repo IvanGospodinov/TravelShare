@@ -60,6 +60,8 @@ body {
 	width: 400px;
 	float: left;
 	border: 1px solid black;
+	z-index: 1;
+	
 }
 
 #description {
@@ -71,6 +73,7 @@ body {
 	height: 35px;
 	width: 35px;
 	float: left;
+	padding-left: 0px;
 }
 
 #dislikeButton {
@@ -79,9 +82,11 @@ body {
 	height: 35px;
 	width: 35px;
 	float: left;
+	padding-left: 0px;
 }
 
 #loveButton {
+	padding-left: 0px;
 	transform: rotate(360deg);
 	height: 35px;
 	width: 35px;
@@ -176,7 +181,7 @@ body {
 				<p>23</p>
 				<br> 
 				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
 				<p>543</p>
 			</div>
 			<hr id="line">
@@ -221,7 +226,7 @@ body {
 				<p>23</p>
 				<br> 
 				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
 				<p>543</p>
 			</div>
 			<div class="bottomPosts">
@@ -265,7 +270,7 @@ body {
 				<p>23</p>
 				<br> 
 				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
 				<p>543</p>
 			</div>
 			<div class="bottomPosts">
@@ -309,7 +314,7 @@ body {
 				<p>23</p>
 				<br> 
 				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
 				<p>543</p>
 			</div>
 			<div class="bottomPosts">
@@ -353,7 +358,7 @@ body {
 				<p>23</p>
 				<br> 
 				<button id="loveButton"><img id="loveButton"
-					src="https://i.pinimg.com/originals/b2/71/b8/b271b8f220ce1860e247f189b374d591.png"></button>
+					src="https://cdn4.iconfinder.com/data/icons/colorful/256/red-21.png"></button>
 				<p>543</p>
 			</div>
 		</header>
