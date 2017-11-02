@@ -134,57 +134,7 @@ body {
 
 
 	<c:if test="${sessionScope.user != null }">
-		<header> <jsp:include page="header.jsp" /> <!-- 	<p>If you click on me, I will disappear.</p>
-		<p>Click me away!</p>
-		<p>Click me too!</p>
-		
-		
-
-		<form name="fileform" action="uploadPicture" method="post"
-			enctype="multipart/form-data">
-			<h4 align="center">Select new picture:</h4>
-			<input type="file" id="fileInput" name="picture" required /></label><br>
-			<input class="btn" type="submit" value="Upload" />
-		</form>
-
-		<form action="sendEmail" method="get">
-			<button type="submit">Push</button>
-		</form>
-		
-		<form action="test" method="get">
-			<button type="submit">Ajax Test</button>
-		</form>
-		
-		<button id="get-image">Show the Image</button>
-		<div id="image-container"></div>
- --> <!--  
-		<div id="secwrapper">
-			<section> <article id="featured"> <a
-				href="post.jsp"> <sql:setDataSource var="snapshot"
-					driver="com.mysql.jdbc.Driver"
-					url="jdbc:mysql://localhost/travel_share" user="root"
-					password="BratinDol14" /> <sql:query dataSource="${snapshot}"
-					var="result">
-      	
-         SELECT user_pictureURL FROM users;
-      </sql:query>
-		 <table>
-         <tr>
-            <th>Post</th>
-
-         </tr>
-         
-         <c:forEach var = "row" items = "${result.rows}">
-            <tr>
-               <td><img src="<c:out value = "${row.user_pictureURL}"/>"/>
-               <h3>User: <c:out value = "${row.user_pictureURL}"/></h3>
-               </td>
-            </tr>
-         </c:forEach>
-      </table></a>
-		</article>
-		</section>
-		-->
+		<header> <jsp:include page="header.jsp" />
 		<h1 class="text">
 			Hello
 			<c:out value="${username}"></c:out>
@@ -245,8 +195,6 @@ body {
 				}
 		%> </header>
 
-		<%-- <h1>Email <c:out value="${email}"></c:out></h1>
-		<h1>AVATAR URL <c:out value="${user.getPictureURL()}"></c:out></h1> --%>
 
 		<div class="footer">
 			<jsp:include page="footer.jsp" />
@@ -261,12 +209,5 @@ body {
 	<script src="https://code.jquery.com/jquery-1.7.1.js"
 		type="text/javascript"></script>
 
-	<!-- <script>
-$(document).ready(function(){
-    $("p").click(function(){
-        $(this).hide();
-    });
-});
-</script> -->
 </body>
 </html>

@@ -111,6 +111,29 @@ public class PostDAO {
 		}
 		return post;
 	}
+	
+	public Post getLastThreePostsByCategory(int categoryID) {
+		System.err.println("CATEGORY - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		Post post = new Post();
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT post_id, post_date_upload AS date FROM posts WHERE post_category_id = ? order by date desc limit 3", Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, categoryID);
+			ps.executeQuery();
+			rs = ps.getGeneratedKeys();
+			while(rs.next()) {			
+				int postID = rs.getInt("post_id");
+				System.err.println("CATEGORYS - POST ID-TO OT BAZATA E " + postID);
+				post.getAttachments().add(getAttachment(postID));
+				System.out.println("CATEGORY - TUKA VLIZA LI IZOBSHTO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return post;
+	}
 
 	public Attachment getAttachment(int postID) throws SQLException{
 		Connection con = DBConnection.getInstance().getConnection();

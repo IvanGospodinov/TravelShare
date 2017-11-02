@@ -18,10 +18,10 @@ import com.travelshare.util.UserException;
 public class UserDAO {
 
 	private static final String INSERT_USER_SQL = "INSERT INTO users VALUES (null, ?, ?,?,?,?,?)";
-	private static final String CHECK_FOR_EMAIL = "SELECT user_id from users WHERE user_email LIKE ?%";
-	private static final String SELECT_USER_SQL = "SELECT user_id FROM users WHERE user_email = ? AND user_password = ?";
-	private static final String GET_USER_FROM_SQL = "SELECT user_id, uname, user_password, user_firstname, user_lastname, user_pictureURL FROM users WHERE user_email = ?";
-	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE user_email = ?";
+	//private static final String CHECK_FOR_EMAIL = "SELECT user_id from users WHERE user_email LIKE ?%";
+	private static final String SELECT_USER_SQL = "SELECT user_id FROM users WHERE email = ? AND password = ?";
+	private static final String GET_USER_FROM_SQL = "SELECT user_id, username, password, first_name, last_name, avatar_url FROM users WHERE email = ?";
+	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE email = ?";
 
 
 	private static UserDAO instance;
@@ -102,17 +102,17 @@ public class UserDAO {
 
 		User user = new User(
 				rs.getInt("user_id"), 
-				rs.getString("uname"), 
-				rs.getString("user_password"), 
-				rs.getString("user_firstname"),
-				rs.getString("user_lastname"),
-				rs.getString("user_pictureURL"));
+				rs.getString("username"), 
+				rs.getString("password"), 
+				rs.getString("first_name"),
+				rs.getString("last_name"),
+				rs.getString("avatar_url"));
 
 		return user;
 	}
 
-	public boolean checkForEmail(String s) {
-		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE user_email LIKE '"+ s + "%'";
+	public boolean checkForEmail(String email) {
+		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE email LIKE '"+ email + "%'";
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
 		try {
@@ -137,10 +137,10 @@ public class UserDAO {
 				ps = connection.prepareStatement(DELETE_USER_ACCOUNT);
 				ps.setString(1, email);
 				ps.executeUpdate();
-				if(checkForUser(email, password)) {
-					System.err.println("Neshto ne se iztri");
-					return false;
-				}
+//				if(checkForUser(email, password)) {
+//					System.err.println("Neshto ne se iztri");
+//					return false;
+//				}
 				System.err.println("USER DELETED");
 				return true;
 			}
@@ -156,7 +156,7 @@ public class UserDAO {
 		PreparedStatement ps = null;
 		int id = 0;
 		try {
-			ps = connection.prepareStatement("SELECT user_id WHERE user_email = ?", Statement.RETURN_GENERATED_KEYS);
+			ps = connection.prepareStatement("SELECT user_id WHERE email = ?", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, user.getEmail());
 			ps.executeQuery();
 			ResultSet rs = ps.executeQuery();
@@ -174,7 +174,7 @@ public class UserDAO {
 		PreparedStatement ps = null;
 
 		try {
-			ps = connection.prepareStatement("UPDATE users SET user_firstname = ? WHERE user_id = ?");
+			ps = connection.prepareStatement("UPDATE users SET first_name = ? WHERE user_id = ?");
 			ps.setString(1, name);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
@@ -195,7 +195,7 @@ public class UserDAO {
 		PreparedStatement ps = null;
 
 		try {
-			ps = connection.prepareStatement("UPDATE users SET user_lastname = ? WHERE user_id = ?");
+			ps = connection.prepareStatement("UPDATE users SET last_name = ? WHERE user_id = ?");
 			ps.setString(1, name);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
@@ -216,7 +216,8 @@ public class UserDAO {
 		PreparedStatement ps = null;
 
 		try {
-			ps = connection.prepareStatement("UPDATE users SET uname = ? WHERE user_id = ?");
+			//da napravq proverka syshtestvuva li veche
+			ps = connection.prepareStatement("UPDATE users SET username = ? WHERE user_id = ?");
 			ps.setString(1, username);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
@@ -235,9 +236,10 @@ public class UserDAO {
 	public boolean changeEmail (String email, int userID) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
-
+		
 		try {
-			ps = connection.prepareStatement("UPDATE users SET user_email = ? WHERE user_id = ?");
+			//da proverya syshtestvuva li emaila
+			ps = connection.prepareStatement("UPDATE users SET email = ? WHERE user_id = ?");
 			ps.setString(1, email);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
@@ -258,7 +260,7 @@ public class UserDAO {
 		PreparedStatement ps = null;
 
 		try {
-			ps = connection.prepareStatement("UPDATE users SET user_password = ? WHERE user_id = ?");
+			ps = connection.prepareStatement("UPDATE users SET password = ? WHERE user_id = ?");
 			ps.setString(1, Encrypter.encrypt(newPassword));
 			ps.setInt(2, userID);
 			ps.executeUpdate();
@@ -279,7 +281,7 @@ public class UserDAO {
 		PreparedStatement ps = null;
 
 		try {
-			ps = connection.prepareStatement("UPDATE users SET user_pictureURL = ? WHERE user_id = ?");
+			ps = connection.prepareStatement("UPDATE users SET avatar_url = ? WHERE user_id = ?");
 			ps.setString(1, URL);
 			ps.setInt(2, userID);
 			ps.executeUpdate();
@@ -304,13 +306,13 @@ public class UserDAO {
 		
 		try {
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery( "SELECT * FROM users ORDER BY user_pictureURL asc" );
+			rs = stmt.executeQuery( "SELECT * FROM users ORDER BY avatar_url ASC" );
 			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
-			while ( rs.next() && user.getPosts().size()<5) {
-				System.out.println("USER-A " + UserDAO.getInstance().getUser(rs.getString("user_email")));
-				user.getPosts().add(UserDAO.getInstance().getUser(rs.getString("user_email")));
+			while ( rs.next() || user.getPosts().size()<5) {
+				System.out.println("USER-A " + UserDAO.getInstance().getUser(rs.getString("email")));
+				user.getPosts().add(UserDAO.getInstance().getUser(rs.getString("email")));
 				//user.getPosts().add(rs.getString("user_pictureURL"));
-				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("user_email"));
+				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("email"));
 			}		 			
 		} catch (SQLException e) {
 			e.printStackTrace();
