@@ -79,10 +79,10 @@ body {
 				<tr>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
 								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
-								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -104,10 +104,10 @@ body {
 					%>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
 								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
-								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(1).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -129,7 +129,7 @@ body {
 					%>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
 								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
 								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -158,7 +158,7 @@ body {
 						<tr>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
 										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -183,7 +183,7 @@ body {
 							%>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
 										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -208,7 +208,7 @@ body {
 							%>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
 										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());

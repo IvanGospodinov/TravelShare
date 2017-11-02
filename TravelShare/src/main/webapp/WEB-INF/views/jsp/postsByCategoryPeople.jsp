@@ -79,7 +79,7 @@ body {
 				<tr>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(4);
 								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
 								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -104,7 +104,7 @@ body {
 					%>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(4);
 								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
 								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -129,7 +129,7 @@ body {
 					%>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(4);
 								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
 								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -158,7 +158,7 @@ body {
 						<tr>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+										Post post = PostDAO.getInstance().getLastThreePostsByCategory(4);
 										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -183,7 +183,7 @@ body {
 							%>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+										Post post = PostDAO.getInstance().getLastThreePostsByCategory(4);
 										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
@@ -208,7 +208,7 @@ body {
 							%>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+										Post post = PostDAO.getInstance().getLastThreePostsByCategory(4);
 										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());

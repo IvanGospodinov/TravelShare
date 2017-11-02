@@ -130,11 +130,11 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/TravelShare/postsByCategoryNature">Nature</a></li>
                                 <li role="presentation" class="divider"></li>
-                                <li><a href="#">Animals</a></li>
+                                <li><a href="/TravelShare/postsByCategoryAnimals">Animals</a></li>
                                 <li role="presentation" class="divider"></li>
-                                <li><a href="#">Food</a></li>
+                                <li><a href="/TravelShare/postsByCategoryFood">Food</a></li>
                                 <li role="presentation" class="divider"></li>
-                                <li><a href="#">People</a></li>
+                                <li><a href="/TravelShare/postsByCategoryPeople">People</a></li>
                                <!--alternative button stylse
                                 <input class="btn btn-lg btn-outline-secondary" type="button" aria-pressed="true" value="Nature">
                                 <li role="presentation" class="divider"></li>

@@ -217,7 +217,23 @@ p {
         width: 345px;
       }
 
-
+.error {
+	color: red;
+	font-size: 20px;
+	padding: 0px;
+	padding-bottom: 0px; 
+	font-family : 'Indie Flower', cursive;
+	font-style: italic;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-align: center;
+	text-decoration: blink;
+	text-transform: capitalize;
+	cursor: move;
+	visibility: visible;
+	text-shadow: 0px 1px 0px #800000;
+	font-family: 'Indie Flower', cursive;
+}
     
 </style>
 
@@ -241,11 +257,11 @@ p {
 		<div>
             <p>Post Title</p>
 			<div class="postTitle">
-				<input class="text" type="text" name="title" placeholder="Title" />
+				<input class="text" type="text" name="title" placeholder="Title" required="required"/>
 			</div>
             <p>Please select a location from the search box above the map</p>
 			 <div class="postLocation">
-				<input id="location" type="text" name="location" placeholder="Location" />
+				<input id="location" type="text" name="location" placeholder="Location" required="required"/>
 				
 			</div> 
 			
@@ -253,7 +269,7 @@ p {
 		<div class="textArea">
 			<p>So what do you want to share with this post</p>
 			<textarea  style="background-color: lightgray" name="description"
-				rows="5" cols="20"></textarea>
+				rows="5" cols="20" required="required"></textarea>
 		</div>
 		<div class="postImage">
 			<p>Add your images(s)</p>
@@ -261,9 +277,7 @@ p {
 			<img src="" height="200" alt="Image preview...">
 		</div>
 		<button class="button" type="submit">Submit post</button>
-		<hr>
 	</form>
-	<hr>
 </div>
 <input id="pac-input" class="controls" type="text" placeholder="Location" name="location">
     <div id="map"></div>
@@ -400,8 +414,12 @@ window.onkeydown = function() {
 	  }
  
  </script>
+	 <c:if test="${sessionScope.postErr == null }">
+		<h1 class="error">
+				<c:out value="${errorLogin}"></c:out>
+			</h1>
+	</c:if>
 
-	 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn71hrTuEuIOj38M-tZ2tQN6KHIvZmvjU&libraries=places&callback=initAutocomplete"
          async defer></script>
 </body>
