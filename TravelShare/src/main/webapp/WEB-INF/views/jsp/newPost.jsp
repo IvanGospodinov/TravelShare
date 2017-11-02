@@ -257,7 +257,8 @@ p {
 		</div>
 		<div class="postImage">
 			<p>Add your images(s)</p>
-			<input type="file" name="picture" multiple required="required"/>
+			<input type="file" name="picture" multiple required="required" onchange="previewFile()"/>
+			<img src="" height="200" alt="Image preview...">
 		</div>
 		<button class="button" type="submit">Submit post</button>
 		<hr>
@@ -374,7 +375,31 @@ window.onkeydown = function() {
 }); */
 
 </script>
+ <script type="text/javascript">
+ function previewFile() {
+	    // Where you will display your image
+	    var preview = document.querySelector('img');
+	    // The button where the user chooses the local image to display
+	    var file = document.querySelector('input[type=file]').files[0];
+	    // FileReader instance
+	    var reader  = new FileReader();
 
+	    // When the image is loaded we will set it as source of
+	    // our img tag
+	    reader.onloadend = function () {
+	      preview.src = reader.result;
+	    }
+
+	    
+	    if (file) {
+	      // Load image as a base64 encoded URI
+	      reader.readAsDataURL(file);
+	    } else {
+	      preview.src = "";
+	    }
+	  }
+ 
+ </script>
 
 	 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn71hrTuEuIOj38M-tZ2tQN6KHIvZmvjU&libraries=places&callback=initAutocomplete"
