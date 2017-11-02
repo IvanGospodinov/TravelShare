@@ -128,7 +128,7 @@
                         <li><a href="/TravelShare/newPost">New Post</a></li>
                         <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span> </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Nature</a></li>
+                                <li><a href="/TravelShare/postsByCategoryNature">Nature</a></li>
                                 <li role="presentation" class="divider"></li>
                                 <li><a href="#">Animals</a></li>
                                 <li role="presentation" class="divider"></li>

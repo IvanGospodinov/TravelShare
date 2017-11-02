@@ -119,15 +119,13 @@ public class PostDAO {
 		ResultSet rs = null;
 		Post post = new Post();
 		try {
-			PreparedStatement ps = connection.prepareStatement("SELECT post_id, post_date_upload AS date FROM posts WHERE post_category_id = ? order by date desc limit 3", Statement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, categoryID);
-			ps.executeQuery();
-			rs = ps.getGeneratedKeys();
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("SELECT post_id AS post_id FROM posts WHERE post_category_id ="+categoryID+" ORDER BY post_id DESC limit 6");
 			while(rs.next()) {			
 				int postID = rs.getInt("post_id");
-				System.err.println("CATEGORYS - POST ID-TO OT BAZATA E " + postID);
+				System.err.println("WHILE CATEGORY - TOP USERS - POST ID-TO OT BAZATA E " + postID);
 				post.getAttachments().add(getAttachment(postID));
-				System.out.println("CATEGORY - TUKA VLIZA LI IZOBSHTO");
+				System.out.println("WHILE CATEGORY - TOP USERS - TUKA VLIZA LI IZOBSHTO");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
