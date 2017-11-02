@@ -57,32 +57,41 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("picture") MultipartFile multiPartFile) {
 		try {
-			if(!UserDAO.getInstance().checkForEmail(request.getParameter("user_email"))) {
-				File file = new File(AVATAR_URL + request.getParameter("user_email") +
-						"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
-				String urlDB = AVATAR_URL + request.getParameter("user_email") +
-						"-profile-pic." + multiPartFile.getContentType().split("/")[1];
-				try {
-					Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				model.addAttribute("profilePic", file.getAbsolutePath());
+			if(!UserDAO.getInstance().checkForEmail(request.getParameter("userEmail"))) {
 				System.err.println("POST REGISTER METHOD");
 				User user = new User(
 						request.getParameter("username"),
 						request.getParameter("password"),
-						request.getParameter("user_email"),
-						request.getParameter("user_firstname"),
-						request.getParameter("user_lastname"),
-						urlDB
+						request.getParameter("userEmail"),
+						request.getParameter("userFirstName"),
+						request.getParameter("userLastName"),
+						null
 						);
-				System.out.println(user.getPictureURL());
-				UserDAO.getInstance().registerUser(user);
+				//System.out.println(user.getPictureURL());
+				if(!UserDAO.getInstance().registerUser(user)) {
+					session.setAttribute("errorRegister", "We are sorry there is an internal error please try again later!");
+				}
 				if(user.getUserID() != 0) {
+
+					if(multiPartFile.getContentType() != null) {
+						int id = UserDAO.getInstance().getUserID(request.getParameter("userEmail"));
+						File file = new File(AVATAR_URL + id +
+								"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
+						String urlDB = AVATAR_URL + id +
+								"-profile-pic." + multiPartFile.getContentType().split("/")[1];
+
+						UserDAO.getInstance().changeAvatarURL(urlDB, id);
+						System.err.println("GETTTTTTTTT USER ID !!!!!!!!!! " + id);
+						try {
+							Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						model.addAttribute("profilePic", file.getAbsolutePath());
+					}
 					session.setMaxInactiveInterval(3600);
 					session.setAttribute("username", user.getUsername());
-					session.setAttribute("email", request.getParameter("user_email"));
+					session.setAttribute("email", request.getParameter("userEmail"));
 					session.setAttribute("logged", true);
 					session.setAttribute("error", null);
 					session.setAttribute("userID", user.getUserID());
@@ -117,9 +126,9 @@ public class UserController extends HttpServlet{
 
 		boolean userExists = false;	
 		try {
-			userExists = UserDAO.getInstance().checkForUser(request.getParameter("user_email"),request.getParameter("password"));
+			userExists = UserDAO.getInstance().checkForUser(request.getParameter("userEmail"),request.getParameter("password"));
 			if(userExists) {
-				user = UserDAO.getInstance().getUser(request.getParameter("user_email"));
+				user = UserDAO.getInstance().getUser(request.getParameter("userEmail"));
 				session.setMaxInactiveInterval(3600);
 				session.setAttribute("username", user.getUsername());
 				session.setAttribute("email", request.getParameter("user_email"));
@@ -185,7 +194,7 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("POST DELETE MY PROFILE");
-		if(UserDAO.getInstance().deleteAccount(request.getParameter("user_email"), request.getParameter("password"))) {
+		if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
 			session.setAttribute("errorDeleteAccount", null);
 			request.getSession().invalidate();
 			return "login";
@@ -264,7 +273,7 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
 	public String changePasswordPOST(Model model, HttpServletRequest request, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		System.err.println("useremail " + " " + user.getEmail());
+		System.err.println("user email " + " " + user.getEmail());
 		System.err.println("user id " + session.getAttribute("userID"));
 		System.err.println("POST CHANGE PASSWORD");
 		try {
@@ -293,19 +302,18 @@ public class UserController extends HttpServlet{
 		User u = null;
 		try {
 			String email = (String) session.getAttribute("email");
-			String username = (String) session.getAttribute("username");
+			String userID = (String) session.getAttribute("userID");
 
 			try {
 				u = UserDAO.getInstance().getUser(email);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			//		if(u.getPictureURL()!=null) {
 			//			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
 			//			usersPicture.delete();
 			//		}
-			File file = new File(AVATAR_URL + username+"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
+			File file = new File(AVATAR_URL + userID +"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
 			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			try {
 				UserDAO.getInstance().addProfilePic(u);
@@ -327,15 +335,15 @@ public class UserController extends HttpServlet{
 
 		return "home";
 	}
-	
+
 	@RequestMapping(value="/posts", method = RequestMethod.GET)
 	public String posts(Model model, HttpServletRequest request) {
 		System.err.println("GETTTTTTTTT POSTS");
 
 		return "posts";	
 	}
-	
-	
+
+
 	@RequestMapping(value="/mapTest", method = RequestMethod.GET)
 	public String test(Model model, HttpServletRequest request) {
 		System.err.println("GETTTTTTTTT INDEX");

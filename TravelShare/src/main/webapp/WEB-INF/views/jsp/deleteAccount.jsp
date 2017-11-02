@@ -170,7 +170,7 @@ background-color: transparent;
 
 	<form class="login-form" action="deleteAccount" method="post">
 		<p>Please enter your email:</p>
-		<input id="email" type="email" name="user_email" placeholder="email address" onkeyup="return sendInfo()" required="required"/> <br/><br/>
+		<input id="email" type="email" name="email" placeholder="email address" onkeyup="return sendInfo()" required="required"/> <br/><br/>
 		<p>Please enter your password:</p>
 		<input id="password" type="password" name="password" placeholder="password" required="required" /><br/> <br/>
 		<p>Please confirm your password:</p>
