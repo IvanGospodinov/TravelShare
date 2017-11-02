@@ -257,7 +257,7 @@ p {
 		</div>
 		<div class="postImage">
 			<p>Add your images(s)</p>
-			<input type="file" name="picture" multiple />
+			<input type="file" name="picture" multiple required="required"/>
 		</div>
 		<button class="button" type="submit">Submit post</button>
 		<hr>
@@ -286,6 +286,7 @@ p {
 
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
+       
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -298,6 +299,11 @@ p {
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function() {
+        	var src = document.getElementById("pac-input"),
+            dst = document.getElementById("location");
+       // src.addEventListener('input', function() {
+            dst.value = src.value;
+       // });
           var places = searchBox.getPlaces();
 
           if (places.length == 0) {
