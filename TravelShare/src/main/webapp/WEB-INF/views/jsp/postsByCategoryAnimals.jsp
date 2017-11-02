@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Nature Posts</title>
+<title>Animal Posts</title>
 
 <style type="text/css">
 
@@ -54,6 +54,48 @@ body {
 
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
+}
+
+.buttons {
+	border-radius: 15px 50px 30px 5px:    
+	margin-left: 35px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	background: transparent;
+}
+
+#likeButton {
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
+	transform: rotate(360deg);
+	height: 35px;
+	width: 35px;
+}
+
+#dislikeButton {
+	align: middle;
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
+	transform: rotate(180deg);
+	height: 35px;
+	width: 35px;
+}
+
+#loveButton {
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
+	transform: rotate(360deg);
+	height: 35px;
+	width: 35px;
+}
+
+.descriptionBox {
+	border: 1px solid;
+	border-color: black;
+	max-height: 80px;
 }
 
 </style>
@@ -102,6 +144,34 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
+					<h2 class="text" style="color: black">
+					Post Title is
+					"<c:out value="${postTitle}"></c:out>"
+				</h2>
+				<h3 style="color: black" id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
+				</div>
+				<br> <br>
+				<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
+				</div>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
@@ -127,6 +197,36 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
+					
+					<h2 class="text" style="color: black">
+					Post Title is
+					"<c:out value="${postTitle}"></c:out>"
+				</h2>
+				<h3 style="color: black" id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
+				</div>
+				<br> <br>
+				<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
+				</div>
+					
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
@@ -152,7 +252,38 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
+					
+					<h2 class="text" style="color: black">
+					Post Title is
+					"<c:out value="${postTitle}"></c:out>"
+				</h2>
+				<h3 style="color: black" id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
+				</div>
+				<br> <br>
+				<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
+				</div>
+					
 				</tr>
+				
 				<center>
 					<table style="margin-top: 100px">
 						<tr>
@@ -181,6 +312,36 @@ body {
 										System.out.println("Error: " + e);
 									}
 							%>
+							
+							<h2 class="text" style="color: black">
+					Post Title is
+					"<c:out value="${postTitle}"></c:out>"
+				</h2>
+				<h3 style="color: black" id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
+				</div>
+				<br> <br>
+				<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
+				</div>
+							
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
@@ -206,6 +367,36 @@ body {
 										System.out.println("Error: " + e);
 									}
 							%>
+							
+							<h2 class="text" style="color: black">
+					Post Title is
+					"<c:out value="${postTitle}"></c:out>"
+				</h2>
+				<h3 style="color: black" id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
+				</div>
+				<br> <br>
+				<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
+				</div>
+							
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
@@ -231,6 +422,36 @@ body {
 										System.out.println("Error: " + e);
 									}
 							%>
+							
+							<h2 class="text" style="color: black">
+					Post Title is
+					"<c:out value="${postTitle}"></c:out>"
+				</h2>
+				<h3 style="color: black" id="description">Description</h3>
+				<div class="descriptionBox">
+					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
+				</div>
+				<br> <br>
+				<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">543</p>
+					<br>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers">23</p>
+					<br>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers">543</p>
+				</div>
+							
 						</tr>
 					</table>
 				</center>
