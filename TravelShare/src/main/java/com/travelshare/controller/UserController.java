@@ -193,7 +193,7 @@ public class UserController extends HttpServlet{
 
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
-		System.err.println("POST DELETE MY PROFILE");
+		System.err.println("POST DELETE MY PROFILE ------------------ " + request.getParameter("userEmail") + request.getParameter("password"));
 		if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
 			session.setAttribute("errorDeleteAccount", null);
 			request.getSession().invalidate();

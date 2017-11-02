@@ -95,7 +95,7 @@ a {
                  <%
     try{
       String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("email")+"-profile-pic.jpeg");
+      imgName = imgName.concat(session.getAttribute("userID")+"-profile-pic.jpeg");
       BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
