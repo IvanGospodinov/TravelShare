@@ -98,7 +98,7 @@ public class PostDAO {
 		Post post = new Post();
 		try {
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts order by date desc limit 5");
+			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts ORDER BY date DESC limit 5");
 			
 			while(rs.next()) {			
 				int postID = rs.getInt("post_id");
@@ -146,9 +146,9 @@ public class PostDAO {
 				rs.getInt("attachment_id"), 
 				rs.getString("attachment_title"), 
 				rs.getString("attachment_description"), 
-				rs.getDate("attachment_dateupload"),
+				rs.getDate("attachment_date_upload"),
 				rs.getInt("post_id"),
-				rs.getString("attachmentURL"));
+				rs.getString("attachment_photo_url"));
 		System.err.println("VZIMAM ATACHMENT-TA URL-A E " + attachment.getURL());
 		return attachment;
 	}
