@@ -75,14 +75,14 @@ public class PostDAO {
 
 		try {
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts where user_id="+ userID + " order by date desc limit 1" );
+			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts WHERE user_id="+ userID + " order by date desc limit 1" );
 			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
 			rs.next();
 			int postID = rs.getInt(1);
 			System.err.println("POST ID-TO OT BAZATA E " + postID);
-			rs = stmt.executeQuery( "select * from attachments where post_id ="+ postID);
+			rs = stmt.executeQuery( "SELECT * FROM attachments WHERE post_id ="+ postID);
 			rs.next();
-			postPic = rs.getString("attachmentURL");
+			postPic = rs.getString("attachment_photo_url");
 			System.err.println("PYTQ E " + postPic);
 		} catch (SQLException e) {
 			e.printStackTrace();
