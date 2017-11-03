@@ -62,7 +62,22 @@ body {
 <body>
 	<c:if test="${sessionScope.user != null }">
 		<header> <jsp:include page="header.jsp" />
-
+<%
+						try {
+								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
+								session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
+								session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
+								session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
+								session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
+								session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
+								session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
+								%>
+								<%
+						} catch (IOException e) {
+								System.out.println("Error: " + e);
+							}
+					%>
+								
 		<h1 class="text" style="color: black">
 			Hi
 			<c:out value="${name}"></c:out>
@@ -78,10 +93,15 @@ body {
 		<center>
 			<table style="margin-top: 100px">
 				<tr>
+					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
+   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
+   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
+  				</tr>
+				
+				<tr>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
 								String imgName = "C:/";
@@ -103,13 +123,10 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
-					<form action="deletePostt" method="post">
-						<button name="id" type="submit" value="<%session.getAttribute("attachmentID1");%>">Delete Post</button>
-					</form>
+
 					<%
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
@@ -133,7 +150,6 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
@@ -157,11 +173,15 @@ body {
 				</tr>
 				<center>
 					<table style="margin-top: 100px">
+					<tr>
+					<th>Title - "<c:out value="${postTitle4}"></c:out>"</th>
+   					 <th>Title - "<c:out value="${postTitle5}"></c:out>"</th> 
+   					 <th>Title - "<c:out value="${postTitle6}"></c:out>"</th>
+  				</tr>
 						<tr>
 							<%
 								try {
 										Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
@@ -185,7 +205,6 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
@@ -209,7 +228,6 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
