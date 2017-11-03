@@ -35,103 +35,123 @@ public class UserDAO {
 		return instance;
 	}
 
-	public void addProfilePic(User u) throws SQLException {
-		Connection connection = DBConnection.getInstance().getConnection();		  
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement("UPDATE users SET avatar_url = ? WHERE user_id = ?");
-			ps.setString(1, u.getPictureURL());
-			ps.setLong(2, u.getUserID());
-			ps.executeUpdate();
-			ps.close();
-		} catch (SQLException e) {
-			System.out.println("Adding picture url failed!" + e.getMessage());
-			throw e;
+	public void addProfilePic(User user) throws SQLException, UserException {
+		if(user != null) {
+			Connection connection = DBConnection.getInstance().getConnection();		  
+			PreparedStatement ps = null;
+			try {
+				ps = connection.prepareStatement("UPDATE users SET avatar_url = ? WHERE user_id = ?");
+				ps.setString(1, user.getPictureURL());
+				ps.setLong(2, user.getUserID());
+				ps.executeUpdate();
+				ps.close();
+			} catch (SQLException e) {
+				System.out.println("Adding picture url failed!" + e.getMessage());
+				throw e;
+			}
+		} else {
+			throw new UserException();
 		}
 
 	}
 
 	public boolean registerUser(User user) throws UserException {
-		Connection connection = DBConnection.getInstance().getConnection();
+		if(user != null) {
+			Connection connection = DBConnection.getInstance().getConnection();
 
-		try {
-			PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, user.getUsername());
-			ps.setString(2, Encrypter.encrypt(user.getPassword()));
-			ps.setString(3, user.getEmail());
-			ps.setString(4, user.getFirstName());
-			ps.setString(5, user.getLastName());
-			ps.setString(6, null);
+			try {
+				PreparedStatement ps = connection.prepareStatement(INSERT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, user.getUsername());
+				ps.setString(2, Encrypter.encrypt(user.getPassword()));
+				ps.setString(3, user.getEmail());
+				ps.setString(4, user.getFirstName());
+				ps.setString(5, user.getLastName());
+				ps.setString(6, null);
 
-			ps.executeUpdate();
+				ps.executeUpdate();
 
-			ResultSet rs = ps.getGeneratedKeys();
-			rs.next();
-			user.setUserID(rs.getInt(1));
-			new File("/Users/Mumko/Desktop/images/POSTS/"+user.getUserID()).mkdir();
-			return true;
+				ResultSet rs = ps.getGeneratedKeys();
+				rs.next();
+				user.setUserID(rs.getInt(1));
+				new File("/Users/Mumko/Desktop/images/POSTS/"+user.getUserID()).mkdir();
+				return true;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new UserException("User cannot be registered now, please try again later!", e);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new UserException("User cannot be registered now, please try again later!", e);
 
+			}
+		} else  {
+			throw new UserException("User cannot be registered now, please try again later!");
 		}
 	}
 
 	public boolean checkForUser(String email, String password) throws UserException {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(SELECT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, email);
-			ps.setString(2, Encrypter.encrypt(password));
-			ps.executeQuery();
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getInt(1) > 0;
-		} catch (SQLException e) {
-			return false;
+		if((email != null && !email.equals("")) && password != null && !password.equals("")) {
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
+			try {
+				ps = connection.prepareStatement(SELECT_USER_SQL, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, email);
+				ps.setString(2, Encrypter.encrypt(password));
+				ps.executeQuery();
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				return rs.getInt(1) > 0;
+			} catch (SQLException e) {
+				return false;
+			}
+		} else {
+			throw new UserException("Email or password input is incorrect!");
 		}
 	}			
 
-	public User getUser(String email) throws SQLException{
-		Connection con = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(GET_USER_FROM_SQL);
-		ps.setString(1, email);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-
-		User user = new User(
-				rs.getInt("user_id"), 
-				rs.getString("username"), 
-				rs.getString("password"), 
-				rs.getString("first_name"),
-				rs.getString("last_name"),
-				rs.getString("avatar_url"));
-
-		return user;
+	public User getUser(String email) throws SQLException, UserException{
+		if((email != null && !email.equals(""))){
+			Connection con = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(GET_USER_FROM_SQL);
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+	
+			User user = new User(
+					rs.getInt("user_id"), 
+					rs.getString("username"), 
+					rs.getString("password"), 
+					rs.getString("first_name"),
+					rs.getString("last_name"),
+					rs.getString("avatar_url"));
+	
+			return user;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
 	public boolean checkForEmail(String email) throws UserException {
-		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE email LIKE '"+ email + "%'";
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps;
-		try {
-			ps = connection.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
-			while (rs.next()) {
-				return true;
+		if(email != null && !email.equals("")) {
+			final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE email LIKE '"+ email + "%'";
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps;
+			try {
+				ps = connection.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
+				Statement stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
+				while (rs.next()) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new UserException();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new UserException();
+			return false;
+		} else {
+			throw new UserException("Invalid input!");
 		}
-
-		return false;
 	}
-	
+
 	public boolean checkForUsername(String username) throws UserException {
+		if(username != null && !username.equals("")) {
 		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE username LIKE '"+ username + "%'";
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
@@ -148,9 +168,13 @@ public class UserDAO {
 		}
 
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public boolean deleteAccount (String email, String password) {
+	public boolean deleteAccount (String email, String password) throws UserException {
+		if((email != null && !email.equals("")) && password != null && !password.equals("")) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		try {
@@ -158,10 +182,10 @@ public class UserDAO {
 				ps = connection.prepareStatement(DELETE_USER_ACCOUNT);
 				ps.setString(1, email);
 				ps.executeUpdate();
-//				if(checkForUser(email, password)) {
-//					System.err.println("Neshto ne se iztri");
-//					return false;
-//				}
+				//				if(checkForUser(email, password)) {
+				//					System.err.println("Neshto ne se iztri");
+				//					return false;
+				//				}
 				System.err.println("USER DELETED");
 				return true;
 			}
@@ -170,9 +194,13 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public int getUserID(String email) {
+	public int getUserID(String email) throws UserException {
+		if(email != null && !email.equals("")) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		int id = 0;
@@ -189,9 +217,13 @@ public class UserDAO {
 		}
 
 		return id;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public boolean changeFirstName (String name, int userID) {
+	public boolean changeFirstName (String name, int userID) throws UserException {
+		if(name != null && !name.equals("")) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 
@@ -210,9 +242,13 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public boolean changeLastName (String name, int userID) {
+	public boolean changeLastName (String name, int userID) throws UserException {
+		if(name != null && !name.equals("") && (userID > 0)) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 
@@ -231,9 +267,14 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
+		
 
-	public boolean changeUsername (String username, int userID) {
+	public boolean changeUsername (String username, int userID) throws UserException {
+		if(username != null && !username.equals("") && (userID > 0)) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 
@@ -253,12 +294,16 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public boolean changeEmail (String email, int userID) {
+	public boolean changeEmail (String email, int userID) throws UserException {
+		if(email != null && !email.equals("") && (userID > 0)) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
-		
+
 		try {
 			//da proverya syshtestvuva li emaila
 			ps = connection.prepareStatement("UPDATE users SET email = ? WHERE user_id = ?");
@@ -275,9 +320,13 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public boolean changePassword (String newPassword, int userID) {
+	public boolean changePassword (String newPassword, int userID) throws UserException {
+		if(newPassword != null && !newPassword.equals("") && (userID > 0)) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 
@@ -296,9 +345,13 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public boolean changeAvatarURL (String URL, int userID) {
+	public boolean changeAvatarURL (String URL, int userID) throws UserException {
+		if(URL != null && !URL.equals("") && (userID > 0)) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 
@@ -317,32 +370,36 @@ public class UserDAO {
 		}
 		System.err.println("NO SUCH USER");
 		return false;
+		} else {
+			throw new UserException("Invalid input!");
+		}
 	}
 
-	public User getTopUsers () {
+	public User getTopUsers () throws UserException {
 		System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
 		Connection connection = DBConnection.getInstance().getConnection();
 		User user = new User();
 		Statement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery( "SELECT * FROM users ORDER BY avatar_url ASC" );
 			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
 			while ( rs.next() || user.getPosts().size()<5) {
-				System.out.println("USER-A " + UserDAO.getInstance().getUser(rs.getString("email")));
+				//System.out.println("USER-A " + UserDAO.getInstance().getUser(rs.getString("email")));
 				user.getPosts().add(UserDAO.getInstance().getUser(rs.getString("email")));
 				//user.getPosts().add(rs.getString("user_pictureURL"));
 				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("email"));
 			}		 			
-		} catch (SQLException e) {
+		} catch (SQLException | UserException e) {
 			e.printStackTrace();
+			throw new UserException("Error in the DB");
 		}
 		return user;
 	}
-	
-	
+
+
 	public synchronized void followUser(int followerId, int followedId) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
@@ -356,56 +413,56 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 	public synchronized void unfollowUser(int followerId, int followedId){
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		try {
-		ps=connection.prepareStatement("DELETE FROM users_has_followers WHERE user_id=? AND users_follower_id=?");
-		ps.setInt(1, followedId);
-		ps.setInt(2, followerId);
-		ps.executeUpdate();
-	
-	} catch (SQLException e) {
-		System.out.println("NE MOVE DA SE Premahne SLEDWANE ");
-		e.printStackTrace();
+			ps=connection.prepareStatement("DELETE FROM users_has_followers WHERE user_id=? AND users_follower_id=?");
+			ps.setInt(1, followedId);
+			ps.setInt(2, followerId);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("NE MOVE DA SE Premahne SLEDWANE ");
+			e.printStackTrace();
+		}
 	}
-}
-	
-	
+
+
 	public synchronized LinkedHashSet<User> getFollowers(User u) {
 		Connection connection=DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		LinkedHashSet<User> followers=new LinkedHashSet<>();
 		try {
 			ps=connection.prepareStatement("SELECT users.user_id, "
-												  + "users.username, " 
-												  + "users.password, " 
-									              + "users.email, " 
-									              + "users.first_name, "
-									              + "users.last_name, "
-									              + "users.avatar_url, "
-				                                  + "FROM users "
-				                                  + "JOIN users_has_followers "
-				                                  + "ON users.user_id=users_has_followers.users_follower_id"
-				                                  + "WHERE users_has_followers.user_id=?");
-		ps.setInt(1, u.getUserID());
-		ResultSet rs=ps.executeQuery();
-		
-	
-		while(rs.next()){
-			followers.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
-					               rs.getString(6)));
-		}
-		//return followers;
-		
+					+ "users.username, " 
+					+ "users.password, " 
+					+ "users.email, " 
+					+ "users.first_name, "
+					+ "users.last_name, "
+					+ "users.avatar_url, "
+					+ "FROM users "
+					+ "JOIN users_has_followers "
+					+ "ON users.user_id=users_has_followers.users_follower_id"
+					+ "WHERE users_has_followers.user_id=?");
+			ps.setInt(1, u.getUserID());
+			ResultSet rs=ps.executeQuery();
+
+
+			while(rs.next()){
+				followers.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
+						rs.getString(6)));
+			}
+			//return followers;
+
 		} catch (SQLException e) {
 			System.out.println("NE MOVE DA SE VZEMAT POSLEDOVATELITE ");
 			e.printStackTrace();
 		}
 		return followers;
 	}
-	
+
 }

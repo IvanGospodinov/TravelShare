@@ -196,10 +196,15 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("POST DELETE MY PROFILE ------------------ " + request.getParameter("userEmail") + request.getParameter("password"));
-		if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
-			session.setAttribute("errorDeleteAccount", null);
-			request.getSession().invalidate();
-			return "login";
+		try {
+			if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
+				session.setAttribute("errorDeleteAccount", null);
+				request.getSession().invalidate();
+				return "login";
+			}
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} 
 		session.setAttribute("errorDeleteAccount", "Wrong Email Address or password!");
 		return "deleteAccount";	
@@ -214,37 +219,62 @@ public class UserController extends HttpServlet{
 			System.err.println("AVATAR");
 		}
 		if(request.getParameter("firstName") != null) {
-			if(UserDAO.getInstance().changeFirstName(request.getParameter("firstName"), (int)session.getAttribute("userID"))) {
-				user.setFirstName(request.getParameter("firstName"));
-				response.addCookie(new Cookie("name", user.getFirstName()));
-				System.err.println("FIRST NAME CHANGED");
-				return "myProfile";
+			try {
+				if(UserDAO.getInstance().changeFirstName(request.getParameter("firstName"), (int)session.getAttribute("userID"))) {
+					user.setFirstName(request.getParameter("firstName"));
+					response.addCookie(new Cookie("name", user.getFirstName()));
+					System.err.println("FIRST NAME CHANGED");
+					return "myProfile";
+				}
+			} catch (UserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if(request.getParameter("lastName") != null) {
-			if(UserDAO.getInstance().changeLastName(request.getParameter("lastName"), (int)session.getAttribute("userID"))) {
-				user.setLastName(request.getParameter("lastName"));
-				System.err.println("LAST CHANGED");
-				return "myProfile";
+			try {
+				if(UserDAO.getInstance().changeLastName(request.getParameter("lastName"), (int)session.getAttribute("userID"))) {
+					user.setLastName(request.getParameter("lastName"));
+					System.err.println("LAST CHANGED");
+					return "myProfile";
+				}
+			} catch (UserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if(request.getParameter("email") != null) {
-			if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
-				user.setEmail(request.getParameter("email"));
-				session.setAttribute("email", request.getParameter("email"));
-				String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
-				user.setPictureURL(URL);
-				UserDAO.getInstance().changeAvatarURL(URL, (int)session.getAttribute("userID"));
-				System.err.println("EMAIL CHANGED");
-				return "myProfile";
+			try {
+				if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
+					user.setEmail(request.getParameter("email"));
+					session.setAttribute("email", request.getParameter("email"));
+					String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
+					user.setPictureURL(URL);
+					try {
+						UserDAO.getInstance().changeAvatarURL(URL, (int)session.getAttribute("userID"));
+					} catch (UserException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.err.println("EMAIL CHANGED");
+					return "myProfile";
+				}
+			} catch (UserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if(request.getParameter("username") != null) {
-			if(UserDAO.getInstance().changeUsername(request.getParameter("username"), (int)session.getAttribute("userID"))) {
-				user.setUsername(request.getParameter("username"));
-				session.setAttribute("username",request.getParameter("username"));
-				System.err.println("USERNAME CHANGED");
-				return "myProfile";
+			try {
+				if(UserDAO.getInstance().changeUsername(request.getParameter("username"), (int)session.getAttribute("userID"))) {
+					user.setUsername(request.getParameter("username"));
+					session.setAttribute("username",request.getParameter("username"));
+					System.err.println("USERNAME CHANGED");
+					return "myProfile";
+				}
+			} catch (UserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		System.err.println("NE GO NAMIRA");
@@ -308,8 +338,9 @@ public class UserController extends HttpServlet{
 
 			try {
 				u = UserDAO.getInstance().getUser(email);
-			} catch (SQLException e1) {
+			} catch (SQLException | UserException e1) {
 				e1.printStackTrace();
+				
 			}
 			//		if(u.getPictureURL()!=null) {
 			//			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
@@ -321,7 +352,7 @@ public class UserController extends HttpServlet{
 				UserDAO.getInstance().addProfilePic(u);
 				model.addAttribute("profilePic", file.getAbsolutePath());
 				//errorMsg= "Picture successfully uploaded!";
-			} catch (SQLException e) {
+			} catch (SQLException | UserException e) {
 				e.printStackTrace();
 				//errorMsg = "something went wrong, please try again later";
 			}
@@ -381,6 +412,12 @@ public class UserController extends HttpServlet{
 		return "home";	
 	}
 
+	@RequestMapping(value="/forgotPassword", method = RequestMethod.GET)
+	public String forgotPassword(Model model, HttpServletRequest request) {
+		System.err.println("DELETE GET");
 
+		return "forgotPassword";	
+	}
+	
 
 }
