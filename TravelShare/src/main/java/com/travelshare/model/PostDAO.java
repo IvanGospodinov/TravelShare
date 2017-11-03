@@ -29,7 +29,10 @@ public class PostDAO {
 	private static final String INSERT_POST_SQL = "INSERT INTO posts VALUES (null,?,?,?,?,?,?,?)";
 	private static final String INSERT_ATTACHMENT_SQL = "INSERT INTO attachments VALUES (null,?,?,?,?,?)";
 	private static final String GET_ATTACHMENT_FROM_SQL = "SELECT * FROM attachments WHERE post_id =?";
+	//private static final String GET_POST_ID = "SELECT post_id FROM attachments WHERE attachment_id =?"
+	private static final String DELETE_POST = "DELETE FROM posts WHERE post_id = ?";
 
+	//SELECT post_id FROM attachments WHERE attachment_id =
 	public int createPost(Post post, String URL) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();	
 		try {
@@ -99,7 +102,7 @@ public class PostDAO {
 		try {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts ORDER BY date DESC limit 5");
-			
+
 			while(rs.next()) {			
 				int postID = rs.getInt("post_id");
 				System.err.println("TOP USERS - POST ID-TO OT BAZATA E " + postID);
@@ -111,7 +114,7 @@ public class PostDAO {
 		}
 		return post;
 	}
-	
+
 	public Post getLastThreePostsByCategory(int categoryID) {
 		System.err.println("CATEGORY - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -132,7 +135,7 @@ public class PostDAO {
 		}
 		return post;
 	}
-	
+
 	public Post getMyPosts(int userID) {
 		System.err.println("MY POSTS - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -172,5 +175,42 @@ public class PostDAO {
 		return attachment;
 	}
 
+	public int getPostID(int attachmentID) {
+		System.err.println("GET POST ID");
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		int id = 0;
+		try {
+			ps = connection.prepareStatement("SELECT post_id AS post_id FROM attachments WHERE attachment_id =?", Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, attachmentID);
+			ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			System.err.println("POST ID IS " + rs.getInt(1));
+			id = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return id;
+	}
+
+	public boolean deletePost (int attachmentID) {
+		System.err.println("DELET POST");
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		int postID = getPostID(attachmentID);
+		try {
+			ps = connection.prepareStatement(DELETE_POST);
+			ps.setInt(1, postID);
+			ps.executeUpdate();
+			System.err.println("POST IS DELETED");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.err.println("POST IS NOT DELETED");
+		return false;
+	}
 
 }

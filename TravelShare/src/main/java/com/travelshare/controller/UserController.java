@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.travelshare.model.PostDAO;
 import com.travelshare.model.User;
 import com.travelshare.model.UserDAO;
 import com.travelshare.util.UserException;
@@ -344,12 +345,20 @@ public class UserController extends HttpServlet{
 	}
 
 
-/*	@RequestMapping(value="/mapTest", method = RequestMethod.GET)
+	@RequestMapping(value="/deletePostt", method = RequestMethod.GET)
 	public String test(Model model, HttpServletRequest request) {
-		System.err.println("GETTTTTTTTT INDEX");
+		System.err.println("DELETE GET");
 
-		return "mapTest";	
-	}*/
+		return "deletePost";	
+	}
+	@RequestMapping(value="/deletePostt", method = RequestMethod.POST)
+	public String test1(Model model, HttpServletRequest request) {
+		System.err.println("DELETE GET");
+		int id =  Integer.valueOf(request.getParameter("id"));
+		PostDAO.getInstance().deletePost(id);
+
+		return "home";	
+	}
 
 
 

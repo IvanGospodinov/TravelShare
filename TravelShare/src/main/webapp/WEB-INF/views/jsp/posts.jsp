@@ -143,6 +143,10 @@
 		<header>
 			<jsp:include page="header.jsp" />
 			<!--BODY-->
+
+			<header>
+				<link rel="import" href="header.html">
+			</header>
 			<h1 class="text" style="color: black">
 				Hi
 				<c:out value="${name}"></c:out>
@@ -456,6 +460,11 @@
 			</div>
 
 		</footer>
+
+		<script type="text/javascript">
+
+
+</script>
 
 	</c:if>
 	<c:if test="${sessionScope.user == null }">

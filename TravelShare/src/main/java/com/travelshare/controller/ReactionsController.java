@@ -40,62 +40,6 @@ public class ReactionsController {
 	
 	
 	
-	private List<User> userList = new ArrayList<User>();
-		
-	 
-	
-	    @RequestMapping(value="/mapTest",method=RequestMethod.GET)
-	
-	    public String showForm(){
-	
-	        return "mapTest";
-	
-	    }
-	
-	 
-	
-	    @RequestMapping(value="/mapTest",method=RequestMethod.POST)
-	
-	@ResponseBody String addUser(@ModelAttribute(value="user") User user, BindingResult result ){
-	
-	        String returnText;
-	
-	      if(!result.hasErrors()){
-	
-	            userList.add(user);
-	
-	            returnText = "User has been added to the list. Total number of users are " + userList.size();
-	
-	        }else{
-	
-	            returnText = "Sorry, an error has occur. User has not been added to list.";
-	
-	        }
-	
-	        return returnText;
-	
-	    }
-	
-	 
-	
-	    @RequestMapping(value="/test.htm")
-	
-	    public String showUsers(ModelMap model){
-	
-	        model.addAttribute("Users", userList);
-	
-	        return "test";
-	
-	    }
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
