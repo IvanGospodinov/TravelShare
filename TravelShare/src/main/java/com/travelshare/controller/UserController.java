@@ -195,6 +195,7 @@ public class UserController extends HttpServlet{
 
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
+		if(request.getSession().getId() != null) {
 		System.err.println("POST DELETE MY PROFILE ------------------ " + request.getParameter("userEmail") + request.getParameter("password"));
 		try {
 			if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
@@ -208,10 +209,15 @@ public class UserController extends HttpServlet{
 		} 
 		session.setAttribute("errorDeleteAccount", "Wrong Email Address or password!");
 		return "deleteAccount";	
+		} else {
+			request.getSession().invalidate();
+			return "login";
+		}
 	}
 
 	@RequestMapping(value="/updateProfile", method = RequestMethod.POST)
 	public String updateProfile(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		if(request.getSession().getId() != null) {
 		User user = (User) session.getAttribute("user");
 		System.err.println("USER ID "+ user + (int)session.getAttribute("userID"));
 		System.err.println("POST UPDATE MY PROFILE");
@@ -279,14 +285,23 @@ public class UserController extends HttpServlet{
 		}
 		System.err.println("NE GO NAMIRA");
 		return "myProfile";	
+		} else {
+			request.getSession().invalidate();
+			return "login";
+		}
 	}
 
 	@RequestMapping(value="/changePassword", method = RequestMethod.GET)
 	public String changePasswordGET(Model model, HttpServletRequest request, HttpSession session) {
+		if(request.getSession().getId() != null) {
 		System.err.println("GETTTTTTTTT CHANGE PASSWORD " + session.getAttribute("user")+ " " + session.getAttribute("userID"));
 		System.err.println("user id " + session.getAttribute("userID"));
 
 		return "changePassword";	
+		} else {
+			request.getSession().invalidate();
+			return "login";
+		}
 	}
 
 	@RequestMapping(value="/sendEmail", method = RequestMethod.GET)
@@ -304,6 +319,7 @@ public class UserController extends HttpServlet{
 
 	@RequestMapping(value="/changePassword", method = RequestMethod.POST)
 	public String changePasswordPOST(Model model, HttpServletRequest request, HttpSession session) {
+		if(request.getSession().getId() != null) {
 		User user = (User) session.getAttribute("user");
 		System.err.println("user email " + " " + user.getEmail());
 		System.err.println("user id " + session.getAttribute("userID"));
@@ -327,10 +343,15 @@ public class UserController extends HttpServlet{
 
 		System.err.println("PASSWORD IS NOT CHANGED");
 		return "changePassword";	
+		} else {
+			request.getSession().invalidate();
+			return "login";
+		}
 	}
 
 	@RequestMapping(value="/uploadPicture", method=RequestMethod.POST)
 	public String changeAvatar(@RequestParam("picture") MultipartFile multiPartFile,HttpServletResponse response, Model model,HttpServletRequest request, HttpSession session) {
+		if(request.getSession().getId() != null) {
 		User u = null;
 		try {
 			String email = (String) session.getAttribute("email");
@@ -367,6 +388,10 @@ public class UserController extends HttpServlet{
 		//errorMsg=null;
 
 		return "home";
+		} else {
+			request.getSession().invalidate();
+			return "login";
+		}
 	}
 
 	@RequestMapping(value="/posts", method = RequestMethod.GET)
@@ -384,6 +409,7 @@ public class UserController extends HttpServlet{
 	}
 	@RequestMapping(value="/deletePost", method = RequestMethod.POST)
 	public String test1(Model model, HttpServletRequest request,HttpSession session) {
+		if(request.getSession().getId() != null) {
 		if(request.getParameter("button1") != null) {
 			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID1"));
 			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -410,6 +436,10 @@ public class UserController extends HttpServlet{
 		}
 
 		return "home";	
+		} else {
+			request.getSession().invalidate();
+			return "login";
+		}
 	}
 
 	@RequestMapping(value="/forgotPassword", method = RequestMethod.GET)

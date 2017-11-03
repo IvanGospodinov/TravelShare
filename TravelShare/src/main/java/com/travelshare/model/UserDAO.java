@@ -6,9 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -55,7 +53,7 @@ public class UserDAO {
 
 	}
 
-	public boolean registerUser(User user) throws UserException {
+	public synchronized boolean registerUser(User user) throws UserException {
 		if(user != null) {
 			Connection connection = DBConnection.getInstance().getConnection();
 
@@ -173,7 +171,7 @@ public class UserDAO {
 		}
 	}
 
-	public boolean deleteAccount (String email, String password) throws UserException {
+	public synchronized boolean deleteAccount (String email, String password) throws UserException {
 		if((email != null && !email.equals("")) && password != null && !password.equals("")) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
