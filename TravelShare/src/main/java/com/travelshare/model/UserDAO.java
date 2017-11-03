@@ -343,8 +343,8 @@ public class UserDAO {
 		PreparedStatement ps = null;
 		try {
 		ps=connection.prepareStatement("DELETE FROM users_has_followers WHERE user_id=? AND users_follower_id=?");
-		ps.setInt(1, followerId);
-		ps.setInt(2, followedId);
+		ps.setInt(1, followedId);
+		ps.setInt(2, followerId);
 		ps.executeUpdate();
 	
 	} catch (SQLException e) {
