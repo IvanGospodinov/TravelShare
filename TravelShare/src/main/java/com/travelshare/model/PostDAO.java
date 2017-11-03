@@ -157,21 +157,29 @@ public class PostDAO {
 		return post;
 	}
 
-	public Attachment getAttachment(int postID) throws SQLException{
+	public Attachment getAttachment(int postID) {
 		Connection con = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = con.prepareStatement(GET_ATTACHMENT_FROM_SQL);
-		ps.setInt(1, postID);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		System.out.println("TOP USERS - TUKA VLIZA LI IZOBSHTO");
-		Attachment attachment = new Attachment(
-				rs.getInt("attachment_id"), 
-				rs.getString("attachment_title"), 
-				rs.getString("attachment_description"), 
-				rs.getDate("attachment_date_upload"),
-				rs.getInt("post_id"),
-				rs.getString("attachment_photo_url"));
-		System.err.println("VZIMAM ATACHMENT-TA URL-A E " + attachment.getURL());
+		PreparedStatement ps;
+		Attachment attachment = null;
+		
+		try {
+			ps = con.prepareStatement(GET_ATTACHMENT_FROM_SQL);
+			ps.setInt(1, postID);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			System.out.println("TOP USERS - TUKA VLIZA LI IZOBSHTO");
+			attachment = new Attachment(
+					rs.getInt("attachment_id"), 
+					rs.getString("attachment_title"), 
+					rs.getString("attachment_description"), 
+					rs.getDate("attachment_date_upload"),
+					rs.getInt("post_id"),
+					rs.getString("attachment_photo_url"));
+			System.err.println("VZIMAM ATACHMENT-TA URL-A E " + attachment.getURL());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return attachment;
 	}
 

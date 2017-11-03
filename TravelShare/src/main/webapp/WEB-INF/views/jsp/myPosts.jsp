@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>My Posts</title>
+<title>| <c:out value="${name}"></c:out>'s Posts |</title>
 
 <style type="text/css">
 body {
@@ -30,16 +30,13 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
-
 .text {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
 	text-align: center;
 	color: black;
 }
-
 @import "compass/css3";
-
 .hvr-grow {
 	display: inline-block;
 	transform: translateZ(0);
@@ -50,7 +47,6 @@ body {
 	transition-property: transform;
 	float: left;
 }
-
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
 }
@@ -60,56 +56,27 @@ body {
 
 </head>
 <body>
+
 	<c:if test="${sessionScope.user != null }">
 		<header> <jsp:include page="header.jsp" />
-<%
-						try {
-								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-								session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
-								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
-								session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
-								session.setAttribute("attachmentID2", post.getAttachments().get(1).getAttachmentID());
-								session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
-								session.setAttribute("attachmentID3", post.getAttachments().get(2).getAttachmentID());
-								session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
-								session.setAttribute("attachmentID4", post.getAttachments().get(3).getAttachmentID());
-								session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
-								session.setAttribute("attachmentID5", post.getAttachments().get(4).getAttachmentID());
-								session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
-								session.setAttribute("attachmentID6", post.getAttachments().get(5).getAttachmentID());
-								%>
-								<%
-						} catch (IOException e) {
-								System.out.println("Error: " + e);
-							}
-					%>
-								
+
 		<h1 class="text" style="color: black">
 			Hi
 			<c:out value="${name}"></c:out>
 		</h1>
 		<br>
-		<h1 class="text" style="color: black">
-			Here are the latest posts from our
-			<c:out value="${category}"></c:out>
-			category
-		</h1>
+		<h1 class="text" style="color: black">Here are your latest posts</h1>
 		<hr class="descriptionBox">
 
 		<center>
 			<table style="margin-top: 100px">
 				<tr>
-					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
-   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
-   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
-  				</tr>
-				
-				<tr>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-								//session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
+								Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
+								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
+								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -121,19 +88,20 @@ body {
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
 					<td style="padding-right: 150px; padding-bottom: 20px"><a
-						class="hvr-grow" href="TravelShare/deletePostt"> <img
-							id="image" width="300" height="300" class="img-responsive"
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
 							}
 					%>
-	
 					<%
 						try {
-								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
+								Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
+								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
+								session.setAttribute("attachmentID2", post.getAttachments().get(0).getAttachmentID());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -155,8 +123,10 @@ body {
 					%>
 					<%
 						try {
-								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
+							Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
+								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								session.setAttribute("attachmentID3", post.getAttachments().get(0).getAttachmentID());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -167,9 +137,9 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 20px"><a class="hvr-grow"
-						href="TravelShare/home"> <img id="image" width="300"
-							height="300" class="img-responsive"
+					<td style="padding-bottom: 20px"><a
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
 					<%
 						} catch (IOException e) {
@@ -177,9 +147,10 @@ body {
 							}
 					%>
 				</tr>
+				</table>
+				</center>
 				
-					
-				
+						
 		<center>
 			<table>
 				<tr>
@@ -193,20 +164,15 @@ body {
   			</table>
   		</center>
 				
-				
-				
 				<center>
 					<table style="margin-top: 100px">
-					<tr>
-					<th style="padding-bottom: 20px">Title - "<c:out value="${postTitle4}"></c:out>"</th>
-   					 <th>Title - "<c:out value="${postTitle5}"></c:out>"</th> 
-   					 <th >Title - "<c:out value="${postTitle6}"></c:out>"</th>
-  				</tr>
 						<tr>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
+									Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
+										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										session.setAttribute("attachmentID4", post.getAttachments().get(0).getAttachmentID());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -218,9 +184,9 @@ body {
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
 							<td style="padding-right: 150px; padding-bottom: 20px"><a
-								class="hvr-grow" href="TravelShare/home"> <img id="image"
-									width="300" height="300" class="img-responsive"
-									src="data:image/jpg;base64, <%=b64%>" /></a></td>
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="300" height="300" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a></td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -228,8 +194,10 @@ body {
 							%>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
+									Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
+										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
+										session.setAttribute("attachmentID5", post.getAttachments().get(0).getAttachmentID());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -241,9 +209,9 @@ body {
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
 							<td style="padding-right: 150px; padding-bottom: 20px"><a
-								class="hvr-grow" href="TravelShare/home"> <img id="image"
-									width="300" height="300" class="img-responsive"
-									src="data:image/jpg;base64, <%=b64%>" /></a></td>
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="300" height="300" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a></td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -251,8 +219,10 @@ body {
 							%>
 							<%
 								try {
-										Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
+									Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
+										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
+										session.setAttribute("attachmentID6", post.getAttachments().get(0).getAttachmentID());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -263,10 +233,10 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 20px"><a class="hvr-grow"
-								href="TravelShare/home"> <img id="image" width="300"
-									height="300" class="img-responsive"
-									src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							<td padding-bottom: 20px"><a
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="300" height="300" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a></td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -275,25 +245,25 @@ body {
 						</tr>
 					</table>
 				</center>
-
-		<center>
+				
+				<center>
 			<table>
 				<tr>
-					<th style="padding-right: 340px; padding-bottom: 60px"><form name="button4" method="post" action="deletePost">
+					<th style="padding-right: 340px; padding-bottom: 80px"><form name="button4" method="post" action="deletePost">
 <button type="submit" name="button4" />Delete this post</button></form></th>
-   					 <th style="padding-right: 320px; padding-bottom: 60px"><form name="button5" method="post" action="deletePost">
+   					 <th style="padding-right: 320px; padding-bottom: 80px"><form name="button5" method="post" action="deletePost">
 <button type="submit" name="button5" />Delete this post</button></form></th> 
-   					 <th style="padding-right: 150px; padding-bottom: 60px"><form name="button6" method="post" action="deletePost">
+   					 <th style="padding-right: 150px; padding-bottom: 80px"><form name="button6" method="post" action="deletePost">
 <button type="submit" name="button6" />Delete this post</button></form></th>
   				</tr>
   			</table>
   		</center>
 
-
 				</header>
 				<div class="footer">
 					<jsp:include page="footer.jsp" />
 				</div>
-				</c:if>
+				<jsp:include page="footer.jsp" />
+	</c:if>
 </body>
 </html>

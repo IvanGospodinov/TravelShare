@@ -16,10 +16,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Animal Posts</title>
+<title>| Animal Posts |</title>
 
 <style type="text/css">
-
 body {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
@@ -31,16 +30,13 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
-
 .text {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
 	text-align: center;
 	color: black;
 }
-
 @import "compass/css3";
-
 .hvr-grow {
 	display: inline-block;
 	transform: translateZ(0);
@@ -51,53 +47,9 @@ body {
 	transition-property: transform;
 	float: left;
 }
-
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
 }
-
-.buttons {
-	border-radius: 15px 50px 30px 5px:    
-	margin-left: 35px;
-	margin-top: 10px;
-	margin-bottom: 20px;
-	background: transparent;
-}
-
-#likeButton {
-	margin-left: 25px;
-	margin-right: 25px;
-	padding-left: 0px;
-	transform: rotate(360deg);
-	height: 35px;
-	width: 35px;
-}
-
-#dislikeButton {
-	align: middle;
-	margin-left: 25px;
-	margin-right: 25px;
-	padding-left: 0px;
-	transform: rotate(180deg);
-	height: 35px;
-	width: 35px;
-}
-
-#loveButton {
-	margin-left: 25px;
-	margin-right: 25px;
-	padding-left: 0px;
-	transform: rotate(360deg);
-	height: 35px;
-	width: 35px;
-}
-
-.descriptionBox {
-	border: 1px solid;
-	border-color: black;
-	max-height: 80px;
-}
-
 </style>
 
 
@@ -107,34 +59,6 @@ body {
 
 	<c:if test="${sessionScope.user != null }">
 		<header> <jsp:include page="header.jsp" />
-
-<%
- 	try {
- 			Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
- 			if(post.getAttachments().get(0).getTitle() != null) {
- 			session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
- 			}
- 			if(post.getAttachments().get(1).getTitle() != null) {
- 	 			session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
- 	 			}
- 			if(post.getAttachments().get(2).getTitle() != null) {
- 	 			session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
- 	 			}
- 			if(post.getAttachments().get(3).getTitle() != null) {
- 	 			session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
- 	 			}
- 			if(post.getAttachments().get(4).getTitle() != null) {
- 	 			session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
- 	 			}
- 			if(post.getAttachments().get(5).getTitle() != null) {
- 	 			session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
- 	 			}
- %> <%
- 	} catch (IOException e) {
- 			System.out.println("Error: " + e);
- 		}
- %>
-
 
 		<h1 class="text" style="color: black">
 			Hi
@@ -146,16 +70,13 @@ body {
 
 		<center>
 			<table style="margin-top: 100px">
-			<tr>
-					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
-   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
-   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
-  				</tr>
 				<tr>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -166,7 +87,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 150px"><a
+					<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -175,38 +96,12 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
-					<h2 class="text" style="color: black">
-					Post Title is
-					"<c:out value="${postTitle}"></c:out>"
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
-				</div>
-				<br> <br>
-				<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">543</p>
-					<br>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">23</p>
-					<br>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-					<p id="numbers">543</p>
-				</div>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(1).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -217,7 +112,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 150px"><a
+					<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -226,40 +121,12 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
-					
-					<h2 class="text" style="color: black">
-					Post Title is
-					"<c:out value="${postTitle}"></c:out>"
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
-				</div>
-				<br> <br>
-				<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">543</p>
-					<br>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">23</p>
-					<br>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-					<p id="numbers">543</p>
-				</div>
-					
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -270,7 +137,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 150px"><a
+					<td style="padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -279,50 +146,16 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
-					
-					<h2 class="text" style="color: black">
-					Post Title is
-					"<c:out value="${postTitle}"></c:out>"
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
-				</div>
-				<br> <br>
-				<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">543</p>
-					<br>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">23</p>
-					<br>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-					<p id="numbers">543</p>
-				</div>
-					
 				</tr>
-				
 				<center>
 					<table style="margin-top: 100px">
-					<tr>
-					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
-   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
-   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
-  				</tr>
 						<tr>
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
+										//session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -333,7 +166,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 150px"><a
+							<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -342,40 +175,11 @@ body {
 										System.out.println("Error: " + e);
 									}
 							%>
-							
-							<h2 class="text" style="color: black">
-					Post Title is
-					"<c:out value="${postTitle}"></c:out>"
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
-				</div>
-				<br> <br>
-				<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">543</p>
-					<br>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">23</p>
-					<br>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-					<p id="numbers">543</p>
-				</div>
-							
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
+										//session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
@@ -387,7 +191,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 150px"><a
+							<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -396,40 +200,11 @@ body {
 										System.out.println("Error: " + e);
 									}
 							%>
-							
-							<h2 class="text" style="color: black">
-					Post Title is
-					"<c:out value="${postTitle}"></c:out>"
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
-				</div>
-				<br> <br>
-				<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">543</p>
-					<br>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">23</p>
-					<br>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-					<p id="numbers">543</p>
-				</div>
-							
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
+										//session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
@@ -441,7 +216,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 150px"><a
+							<td style="padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -450,36 +225,6 @@ body {
 										System.out.println("Error: " + e);
 									}
 							%>
-							
-							<h2 class="text" style="color: black">
-					Post Title is
-					"<c:out value="${postTitle}"></c:out>"
-				</h2>
-				<h3 style="color: black" id="description">Description</h3>
-				<div class="descriptionBox">
-					<h4 style="color: white" id="description"><c:out value="${postDescription}"></c:out></h4>
-				</div>
-				<br> <br>
-				<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">543</p>
-					<br>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<p id="numbers">23</p>
-					<br>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-					<p id="numbers">543</p>
-				</div>
-							
 						</tr>
 					</table>
 				</center>

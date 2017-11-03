@@ -16,10 +16,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Food Posts</title>
+<title>| Food Posts |</title>
 
 <style type="text/css">
-
 body {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
@@ -31,16 +30,13 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
-
 .text {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
 	text-align: center;
 	color: black;
 }
-
 @import "compass/css3";
-
 .hvr-grow {
 	display: inline-block;
 	transform: translateZ(0);
@@ -51,46 +47,18 @@ body {
 	transition-property: transform;
 	float: left;
 }
-
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
 }
-
 </style>
+
+
 
 </head>
 <body>
 
 	<c:if test="${sessionScope.user != null }">
 		<header> <jsp:include page="header.jsp" />
-
-		<%
- 	try {
- 			Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
- 			if(post.getAttachments().get(0).getTitle() != null) {
- 			session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
- 			}
- 			if(post.getAttachments().get(1).getTitle() != null) {
- 	 			session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
- 	 			}
- 			if(post.getAttachments().get(2).getTitle() != null) {
- 	 			session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
- 	 			}
- 			if(post.getAttachments().get(3).getTitle() != null) {
- 	 			session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
- 	 			}
- 			if(post.getAttachments().get(4).getTitle() != null) {
- 	 			session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
- 	 			}
- 			if(post.getAttachments().get(5).getTitle() != null) {
- 	 			session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
- 	 			}
- %> <%
- 	} catch (IOException e) {
- 			System.out.println("Error: " + e);
- 		}
- %>
-
 
 		<h1 class="text" style="color: black">
 			Hi
@@ -102,15 +70,11 @@ body {
 
 		<center>
 			<table style="margin-top: 100px">
-			<tr>
-					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
-   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
-   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
-  				</tr>
 				<tr>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
+								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
@@ -122,7 +86,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 150px"><a
+					<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -134,6 +98,7 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
+								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
@@ -145,7 +110,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 150px"><a
+					<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -157,7 +122,9 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
+								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -168,7 +135,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 150px"><a
+					<td style="padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -180,16 +147,13 @@ body {
 				</tr>
 				<center>
 					<table style="margin-top: 100px">
-					<tr>
-					<th>Title - "<c:out value="${postTitle4}"></c:out>"</th>
-   					 <th>Title - "<c:out value="${postTitle5}"></c:out>"</th> 
-   					 <th>Title - "<c:out value="${postTitle6}"></c:out>"</th>
-  				</tr>
 						<tr>
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
+										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -200,7 +164,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 150px"><a
+							<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -212,7 +176,9 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
+										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
+										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -223,7 +189,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 150px"><a
+							<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -235,7 +201,9 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
+										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
+										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -246,7 +214,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 150px"><a
+							<td style="padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>

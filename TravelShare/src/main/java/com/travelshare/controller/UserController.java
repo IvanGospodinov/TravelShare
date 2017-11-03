@@ -343,8 +343,7 @@ public class UserController extends HttpServlet{
 
 		return "posts";	
 	}
-
-
+	
 	@RequestMapping(value="/deletePost", method = RequestMethod.GET)
 	public String test(Model model, HttpServletRequest request) {
 		System.err.println("DELETE GET");

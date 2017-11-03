@@ -44,6 +44,19 @@
 	float: left;
 }
 
+body {
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
+	background:
+		url("https://static.pexels.com/photos/229014/pexels-photo-229014.jpeg")
+		no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
 }
@@ -143,10 +156,6 @@
 		<header>
 			<jsp:include page="header.jsp" />
 			<!--BODY-->
-
-			<header>
-				<link rel="import" href="header.html">
-			</header>
 			<h1 class="text" style="color: black">
 				Hi
 				<c:out value="${name}"></c:out>
@@ -460,11 +469,6 @@
 			</div>
 
 		</footer>
-
-		<script type="text/javascript">
-
-
-</script>
 
 	</c:if>
 	<c:if test="${sessionScope.user == null }">
