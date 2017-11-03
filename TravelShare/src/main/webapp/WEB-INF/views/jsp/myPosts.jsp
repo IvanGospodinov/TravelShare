@@ -68,10 +68,15 @@ body {
 								session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
 								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
 								session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
+								session.setAttribute("attachmentID2", post.getAttachments().get(1).getAttachmentID());
 								session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
+								session.setAttribute("attachmentID3", post.getAttachments().get(2).getAttachmentID());
 								session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
+								session.setAttribute("attachmentID4", post.getAttachments().get(3).getAttachmentID());
 								session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
+								session.setAttribute("attachmentID5", post.getAttachments().get(4).getAttachmentID());
 								session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
+								session.setAttribute("attachmentID6", post.getAttachments().get(5).getAttachmentID());
 								%>
 								<%
 						} catch (IOException e) {
@@ -115,7 +120,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 150px"><a
+					<td style="padding-right: 150px; padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/deletePostt"> <img
 							id="image" width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -124,8 +129,7 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
-		<form name="frm" method="post" action="deletePost">
-<button type="submit" name="button1" /></button></form>
+	
 					<%
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
@@ -140,7 +144,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 150px"><a
+					<td style="padding-right: 150px; padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -163,7 +167,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 150px"><a class="hvr-grow"
+					<td style="padding-bottom: 20px"><a class="hvr-grow"
 						href="TravelShare/home"> <img id="image" width="300"
 							height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -173,12 +177,30 @@ body {
 							}
 					%>
 				</tr>
+				
+					
+				
+		<center>
+			<table>
+				<tr>
+					<th style="padding-right: 340px; padding-bottom: 20px"><form name="button1" method="post" action="deletePost">
+<button type="submit" name="button1" />Delete this post</button></form></th>
+   					 <th style="padding-right: 320px; padding-bottom: 20px"><form name="button2" method="post" action="deletePost">
+<button type="submit" name="button2" />Delete this post</button></form></th> 
+   					 <th style="padding-right: 150px; padding-bottom: 20px"><form name="button3" method="post" action="deletePost">
+<button type="submit" name="button3" />Delete this post</button></form></th>
+  				</tr>
+  			</table>
+  		</center>
+				
+				
+				
 				<center>
 					<table style="margin-top: 100px">
 					<tr>
-					<th>Title - "<c:out value="${postTitle4}"></c:out>"</th>
+					<th style="padding-bottom: 20px">Title - "<c:out value="${postTitle4}"></c:out>"</th>
    					 <th>Title - "<c:out value="${postTitle5}"></c:out>"</th> 
-   					 <th>Title - "<c:out value="${postTitle6}"></c:out>"</th>
+   					 <th >Title - "<c:out value="${postTitle6}"></c:out>"</th>
   				</tr>
 						<tr>
 							<%
@@ -195,7 +217,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 150px"><a
+							<td style="padding-right: 150px; padding-bottom: 20px"><a
 								class="hvr-grow" href="TravelShare/home"> <img id="image"
 									width="300" height="300" class="img-responsive"
 									src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -218,7 +240,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 150px"><a
+							<td style="padding-right: 150px; padding-bottom: 20px"><a
 								class="hvr-grow" href="TravelShare/home"> <img id="image"
 									width="300" height="300" class="img-responsive"
 									src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -241,7 +263,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 150px"><a class="hvr-grow"
+							<td style="padding-bottom: 20px"><a class="hvr-grow"
 								href="TravelShare/home"> <img id="image" width="300"
 									height="300" class="img-responsive"
 									src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -253,6 +275,20 @@ body {
 						</tr>
 					</table>
 				</center>
+
+		<center>
+			<table>
+				<tr>
+					<th style="padding-right: 340px; padding-bottom: 60px"><form name="button4" method="post" action="deletePost">
+<button type="submit" name="button4" />Delete this post</button></form></th>
+   					 <th style="padding-right: 320px; padding-bottom: 60px"><form name="button5" method="post" action="deletePost">
+<button type="submit" name="button5" />Delete this post</button></form></th> 
+   					 <th style="padding-right: 150px; padding-bottom: 60px"><form name="button6" method="post" action="deletePost">
+<button type="submit" name="button6" />Delete this post</button></form></th>
+  				</tr>
+  			</table>
+  		</center>
+
 
 				</header>
 				<div class="footer">
