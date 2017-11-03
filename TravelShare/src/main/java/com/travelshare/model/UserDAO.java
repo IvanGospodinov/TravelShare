@@ -112,7 +112,7 @@ public class UserDAO {
 		return user;
 	}
 
-	public boolean checkForEmail(String email) {
+	public boolean checkForEmail(String email) throws UserException {
 		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE email LIKE '"+ email + "%'";
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
@@ -125,6 +125,26 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new UserException();
+		}
+
+		return false;
+	}
+	
+	public boolean checkForUsername(String username) throws UserException {
+		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE username LIKE '"+ username + "%'";
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
+			while (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new UserException();
 		}
 
 		return false;

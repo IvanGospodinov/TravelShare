@@ -58,7 +58,7 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public String registerUser(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam("picture") MultipartFile multiPartFile) {
 		try {
-			if(!UserDAO.getInstance().checkForEmail(request.getParameter("userEmail"))) {
+			if((!UserDAO.getInstance().checkForEmail(request.getParameter("userEmail"))) || (!!UserDAO.getInstance().checkForUsername(request.getParameter("username")))) {
 				System.err.println("POST REGISTER METHOD");
 				User user = new User(
 						request.getParameter("username"),
@@ -114,6 +114,7 @@ public class UserController extends HttpServlet{
 			}
 		} catch (UserException e) {
 			e.printStackTrace();
+			session.setAttribute("errorLogin", "The username, or email are already taken, please try again!");
 		}
 		return "home";
 	}
