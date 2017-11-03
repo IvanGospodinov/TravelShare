@@ -345,17 +345,20 @@ public class UserController extends HttpServlet{
 	}
 
 
-	@RequestMapping(value="/deletePostt", method = RequestMethod.GET)
+	@RequestMapping(value="/deletePost", method = RequestMethod.GET)
 	public String test(Model model, HttpServletRequest request) {
 		System.err.println("DELETE GET");
 
 		return "deletePost";	
 	}
-	@RequestMapping(value="/deletePostt", method = RequestMethod.POST)
-	public String test1(Model model, HttpServletRequest request) {
-		System.err.println("DELETE GET");
-		int id =  Integer.valueOf(request.getParameter("id"));
-		PostDAO.getInstance().deletePost(id);
+	@RequestMapping(value="/deletePost", method = RequestMethod.POST)
+	public String test1(Model model, HttpServletRequest request,HttpSession session) {
+		if(request.getParameter("button1") != null) {
+			//String param = session.getAttribute("attachmentID1");
+			//int id = Integer.valueOf(param);
+			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID1"));
+			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		}
 
 		return "home";	
 	}

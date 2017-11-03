@@ -66,6 +66,7 @@ body {
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
 								session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
+								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
 								session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
@@ -102,7 +103,7 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
-								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
+								//session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
@@ -123,7 +124,8 @@ body {
 								System.out.println("Error: " + e);
 							}
 					%>
-
+		<form name="frm" method="post" action="deletePost">
+<button type="submit" name="button1" /></button></form>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getMyPosts((int) session.getAttribute("userID"));
