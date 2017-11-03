@@ -1,6 +1,7 @@
 package com.travelshare.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class User {
 	private String lastName;
 	private String pictureURL;
 	private List<User> posts;
+	private LinkedHashSet<User> followers;
 	
 	public User(){
 		posts = new ArrayList<User>();
@@ -31,6 +33,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pictureURL = pictureURL;
+		this.followers=new LinkedHashSet<User>();
 	}
 	
 	public User(int userID, String uname, String password, String firstName, String lastName, String pictureURL) {
@@ -41,7 +44,7 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pictureURL = pictureURL;
-
+		this.followers=new LinkedHashSet<User>();
 	}
 	
 	
@@ -118,6 +121,21 @@ public class User {
 
 	private static boolean validateString(String string) {
 		return (string != null) && (string.length() > 0);
+	}
+	
+	
+	public void addFollower(User user){
+		
+		this.followers.add(user);
+	}
+	
+	public LinkedHashSet<User> getFollowers() {
+		
+		return followers;
+	}
+
+	public void setFollowers(LinkedHashSet<User> followers) {
+		this.followers = followers;
 	}
 	
 	@Override
