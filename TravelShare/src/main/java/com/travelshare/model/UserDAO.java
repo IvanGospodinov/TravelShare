@@ -67,7 +67,7 @@ public class UserDAO {
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
 			user.setUserID(rs.getInt(1));
-			new File("/Users/Ivan/Desktop/images/POSTS/"+user.getUserID()).mkdir();
+			new File("/Users/Mumko/Desktop/images/POSTS/"+user.getUserID()).mkdir();
 			return true;
 
 		} catch (SQLException e) {
@@ -320,5 +320,25 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	
+	public synchronized void followUser(int followerId, int followedId) {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		
+		try {
+			ps=connection.prepareStatement("INSERT INTO users_has_followers (user_id, users_follower_id) VALUES (?, ?)");
+			ps.setInt(1, followedId);
+			ps.setInt(2, followerId);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("NE MOVE DA SE SLEDWA ");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	
 }
