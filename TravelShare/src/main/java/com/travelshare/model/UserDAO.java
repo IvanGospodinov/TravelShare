@@ -325,18 +325,41 @@ public class UserDAO {
 	public synchronized void followUser(int followerId, int followedId) {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
-		
 		try {
 			ps=connection.prepareStatement("INSERT INTO users_has_followers (user_id, users_follower_id) VALUES (?, ?)");
 			ps.setInt(1, followedId);
 			ps.setInt(2, followerId);
 			ps.executeUpdate();
-			
 		} catch (SQLException e) {
 			System.out.println("NE MOVE DA SE SLEDWA ");
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public synchronized void unfollowUser(int followerId, int followedId) throws SQLException{
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		try {
+		ps=connection.prepareStatement("DELETE FROM users_has_followers WHERE user_id=? AND users_follower_id=?");
+		ps.setInt(1, followerId);
+		ps.setInt(2, followedId);
+		ps.executeUpdate();
+	
+	} catch (SQLException e) {
+		System.out.println("NE MOVE DA SE Premahne SLEDWANE ");
+		e.printStackTrace();
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
