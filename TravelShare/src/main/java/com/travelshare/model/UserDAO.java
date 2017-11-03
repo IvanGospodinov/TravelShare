@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -338,7 +339,7 @@ public class UserDAO {
 	
 	
 	
-	public synchronized void unfollowUser(int followerId, int followedId) throws SQLException{
+	public synchronized void unfollowUser(int followerId, int followedId){
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		try {
@@ -354,14 +355,37 @@ public class UserDAO {
 }
 	
 	
+	public synchronized LinkedHashSet<User> getFollowers(User u) {
+		Connection connection=DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		LinkedHashSet<User> followers=new LinkedHashSet<>();
+		try {
+			ps=connection.prepareStatement("SELECT users.user_id, "
+												  + "users.username, " 
+												  + "users.password, " 
+									              + "users.email, " 
+									              + "users.first_name, "
+									              + "users.last_name, "
+									              + "users.avatar_url, "
+				                                  + "FROM users "
+				                                  + "JOIN users_has_followers "
+				                                  + "ON users.user_id=users_has_followers.users_follower_id"
+				                                  + "WHERE users_has_followers.user_id=?");
+		ps.setInt(1, u.getUserID());
+		ResultSet rs=ps.executeQuery();
+		
 	
-	
-	
-	
-	
-	
-	
-	
-	
+		while(rs.next()){
+			followers.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
+					               rs.getString(6)));
+		}
+		//return followers;
+		
+		} catch (SQLException e) {
+			System.out.println("NE MOVE DA SE VZEMAT POSLEDOVATELITE ");
+			e.printStackTrace();
+		}
+		return followers;
+	}
 	
 }
