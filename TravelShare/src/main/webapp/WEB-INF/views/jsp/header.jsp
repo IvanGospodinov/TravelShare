@@ -124,7 +124,7 @@
                                  <li><a href="/TravelShare/myFollowers">My Followers</a></li>
                             </ul>      
                         </li>
-                        <li><a href="/TravelShare/posts">Posts</a></li>
+                        <li><a href="/TravelShare/posts">Latest Posts</a></li>
                         <li><a href="/TravelShare/newPost">New Post</a></li>
                         <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories<span class="caret"></span> </a>
                             <ul class="dropdown-menu">

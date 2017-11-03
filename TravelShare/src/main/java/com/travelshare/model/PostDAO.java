@@ -132,6 +132,27 @@ public class PostDAO {
 		}
 		return post;
 	}
+	
+	public Post getMyPosts(int userID) {
+		System.err.println("MY POSTS - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		Post post = new Post();
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery("SELECT post_id AS post_id FROM posts WHERE user_id ="+userID+" ORDER BY post_id DESC limit 12");
+			while(rs.next()) {			
+				int postID = rs.getInt("post_id");
+				System.err.println("WHILE MY POSTS - MY POSTS - POST ID-TO OT BAZATA E " + postID);
+				post.getAttachments().add(getAttachment(postID));
+				System.out.println("WHILE MY POSTS - MY POSTS - TUKA VLIZA LI IZOBSHTO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return post;
+	}
 
 	public Attachment getAttachment(int postID) throws SQLException{
 		Connection con = DBConnection.getInstance().getConnection();

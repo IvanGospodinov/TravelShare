@@ -131,5 +131,17 @@ public class PostController {
 			session.setAttribute("category", "People");
 			return "postsByCategoryPeople";
 		}
+		
+		@RequestMapping(value= "/myPosts", method = RequestMethod.GET)
+		protected String myPosts(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+			if(session.getAttribute("user") == null) {
+				return "login";
+			}
+			session.setAttribute("userID", request.getSession().getAttribute("userID"));
+			System.err.println("MY POSTS GET! USER ID - " + session.getAttribute("userID"));
+
+			return "myPosts";
+		}
+		
 
 	}
