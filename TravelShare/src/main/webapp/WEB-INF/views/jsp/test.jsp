@@ -1,46 +1,35 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.travelshare.model.PostDAO"%>
+<%@page import="com.travelshare.model.Post"%>
+<%@page import="com.travelshare.model.UserDAO"%>
+<%@page import="com.travelshare.model.User"%>
+<%@page import="java.io.IOException"%>
+<%@page import="javax.xml.bind.DatatypeConverter"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="javax.imageio.ImageIO"%>
+<%@page import="java.awt.image.BufferedImage"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+   <%
+   String name = "";
+   String q = request.getParameter("q");
+   try {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/travel_share", "root", "BratinDol14");
+        Statement smt = con.createStatement(); //Create Statement to interact
+        ResultSet r = smt.executeQuery("select * from users where(email='" + q + "');");
+        while (r.next()) {
+          name = r.getString("avatar_url");
+        }
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Demo page</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-</script>
-</head>
-
-<div id="demo">
-
-<h1>The XMLHttpRequest Object</h1>
-
-<button type="button"
-onclick="loadDoc('/TravelShare/html/ajax_info.html', myFunction)">Change Content
-</button>
-</div>
-
-<script>
-function loadDoc(url, cFunction) {
-  var xhttp;
-  xhttp=new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      cFunction(this);
-    }
-  };
-  xhttp.open("GET", url, true);
-  xhttp.send();
-}
-function myFunction(xhttp) {
-  document.getElementById("demo").innerHTML =
-  xhttp.responseText;
-}
-</script>
-
-
-
-
-</body>
-</html>
+   } catch (Exception e) {
+        e.printStackTrace();
+   }
+%>
+Name:<%out.print(name);%>

@@ -132,5 +132,4 @@ public class PostController {
 			return "postsByCategoryPeople";
 		}
 
-
 	}

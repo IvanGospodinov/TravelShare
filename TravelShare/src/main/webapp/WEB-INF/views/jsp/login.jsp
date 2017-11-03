@@ -258,6 +258,6 @@ body {
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>
-	<footer><jsp:include page="footer.jsp" /></footer>
+	
 </body>
 </html>

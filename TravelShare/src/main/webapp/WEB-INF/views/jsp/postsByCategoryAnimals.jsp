@@ -135,7 +135,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 300px"><a
+					<td style="padding-right: 150px; padding-bottom: 150px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -188,7 +188,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 300px"><a
+					<td style="padding-right: 150px; padding-bottom: 150px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -243,7 +243,7 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 300px"><a
+					<td style="padding-bottom: 150px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -303,7 +303,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 300px"><a
+							<td style="padding-right: 150px; padding-bottom: 150px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -358,7 +358,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-right: 150px; padding-bottom: 300px"><a
+							<td style="padding-right: 150px; padding-bottom: 150px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
@@ -413,7 +413,7 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 300px"><a
+							<td style="padding-bottom: 150px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>

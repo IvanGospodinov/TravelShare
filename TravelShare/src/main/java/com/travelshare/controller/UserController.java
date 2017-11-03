@@ -344,12 +344,12 @@ public class UserController extends HttpServlet{
 	}
 
 
-	@RequestMapping(value="/mapTest", method = RequestMethod.GET)
+/*	@RequestMapping(value="/mapTest", method = RequestMethod.GET)
 	public String test(Model model, HttpServletRequest request) {
 		System.err.println("GETTTTTTTTT INDEX");
 
 		return "mapTest";	
-	}
+	}*/
 
 
 
