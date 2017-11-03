@@ -125,6 +125,7 @@ public class User {
 	
 	
 	public void addFollower(User user){
+		
 		this.followers.add(user);
 	}
 	
