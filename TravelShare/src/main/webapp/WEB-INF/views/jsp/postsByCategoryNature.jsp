@@ -19,7 +19,6 @@
 <title>Nature Posts</title>
 
 <style type="text/css">
-
 body {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
@@ -55,7 +54,6 @@ body {
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
 }
-
 </style>
 
 
@@ -64,23 +62,58 @@ body {
 <body>
 
 	<c:if test="${sessionScope.user != null }">
-		<header> <jsp:include page="header.jsp" />
+		<header> <jsp:include page="header.jsp" /> 
+		<%
+ 	try {
+ 			Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
+ 			if(post.getAttachments().get(0).getTitle() != null) {
+ 			session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
+ 			}
+ 			if(post.getAttachments().get(1).getTitle() != null) {
+ 	 			session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(2).getTitle() != null) {
+ 	 			session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(3).getTitle() != null) {
+ 	 			session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(4).getTitle() != null) {
+ 	 			session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(5).getTitle() != null) {
+ 	 			session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
+ 	 			}
+ %> <%
+ 	} catch (IOException e) {
+ 			System.out.println("Error: " + e);
+ 		}
+ %>
+
 
 		<h1 class="text" style="color: black">
 			Hi
 			<c:out value="${name}"></c:out>
 		</h1>
 		<br>
-		<h1 class="text" style="color: black">Here are the latest posts from our <c:out value="${category}"></c:out> category</h1>
+		<h1 class="text" style="color: black">
+			Here are the latest posts from our
+			<c:out value="${category}"></c:out>
+			category
+		</h1>
 		<hr class="descriptionBox">
 
 		<center>
 			<table style="margin-top: 100px">
+			<tr>
+					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
+   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
+   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
+  				</tr>
 				<tr>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
 								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 								String imgName = "C:/";
@@ -143,9 +176,9 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 150px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
+					<td style="padding-bottom: 150px"><a class="hvr-grow"
+						href="TravelShare/home"> <img id="image" width="300"
+							height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
 					<%
 						} catch (IOException e) {
@@ -155,6 +188,11 @@ body {
 				</tr>
 				<center>
 					<table style="margin-top: 100px">
+					<tr>
+					<th>Title - "<c:out value="${postTitle4}"></c:out>"</th>
+   					 <th>Title - "<c:out value="${postTitle5}"></c:out>"</th> 
+   					 <th>Title - "<c:out value="${postTitle6}"></c:out>"</th>
+  				</tr>
 						<tr>
 							<%
 								try {
@@ -173,9 +211,9 @@ body {
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
 							<td style="padding-right: 150px; padding-bottom: 150px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+								class="hvr-grow" href="TravelShare/home"> <img id="image"
+									width="300" height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a></td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -198,9 +236,9 @@ body {
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
 							<td style="padding-right: 150px; padding-bottom: 150px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+								class="hvr-grow" href="TravelShare/home"> <img id="image"
+									width="300" height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a></td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -222,10 +260,10 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 150px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							<td style="padding-bottom: 150px"><a class="hvr-grow"
+								href="TravelShare/home"> <img id="image" width="300"
+									height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a></td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -238,6 +276,6 @@ body {
 				<div class="footer">
 					<jsp:include page="footer.jsp" />
 				</div>
-	</c:if>
+				</c:if>
 </body>
 </html>

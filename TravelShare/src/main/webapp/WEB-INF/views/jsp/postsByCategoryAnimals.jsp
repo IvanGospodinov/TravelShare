@@ -108,6 +108,34 @@ body {
 	<c:if test="${sessionScope.user != null }">
 		<header> <jsp:include page="header.jsp" />
 
+<%
+ 	try {
+ 			Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
+ 			if(post.getAttachments().get(0).getTitle() != null) {
+ 			session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
+ 			}
+ 			if(post.getAttachments().get(1).getTitle() != null) {
+ 	 			session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(2).getTitle() != null) {
+ 	 			session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(3).getTitle() != null) {
+ 	 			session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(4).getTitle() != null) {
+ 	 			session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
+ 	 			}
+ 			if(post.getAttachments().get(5).getTitle() != null) {
+ 	 			session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
+ 	 			}
+ %> <%
+ 	} catch (IOException e) {
+ 			System.out.println("Error: " + e);
+ 		}
+ %>
+
+
 		<h1 class="text" style="color: black">
 			Hi
 			<c:out value="${name}"></c:out>
@@ -118,13 +146,16 @@ body {
 
 		<center>
 			<table style="margin-top: 100px">
+			<tr>
+					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
+   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
+   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
+  				</tr>
 				<tr>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -175,9 +206,7 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(1).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -230,9 +259,7 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -286,13 +313,16 @@ body {
 				
 				<center>
 					<table style="margin-top: 100px">
+					<tr>
+					<th>Title - "<c:out value="${postTitle1}"></c:out>"</th>
+   					 <th>Title - "<c:out value="${postTitle2}"></c:out>"</th> 
+   					 <th>Title - "<c:out value="${postTitle3}"></c:out>"</th>
+  				</tr>
 						<tr>
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
-										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -345,7 +375,6 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
@@ -400,7 +429,6 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
