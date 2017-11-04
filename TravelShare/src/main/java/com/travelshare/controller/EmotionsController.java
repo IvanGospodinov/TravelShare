@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.travelshare.model.User;
 
 @Controller
-public class ReactionsController {
+public class EmotionsController {
 
 	@RequestMapping(value= "/ajax", method = RequestMethod.GET)
 	protected String postsByCategoryFood(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {

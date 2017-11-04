@@ -153,13 +153,6 @@ background-color: transparent;
 
 <body>
 
-
-	<!-- Checking if the user is not trying to delete another account -->
-	<c:if test="${sessionScope.errorDeleteAccount != null }">
-	<h1 class="error">
-			<c:out value="${errorDeleteAccount}"></c:out>
-		</h1>
-	</c:if>
 	<div class="delete-Account-form">
 		<div class="form">
 	<c:if test="${sessionScope.user != null }">

@@ -136,7 +136,7 @@ public class UserController extends HttpServlet{
 				user = UserDAO.getInstance().getUser(request.getParameter("userEmail"));
 				session.setMaxInactiveInterval(3600);
 				session.setAttribute("username", user.getUsername());
-				session.setAttribute("email", request.getParameter("user_email"));
+				session.setAttribute("email", request.getParameter("userEmail"));
 				session.setAttribute("logged", true);
 				session.setAttribute("errorLogin", null);
 				session.setAttribute("userID", user.getUserID());
@@ -219,25 +219,31 @@ public class UserController extends HttpServlet{
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.GET)
 	public String deleteAccountGET(Model model, HttpServletRequest request, HttpSession session) {
 		System.err.println("GETTTTTTTTT DELETE MY DELETE");
+		//session.setAttribute("email", request.getSession().getAttribute("email"));
 		return "deleteAccount";	
 	}
 
 	@RequestMapping(value="/deleteAccount", method = RequestMethod.POST)
 	public String deleteAccountPOST(Model model, HttpServletRequest request, HttpSession session) {
 		if(request.getSession().getId() != null) {
-		System.err.println("POST DELETE MY PROFILE ------------------ " + request.getParameter("userEmail") + request.getParameter("password"));
-		try {
-			if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
-				session.setAttribute("errorDeleteAccount", null);
-				request.getSession().invalidate();
-				return "login";
+		System.err.println("POST DELETE MY PROFILE ------------------ " + session.getAttribute("username") + session.getAttribute("userID") + "        " +  session.getAttribute("email") + "        " + request.getParameter("userEmail") + request.getParameter("password"));
+			if(request.getParameter("userEmail").equals(session.getAttribute("email"))) {
+				try {
+					if(UserDAO.getInstance().deleteAccount(request.getParameter("userEmail"), request.getParameter("password"))) {
+						session.setAttribute("errorDeleteAccount", null);
+						request.getSession().invalidate();
+						return "login";
+					}
+				} catch (UserException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				session.setAttribute("errorDeleteAccount", "Wrong Email Address or password!");
+				return "deleteAccount";	
+			} else {
+				session.setAttribute("errorDeleteAccount", "This is not your email address please try again!");
+				return "deleteAccount";	
 			}
-		} catch (UserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		session.setAttribute("errorDeleteAccount", "Wrong Email Address or password!");
-		return "deleteAccount";	
 		} else {
 			request.getSession().invalidate();
 			return "login";
