@@ -40,7 +40,7 @@ public class EmotionsController {
 		int postID = Integer.valueOf(post);
 		System.err.println("request for SQL EMOTION UPDATE " + emotionID + " " + session.getAttribute("userID") + " " + request.getParameter("postID"));
 		try {
-			EmotionDAO.getInstance().addEmotion(emotionID,(int)session.getAttribute("userID"),postID);
+			EmotionDAO.getInstance().addEmotion(emotionID,174,postID);
 		} catch (UserException e1) {
 			e1.printStackTrace();
 		}

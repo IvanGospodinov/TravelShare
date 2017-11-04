@@ -1,6 +1,5 @@
 package com.travelshare.model;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,6 @@ import java.sql.Statement;
 
 import org.springframework.stereotype.Component;
 
-import com.travelshare.util.Encrypter;
 import com.travelshare.util.UserException;
 
 
@@ -58,7 +56,7 @@ public class EmotionDAO {
 	}
 
 
-	public boolean addEmotion(int emotionType,int userID, int postID) throws UserException {
+	public synchronized boolean addEmotion(int emotionType,int userID, int postID) throws UserException {
 
 		if(userID > 0) {
 
@@ -116,7 +114,7 @@ public class EmotionDAO {
 		return false;
 	}
 
-	public int countEmotions(int emotionType) throws UserException {
+	public synchronized int countEmotions(int emotionType) throws UserException {
 		int count = 0;
 		
 		if(emotionType > 0) {

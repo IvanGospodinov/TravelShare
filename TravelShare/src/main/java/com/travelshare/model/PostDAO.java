@@ -69,7 +69,7 @@ public class PostDAO {
 
 	}
 
-	public String getLastPostURL(int userID) {
+	public String getLastPostURL(int userID) throws UserException {
 		String postPic = null;
 		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -89,11 +89,12 @@ public class PostDAO {
 			System.err.println("PYTQ E " + postPic);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new UserException("Error at getting last Five Posts", e);
 		}
 		return postPic;
 	}
 
-	public Post getLastFivePosts() {
+	public Post getLastFivePosts() throws UserException {
 		System.err.println("TOP USERS - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
 		Connection connection = DBConnection.getInstance().getConnection();
 		Statement stmt = null;
@@ -111,11 +112,12 @@ public class PostDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new UserException("Error at getting last Five Posts", e);
 		}
 		return post;
 	}
 
-	public Post getLastThreePostsByCategory(int categoryID) {
+	public Post getLastThreePostsByCategory(int categoryID) throws UserException {
 		System.err.println("CATEGORY - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
 		Connection connection = DBConnection.getInstance().getConnection();
 		Statement stmt = null;
@@ -132,11 +134,12 @@ public class PostDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new UserException("Error at getting last Five Posts", e);
 		}
 		return post;
 	}
 
-	public Post getMyPosts(int userID) {
+	public Post getMyPosts(int userID) throws UserException {
 		System.err.println("MY POSTS - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
 		Connection connection = DBConnection.getInstance().getConnection();
 		Statement stmt = null;
@@ -153,11 +156,12 @@ public class PostDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new UserException("Error at getting last Five Posts", e);
 		}
 		return post;
 	}
 
-	public Attachment getAttachment(int postID) {
+	public Attachment getAttachment(int postID) throws UserException {
 		Connection con = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
 		Attachment attachment = null;
@@ -177,13 +181,14 @@ public class PostDAO {
 					rs.getString("attachment_photo_url"));
 			System.err.println("VZIMAM ATACHMENT-TA URL-A E " + attachment.getURL());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new UserException("Error at getting last Five Posts", e);
 		}
+		
 		return attachment;
 	}
 
-	public int getPostID(int attachmentID) {
+	public int getPostID(int attachmentID) throws UserException {
 		System.err.println("GET POST ID");
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
@@ -198,6 +203,7 @@ public class PostDAO {
 			id = rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new UserException("Error at getting last Five Posts", e);
 		}
 
 		return id;
@@ -207,7 +213,12 @@ public class PostDAO {
 		System.err.println("DELET POST");
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
-		int postID = getPostID(attachmentID);
+		int postID = 0;
+		try {
+			postID = getPostID(attachmentID);
+		} catch (UserException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			ps = connection.prepareStatement(DELETE_POST);
 			ps.setInt(1, postID);

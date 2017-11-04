@@ -237,7 +237,6 @@ public class UserController extends HttpServlet{
 					return "myProfile";
 				}
 			} catch (UserException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -263,14 +262,12 @@ public class UserController extends HttpServlet{
 					try {
 						UserDAO.getInstance().changeAvatarURL(URL, (int)session.getAttribute("userID"));
 					} catch (UserException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					System.err.println("EMAIL CHANGED");
 					return "myProfile";
 				}
 			} catch (UserException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -283,7 +280,6 @@ public class UserController extends HttpServlet{
 					return "myProfile";
 				}
 			} catch (UserException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -367,29 +363,17 @@ public class UserController extends HttpServlet{
 				e1.printStackTrace();
 				
 			}
-			//		if(u.getPictureURL()!=null) {
-			//			File usersPicture = new File(UsersManager.getInstance().getRegisteredUsers().get(username).getPhotoURL());
-			//			usersPicture.delete();
-			//		}
 			File file = new File(AVATAR_URL + userID +"-profile-pic." + multiPartFile.getContentType().split("/")[1]);
 			Files.copy(multiPartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			try {
 				UserDAO.getInstance().addProfilePic(u);
 				model.addAttribute("profilePic", file.getAbsolutePath());
-				//errorMsg= "Picture successfully uploaded!";
 			} catch (SQLException | UserException e) {
 				e.printStackTrace();
-				//errorMsg = "something went wrong, please try again later";
 			}
-			/*response.setStatus(200);
-		response.getWriter().append("Picture successfully uploaded!");*/
-
 		} catch (IOException e) {
-			//errorMsg="Picture failed to upload!";
 			e.printStackTrace();
 		}
-		//model.addAttribute("errorMsg", errorMsg);
-		//errorMsg=null;
 
 		return "home";
 		} else {
@@ -453,22 +437,4 @@ public class UserController extends HttpServlet{
 		return "forgotPassword";	
 	}
 	
-	
-	@RequestMapping(value= "/aboutt", method = RequestMethod.GET)
-	protected String addEmotion(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-
-		 String text = "some text";
-
-		    response.setContentType("text/html");  // Set content type of the response so that jQuery knows what it can expect.
-		    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-		    try {
-				response.getWriter().write(text);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}       // Write response body.
-		return "mapTest";
-	}
-	
-
 }

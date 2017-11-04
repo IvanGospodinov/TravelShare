@@ -443,37 +443,52 @@ body {
 								<hr class="descriptionBox">
 							</div>
 		</header>
-		<footer>
-			<div class="footerContainer">
-				<ul class="about">
-					<li><a href="http://www.instagram.com" target="_blank">About
-							Us</a></li>
-					<li><a href="http://www.instagram.com" target="_blank">Contacts</a></li>
-				</ul>
-				<ul class="social">
-					<li><a href="http://facebook.com" class="fa fa-facebook"
-						target="_blank"></a></li>
-					<li><a href="http://www.twitter.com" class="fa fa-twitter"
-						target="_blank"></a></li>
-					<li><a href="http://www.googleplus.com" class="fa fa-google"
-						target="_blank"></a></li>
-					<li><a href="http://www.instagram.com" class="fa fa-instagram"
-						target="_blank"></a></li>
-					<li><a href="http://www.pinterest.com" class="fa fa-pinterest"
-						target="_blank"></a></li>
-					<li><a href="http://www.snapchat.com"
-						class="fa fa-snapchat-ghost" target="_blank"></a></li>
-					<li id="follow">Follow us on:</li>
-				</ul>
-
-			</div>
-
-		</footer>
+		<div class="footer">
+			<jsp:include page="footer.jsp" />
+		</div>
 
 	</c:if>
 	<c:if test="${sessionScope.user == null }">
 		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
 </body>
+<script type="text/javascript">
+var $emotionType = 2;
+var $orders = $('#orders');	
+function addOrder(order) {
+	$orders.replaceWith('<li>emotion ' + order + '</li>');	
+}
 
+/* $(function () { */
+		
+	
+	
+/* 	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutt',
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+}); */
+
+	$('#btn').on('click', function() {
+		$.ajax({	
+			type: 'GET',
+			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 84,
+			success: function(orders) {
+				
+				$.each(orders, function(i, order)  {
+					addOrder(order)		
+				}) 
+			}		
+		})		
+	});
+
+
+
+</script>
 </html>
