@@ -144,7 +144,16 @@ public class PostController {
 		}
 		
 
-		
+		@RequestMapping(value= "/mapTest", method = RequestMethod.GET)
+		protected String test(HttpSession session,Model model, HttpServletRequest request, HttpServletResponse response) {
+			//if(session.getAttribute("user") != null) {
+				System.err.println("POST GET METHOD");
+				return "mapTest";
+			/*} else {
+				session.setAttribute("errorRegister", "Your session is inactive, please login!");
+				return "login";
+			}*/
+		}
 		
 
 	}
