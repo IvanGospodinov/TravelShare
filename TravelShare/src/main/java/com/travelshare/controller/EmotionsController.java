@@ -52,7 +52,7 @@ public class EmotionsController {
 		String username = request.getParameter("user");
 		//String list = "bla bla";
 		try {
-			numberOfEmotions = EmotionDAO.getInstance().countEmotions(emotionID);
+			numberOfEmotions = EmotionDAO.getInstance().countEmotions(emotionID, postID);
 		} catch (UserException e1) {
 			e1.printStackTrace();
 		}

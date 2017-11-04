@@ -15,8 +15,8 @@ import com.travelshare.util.UserException;
 public class EmotionDAO {
 
 	private static final String ADD_EMOTION_SQL = "INSERT INTO emotions (emotion_type, user_id, post_id) VALUES (?,?,?)";
-	private static final String CHECK_IF_USER_HAS_EMOTION_FOR_ALREADY = "SELECT emotion_id FROM emotions WHERE user_id = ?";
-	private static final String COUNT_THE_NUMBER_OF_EMOTIONS = "SELECT COUNT(emotion_type) FROM emotions WHERE emotion_type = ?";
+	private static final String CHECK_IF_USER_HAS_EMOTION_FOR_ALREADY = "SELECT emotion_id FROM emotions WHERE user_id = ? AND post_id = ?";
+	private static final String COUNT_THE_NUMBER_OF_EMOTIONS = "SELECT COUNT(emotion_type) FROM emotions WHERE emotion_type = ? AND post_id = ?";
 
 	private static EmotionDAO instance;
 	private EmotionDAO(){}
@@ -30,7 +30,7 @@ public class EmotionDAO {
 	
 	
 	
-	public int checkIfUserHasEmotion(int userID) throws UserException {		
+	public int checkIfUserHasEmotion(int userID, int postID) throws UserException {		
 		int emotionID = 0;;
 		if(userID > 0) {
 			Connection con = DBConnection.getInstance().getConnection();
@@ -39,6 +39,7 @@ public class EmotionDAO {
 				System.err.println("CHECKINNG FOR USER EMOTIONS");
 				ps = con.prepareStatement(CHECK_IF_USER_HAS_EMOTION_FOR_ALREADY);
 				ps.setInt(1, userID);
+				ps.setInt(2, postID);
 				ResultSet rs = ps.executeQuery();
 				if(rs.next()) {
 					emotionID = rs.getInt(1);
@@ -66,7 +67,7 @@ public class EmotionDAO {
 			ResultSet rs = null;
 			connection = DBConnection.getInstance().getConnection();
 
-			if(checkIfUserHasEmotion(userID) == 0) {
+			if(checkIfUserHasEmotion(userID, postID) == 0) {
 				System.err.println("USER HAS NO EMOTIONS");
 				//ako nqma emociq update
 				try {
@@ -86,7 +87,7 @@ public class EmotionDAO {
 					throw new UserException("Error on Emotion change NEW EMOTION", e);
 				}
 			} 
-			if(checkIfUserHasEmotion(userID) > 0) {
+			if(checkIfUserHasEmotion(userID, postID) > 0) {
 				try {
 					System.err.println("USER HAS AN EMOTION");
 					ps = connection.prepareStatement("UPDATE emotions SET emotion_type = ? WHERE user_id = ? AND post_id = ?", Statement.RETURN_GENERATED_KEYS);
@@ -114,7 +115,7 @@ public class EmotionDAO {
 		return false;
 	}
 
-	public synchronized int countEmotions(int emotionType) throws UserException {
+	public synchronized int countEmotions(int emotionType,int postID) throws UserException {
 		int count = 0;
 		
 		if(emotionType > 0) {
@@ -124,6 +125,7 @@ public class EmotionDAO {
 			try {
 				ps = con.prepareStatement(COUNT_THE_NUMBER_OF_EMOTIONS);
 				ps.setInt(1, emotionType);
+				ps.setInt(2, postID);
 				rs = ps.executeQuery();
 				rs.next();
 				count = rs.getInt(1);

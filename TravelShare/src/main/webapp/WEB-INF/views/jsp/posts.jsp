@@ -489,7 +489,7 @@ function addOrder(order) {
 	$('#likeButton').on('click', function() {
 		$.ajax({	
 			type: 'GET',
-			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 84,
+			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
 			success: function(orders) {
 				
 				$.each(orders, function(i, order)  {
@@ -501,7 +501,7 @@ function addOrder(order) {
 $('#dislikeButton').on('click', function() {
 	$.ajax({	
 		type: 'GET',
-		url: '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 84,
+		url: '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
 		success: function(orders) {
 			
 			$.each(orders, function(i, order)  {
@@ -513,7 +513,7 @@ $('#dislikeButton').on('click', function() {
 $('#loveButton').on('click', function() {
 	$.ajax({	
 		type: 'GET',
-		url: '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 84,
+		url: '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
 		success: function(orders) {
 			
 			$.each(orders, function(i, order)  {
