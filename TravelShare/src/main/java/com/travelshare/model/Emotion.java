@@ -12,7 +12,8 @@ public class Emotion {
 
 	private int user_id;
 	
-	
+	public Emotion() {}
+
 	
 	public Emotion(int emotionID, int emotionTypeID) {
 		this.emotionID = emotionID;

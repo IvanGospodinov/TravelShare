@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.travelshare.model.EmotionDAO;
 import com.travelshare.model.PostDAO;
 import com.travelshare.model.User;
 import com.travelshare.model.UserDAO;
@@ -170,39 +172,6 @@ public class UserController extends HttpServlet{
 
 		return "login";	
 	}
-
-	@RequestMapping(value="/about", method = RequestMethod.GET)
-	public String aboutUs(Model model, HttpServletRequest request, HttpServletResponse response) {
-		System.err.println("GETTTTTTTTT ABOUT US");
-
-		return "aboutUs";
-			
-	}
-	
-	@RequestMapping(value="/aboutt", method = RequestMethod.GET)
-	public void about(Model model, HttpServletRequest request, HttpServletResponse response) {
-		System.err.println("GETTTTTTTTT ABOUT US");
-
-		response.setContentType("text/json");
-		response.setCharacterEncoding("UTF-8");
-		
-		String username = request.getParameter("user");
-		//String list = "bla bla";
-		List<String> list = UserDAO.getInstance().getUsers();
-			try {
-				if (list != null ) {
-				PrintWriter p =  response.getWriter();
-				System.out.println(new Gson().toJson(list));
-				response.getWriter().print(new Gson().toJson(list));
-			} else {
-				response.getWriter().print("[]");
-			}	
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-	}
-	
 
 	@RequestMapping(value="/contact", method = RequestMethod.GET)
 	public String contacts(Model model, HttpServletRequest request, HttpSession session) {
@@ -482,6 +451,23 @@ public class UserController extends HttpServlet{
 		System.err.println("DELETE GET");
 
 		return "forgotPassword";	
+	}
+	
+	
+	@RequestMapping(value= "/aboutt", method = RequestMethod.GET)
+	protected String addEmotion(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		 String text = "some text";
+
+		    response.setContentType("text/html");  // Set content type of the response so that jQuery knows what it can expect.
+		    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+		    try {
+				response.getWriter().write(text);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}       // Write response body.
+		return "mapTest";
 	}
 	
 

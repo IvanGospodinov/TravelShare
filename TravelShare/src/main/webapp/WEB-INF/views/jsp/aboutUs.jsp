@@ -25,13 +25,14 @@ $(document).ready(function(){
 	<li>dislike</li>
 
 </ul>
-<button id="btn">Click</button>
+<button id="btn" value="3">Click</button>
 
 
 <script type="text/javascript">
+var $emotionType = 2;
 var $orders = $('#orders');	
 function addOrder(order) {
-	$orders.append('<li>name ' + order + '</li>');	
+	$orders.replaceWith('<li>emotion ' + order + '</li>');	
 }
 
 /* $(function () { */
@@ -53,7 +54,7 @@ function addOrder(order) {
 	$('#btn').on('click', function() {
 		$.ajax({	
 			type: 'GET',
-			url: '/TravelShare/aboutt',
+			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 84,
 			success: function(orders) {
 				
 				$.each(orders, function(i, order)  {
