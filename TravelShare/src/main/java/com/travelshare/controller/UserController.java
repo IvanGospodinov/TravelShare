@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,7 +39,9 @@ import com.travelshare.util.UserException;
 @Controller
 public class UserController extends HttpServlet{
 
-	final String AVATAR_URL = "/Users/Ivan/Desktop/images/";
+	//final String AVATAR_URL = "/Users/Ivan/Desktop/images/";
+	final String AVATAR_URL = "/Users/Mumko/Desktop/images/";
+	
 
 	private static final long serialVersionUID = 2477388678189213947L;
 
@@ -257,7 +260,8 @@ public class UserController extends HttpServlet{
 				if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
 					user.setEmail(request.getParameter("email"));
 					session.setAttribute("email", request.getParameter("email"));
-					String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
+				//	String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
+					String URL = "C:\\Users\\Mumko\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
 					user.setPictureURL(URL);
 					try {
 						UserDAO.getInstance().changeAvatarURL(URL, (int)session.getAttribute("userID"));
@@ -437,4 +441,14 @@ public class UserController extends HttpServlet{
 		return "forgotPassword";	
 	}
 	
+	
+	@RequestMapping(value="/myFollowers", method = RequestMethod.GET)
+	
+	public String myFollowers(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		User user = (User) session.getAttribute("user");
+		System.err.println(user.getUserID());
+		LinkedHashSet<User> followers = UserDAO.getInstance().getFollowers(user);
+		model.addAttribute("followers", followers);
+		return "myFollowers";
+	}
 }
