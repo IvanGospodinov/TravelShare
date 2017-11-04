@@ -51,7 +51,7 @@ public class PostController {
 
 		@RequestMapping(value= "/newPost",method = RequestMethod.POST)
 		protected String addPost(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam("picture") MultipartFile multiPartFile) throws ServletException, IOException {
-			//if(session.getAttribute("userID") == null) {
+			if(request.getSession().getId() != null) {
 				int random = new Random().nextInt(100)*13;
 				File file = new File(POST_URL + session.getAttribute("userID") + "/" + session.getAttribute("userID") + random +
 						"-post-pic."+ multiPartFile.getContentType().split("/")[1]);
@@ -72,21 +72,20 @@ public class PostController {
 				System.err.println("BEFORE PARSE CATEGORY " + category);
 				System.err.println("BEFORE PARSE TITLE " + request.getParameter("title"));
 				System.err.println("BEFORE PARSE LOCATION " + request.getParameter("location"));
-				System.err.println("BEFORE PARSE USER ID " + user.getUserID());
+				System.err.println("BEFORE PARSE USER ID " + session.getAttribute("userID"));
 				System.err.println("BEFORE PARSE DESCRIPTION " + request.getParameter("description"));
 				int category_id = Integer.valueOf(category);
 
 				String title = request.getParameter("title");
 				String location = request.getParameter("location");
 				String description = request.getParameter("description");
-
-
-				Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), category_id, user.getUserID(), location);
-				//	long time=0;
 				int result = 0;
 				try {
+				Post post = new Post(title, description, LocalDate.now(),  LocalDate.now(), category_id, (int)session.getAttribute("userID"), location);
+				//	long time=0;
+				
 					result = PostDAO.getInstance().createPost(post, urlDB);
-				} catch (UserException e) {
+				} catch (UserException | NullPointerException e) {
 					e.printStackTrace();
 					System.err.println("Tyka Grymna");
 					session.setAttribute("postErr", "We are sorry but there was an issue uploading the post. Can you try again!");
@@ -94,9 +93,9 @@ public class PostController {
 				}
 				System.err.println(result);
 				return "home";
-//			}
-//			session.setAttribute("errorRegister", "Your session is inactive, please login!");
-//			return "login";
+			}
+			session.setAttribute("errorRegister", "Your session is inactive, please login!");
+			return "login";
 		}
 
 		@RequestMapping(value= "/postsByCategoryNature", method = RequestMethod.GET)

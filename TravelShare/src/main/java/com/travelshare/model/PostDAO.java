@@ -80,16 +80,17 @@ public class PostDAO {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts WHERE user_id="+ userID + " order by date desc limit 1" );
 			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
-			rs.next();
-			int postID = rs.getInt(1);
-			System.err.println("POST ID-TO OT BAZATA E " + postID);
-			rs = stmt.executeQuery( "SELECT * FROM attachments WHERE post_id ="+ postID);
-			rs.next();
-			postPic = rs.getString("attachment_photo_url");
-			System.err.println("PYTQ E " + postPic);
+			if(rs.next()) {
+				int postID = rs.getInt(1);
+				System.err.println("POST ID-TO OT BAZATA E " + postID);
+				rs = stmt.executeQuery( "SELECT * FROM attachments WHERE post_id ="+ postID);
+				rs.next();
+				postPic = rs.getString("attachment_photo_url");
+				System.err.println("PYTQ E " + postPic);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Error at getting last Five Posts", e);
+			//throw new UserException("Error at getting last Five Posts", e);
 		}
 		return postPic;
 	}
@@ -102,7 +103,7 @@ public class PostDAO {
 		Post post = new Post();
 		try {
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts ORDER BY date DESC limit 5");
+			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts ORDER BY date DESC limit 6");
 
 			while(rs.next()) {			
 				int postID = rs.getInt("post_id");
@@ -134,7 +135,7 @@ public class PostDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UserException("Error at getting last Five Posts", e);
+			//throw new UserException("Error at getting last Five Posts", e);
 		}
 		return post;
 	}

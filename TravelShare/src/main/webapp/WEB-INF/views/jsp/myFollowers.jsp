@@ -59,7 +59,8 @@ body {
 </style>
 <body>
 
-
+<c:if test="${sessionScope.user != null }">
+		
 
 	<header> <jsp:include page="header.jsp" /> </header>
 	<h1 class="text">
@@ -110,7 +111,10 @@ body {
 	<div class="footer">
 		<jsp:include page="footer.jsp" />
 	</div>
-
+	</c:if>
+<c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
+	</c:if>
 
 </body>
 </html>

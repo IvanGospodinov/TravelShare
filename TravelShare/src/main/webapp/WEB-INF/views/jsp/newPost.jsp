@@ -425,7 +425,7 @@ window.onkeydown = function() {
     <footer class="footer"><jsp:include page="footer.jsp" /></footer>
      </c:if>
 	 
-     <c:if test="${sessionScope.user == null }">
-    	 <jsp page="login.jsp"></jsp>
-     </c:if>
+    <c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
+	</c:if>
 </html>

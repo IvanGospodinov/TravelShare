@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Nature Posts</title>
+<title>| Nature Posts |</title>
 
 <style type="text/css">
 body {
@@ -74,9 +74,9 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
-								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
-								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+								//session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -99,9 +99,9 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
-								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
-								System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+								//session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(1).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -124,8 +124,8 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
-								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
 								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
@@ -153,8 +153,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
-										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
+										//session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
@@ -178,8 +178,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
-										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
+										//session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
@@ -203,8 +203,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(1);
-										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
-										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
+										//session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
@@ -232,6 +232,9 @@ body {
 				<div class="footer">
 					<jsp:include page="footer.jsp" />
 				</div>
+	</c:if>
+	<c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
 </body>
 </html>

@@ -214,5 +214,8 @@ background-color: transparent;
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>
+	<c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
+	</c:if>
 </body>
 </html>

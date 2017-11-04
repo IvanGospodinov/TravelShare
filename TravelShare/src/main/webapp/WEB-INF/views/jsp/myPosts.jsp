@@ -265,5 +265,8 @@ body {
 				</div>
 				<jsp:include page="footer.jsp" />
 	</c:if>
+	<c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
+	</c:if>
 </body>
 </html>
