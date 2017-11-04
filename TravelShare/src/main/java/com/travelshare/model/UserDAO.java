@@ -6,7 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
@@ -21,7 +25,7 @@ public class UserDAO {
 	private static final String SELECT_USER_SQL = "SELECT user_id FROM users WHERE email = ? AND password = ?";
 	private static final String GET_USER_FROM_SQL = "SELECT user_id, username, password, first_name, last_name, avatar_url FROM users WHERE email = ?";
 	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE email = ?";
-
+	public List<String> users = new ArrayList<String>();
 
 	private static UserDAO instance;
 	private UserDAO(){}
@@ -461,6 +465,29 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return followers;
+	}
+	
+	public List<String> getUsers() {
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		int id = 0;
+		try {
+			ps = connection.prepareStatement("SELECT first_name FROM users", Statement.RETURN_GENERATED_KEYS);
+			//ps.setString(1, email);
+			ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
+			//rs.next();
+			//System.err.println("USER ID " + rs.getInt(1));
+			while(rs.next()){
+				users.add(rs.getString("first_name"));
+			}
+			//id = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+				
+				return users;
 	}
 
 }

@@ -391,7 +391,6 @@ window.onkeydown = function() {
 </script>
  <script type="text/javascript">
  function previewFile() {
-	    // Where you will display your image
 	    var preview = document.querySelector('img');
 	    // The button where the user chooses the local image to display
 	    var file = document.querySelector('input[type=file]').files[0];

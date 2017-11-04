@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.travelshare.model.PostDAO;
 import com.travelshare.model.User;
 import com.travelshare.model.UserDAO;
@@ -169,11 +172,37 @@ public class UserController extends HttpServlet{
 	}
 
 	@RequestMapping(value="/about", method = RequestMethod.GET)
-	public String aboutUs(Model model, HttpServletRequest request) {
+	public String aboutUs(Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.err.println("GETTTTTTTTT ABOUT US");
 
-		return "aboutUs";	
+		return "aboutUs";
+			
 	}
+	
+	@RequestMapping(value="/aboutt", method = RequestMethod.GET)
+	public void about(Model model, HttpServletRequest request, HttpServletResponse response) {
+		System.err.println("GETTTTTTTTT ABOUT US");
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		String username = request.getParameter("user");
+		//String list = "bla bla";
+		List<String> list = UserDAO.getInstance().getUsers();
+			try {
+				if (list != null ) {
+				PrintWriter p =  response.getWriter();
+				System.out.println(new Gson().toJson(list));
+				response.getWriter().print(new Gson().toJson(list));
+			} else {
+				response.getWriter().print("[]");
+			}	
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+	}
+	
 
 	@RequestMapping(value="/contact", method = RequestMethod.GET)
 	public String contacts(Model model, HttpServletRequest request, HttpSession session) {
