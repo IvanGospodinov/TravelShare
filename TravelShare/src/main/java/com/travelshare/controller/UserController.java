@@ -39,8 +39,8 @@ import com.travelshare.util.UserException;
 @Controller
 public class UserController extends HttpServlet{
 
-	//final String AVATAR_URL = "/Users/Ivan/Desktop/images/";
-	final String AVATAR_URL = "/Users/Mumko/Desktop/images/";
+	final String AVATAR_URL = "/Users/Ivan/Desktop/images/";
+	//final String AVATAR_URL = "/Users/Mumko/Desktop/images/";
 	
 
 	private static final long serialVersionUID = 2477388678189213947L;
@@ -260,8 +260,8 @@ public class UserController extends HttpServlet{
 				if(UserDAO.getInstance().changeEmail(request.getParameter("email"), (int)session.getAttribute("userID"))) {
 					user.setEmail(request.getParameter("email"));
 					session.setAttribute("email", request.getParameter("email"));
-				//	String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
-					String URL = "C:\\Users\\Mumko\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
+					String URL = "C:\\Users\\Ivan\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
+				//	String URL = "C:\\Users\\Mumko\\Desktop\\images\\"+session.getAttribute("email")+"-profile-pic.jpeg";
 					user.setPictureURL(URL);
 					try {
 						UserDAO.getInstance().changeAvatarURL(URL, (int)session.getAttribute("userID"));
@@ -359,7 +359,7 @@ public class UserController extends HttpServlet{
 		User u = null;
 		try {
 			String email = (String) session.getAttribute("email");
-			String userID = (String) session.getAttribute("userID");
+			int userID = (int)session.getAttribute("userID");
 
 			try {
 				u = UserDAO.getInstance().getUser(email);

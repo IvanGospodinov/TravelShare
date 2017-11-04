@@ -31,8 +31,10 @@ public class PostDAO {
 	private static final String GET_ATTACHMENT_FROM_SQL = "SELECT * FROM attachments WHERE post_id =?";
 	//private static final String GET_POST_ID = "SELECT post_id FROM attachments WHERE attachment_id =?"
 	private static final String DELETE_POST = "DELETE FROM posts WHERE post_id = ?";
+	private static final String MOST_LIKED_POST = "SELECT post_id FROM posts WHERE user_id = ?";
+	
+	
 
-	//SELECT post_id FROM attachments WHERE attachment_id =
 	public int createPost(Post post, String URL) throws UserException {
 		Connection connection = DBConnection.getInstance().getConnection();	
 		try {
@@ -94,6 +96,59 @@ public class PostDAO {
 		}
 		return postPic;
 	}
+	
+	public String getLastPostFromOtherUserURL(int userID) throws UserException {
+		String postPic = null;
+		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery( "SELECT post_id, post_date_upload AS date FROM posts WHERE user_id !="+ userID + " order by date desc limit 1" );
+			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+			if(rs.next()) {
+				int postID = rs.getInt(1);
+				System.err.println("POST ID-TO OT BAZATA E " + postID);
+				rs = stmt.executeQuery( "SELECT * FROM attachments WHERE post_id ="+ postID);
+				rs.next();
+				postPic = rs.getString("attachment_photo_url");
+				System.err.println("PYTQ E " + postPic);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//throw new UserException("Error at getting last Five Posts", e);
+		}
+		return postPic;
+	}
+//	public String getMostLikedPost(int userID) throws UserException {
+//		String postPic = null;
+//		System.err.println("OTIVAM DA TYRSYA PYTQ DO MOST LIKED POST SNIMKATA");
+//		Connection connection = DBConnection.getInstance().getConnection();
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		Statement stmt = null;
+//		try {
+//			ps = connection.prepareStatement(MOST_LIKED_POST);
+//			ps.setInt(1, userID);
+//			rs = ps.executeQuery();
+//			rs.next();
+//			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+//			if(rs.next()) {
+//				int postID = rs.getInt(1);
+//				System.err.println("POST ID-TO OT BAZATA E " + postID);
+//				rs = stmt.executeQuery( "SELECT * FROM emotions WHERE post_id ="+ postID + " AND emotion_type = 1 ");
+//				rs.next();
+//				postPic = rs.getString("attachment_photo_url");
+//				System.err.println("PYTQ E " + postPic);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			//throw new UserException("Error at getting last Five Posts", e);
+//		}
+//		return postPic;
+//	}
 
 	public Post getLastFivePosts() throws UserException {
 		System.err.println("TOP USERS - OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
@@ -163,12 +218,12 @@ public class PostDAO {
 	}
 
 	public Attachment getAttachment(int postID) throws UserException {
-		Connection con = DBConnection.getInstance().getConnection();
+		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps;
 		Attachment attachment = null;
 		
 		try {
-			ps = con.prepareStatement(GET_ATTACHMENT_FROM_SQL);
+			ps = connection.prepareStatement(GET_ATTACHMENT_FROM_SQL);
 			ps.setInt(1, postID);
 			ResultSet rs = ps.executeQuery();
 			rs.next();

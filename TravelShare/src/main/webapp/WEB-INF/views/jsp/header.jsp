@@ -145,7 +145,7 @@
                                 <input class="btn btn-secondary" type="button" aria-pressed="true" value="People">-->
                             </ul>                        
                         </li>
-                        <li><a href=logout>Logout</a></li>
+                        <li><a href="logout">Logout</a></li>
                     </ul>
                 </form>
             

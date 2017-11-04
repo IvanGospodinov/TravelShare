@@ -75,8 +75,8 @@ public class UserDAO {
 				ResultSet rs = ps.getGeneratedKeys();
 				rs.next();
 				user.setUserID(rs.getInt(1));
-			//	new File("/Users/Ivan/Desktop/images/POSTS/"+user.getUserID()).mkdir();
-				new File("/Users/Mumko/Desktop/images/POSTS/"+user.getUserID()).mkdir();
+				new File("/Users/Ivan/Desktop/images/POSTS/"+user.getUserID()).mkdir();
+				//new File("/Users/Mumko/Desktop/images/POSTS/"+user.getUserID()).mkdir();
 				return true;
 
 			} catch (SQLException e) {

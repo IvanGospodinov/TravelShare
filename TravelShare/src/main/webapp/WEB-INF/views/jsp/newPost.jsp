@@ -413,12 +413,7 @@ window.onkeydown = function() {
 	  }
  
  </script>
-	 <c:if test="${sessionScope.postErr == null }">
-		<h1 class="error">
-				<c:out value="${errorLogin}"></c:out>
-			</h1>
-	</c:if>
-
+	
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn71hrTuEuIOj38M-tZ2tQN6KHIvZmvjU&libraries=places&callback=initAutocomplete"
          async defer></script>
 </body>

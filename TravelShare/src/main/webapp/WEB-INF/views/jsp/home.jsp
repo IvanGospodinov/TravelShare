@@ -1,3 +1,4 @@
+<%@page import="com.travelshare.model.Post"%>
 <%@page import="com.travelshare.model.PostDAO"%>
 <%@page import="java.io.IOException"%>
 <%@page import="javax.xml.bind.DatatypeConverter"%>
@@ -130,16 +131,13 @@ body {
 
 <body>
 
-
-
-
 	<c:if test="${sessionScope.user != null }">
 		<header> <jsp:include page="header.jsp" />
 		<h1 class="text">
 			Hello
 			<c:out value="${username}"></c:out>
 		</h1>
-		<%
+	<%-- 	<%
 			try {
 					String picPath = PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
 					if (picPath == null) {
@@ -193,9 +191,92 @@ body {
 				} catch (IOException e) {
 					System.out.println("Error: " + e);
 				}
-		%> </header>
-
-
+		%> 
+ --%>
+<center>
+			<table style="margin-top: 100px">
+				<tr>
+					<%
+			try {
+					String picPath = PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+					if (picPath == null) {
+		%><h1 class="text">You have no posts yet. Click on the New Post
+			button to get started.</h1>
+		<%
+			} else {
+						String imgName = "C:/"
+								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
+						BufferedImage bImage = ImageIO.read(new File(imgName));
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						ImageIO.write(bImage, "jpg", baos);
+						baos.flush();
+						byte[] imageInByteArray = baos.toByteArray();
+						baos.close();
+						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+		%>
+					<td style="padding-left: 50px; padding-right: 150px; padding-bottom: 300px"><a
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="200" height="200" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+					<%
+			}
+						} catch (IOException e) {
+								System.out.println("Error: " + e);
+							}
+					%>
+					<%
+					try {
+						String imgName = "C:/"
+								+ PostDAO.getInstance().getLastPostFromOtherUserURL((int) session.getAttribute("userID"));
+						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
+						BufferedImage bImage = ImageIO.read(new File(imgName));
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						ImageIO.write(bImage, "jpg", baos);
+						baos.flush();
+						byte[] imageInByteArray = baos.toByteArray();
+						baos.close();
+						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+			%>
+					<td style="padding-right: 150px; padding-bottom: 300px"><a
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							width="200" height="200" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+					<%
+						} catch (IOException e) {
+								System.out.println("Error: " + e);
+							}
+					%>
+					<%-- <%
+						try {
+								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
+								//session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
+								//session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+								String imgName = "C:/";
+								imgName = imgName.concat(post.getAttachments().get(2).getURL());
+								BufferedImage bImage = ImageIO.read(new File(imgName));
+								ByteArrayOutputStream baos = new ByteArrayOutputStream();
+								ImageIO.write(bImage, "jpg", baos);
+								baos.flush();
+								byte[] imageInByteArray = baos.toByteArray();
+								baos.close();
+								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+					%>
+					<td style="padding-right: 50px; padding-bottom: 300px"><a
+						class="hvr-grow" href="TravelShare/home"> <img id="image"
+							"width="200" height="200" class="img-responsive"
+							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+					<%
+						} catch (IOException e) {
+								System.out.println("Error: " + e);
+							}
+					%>
+				</tr> --%>
+				</tr>
+				</table>
+				</center>
+				</header>
 		<div class="footer">
 			<jsp:include page="footer.jsp" />
 		</div>
