@@ -17,15 +17,18 @@
 <html>
 <head>
 <title>| Posts |</title>
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -171,6 +174,7 @@ body {
 							Post post = PostDAO.getInstance().getLastFivePosts();
 							session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 							session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
+							session.setAttribute("postID1", post.getAttachments().get(0).getPostID());
 							///System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 							String imgName = "C:/";
 							imgName = imgName.concat(post.getAttachments().get(0).getURL());
@@ -231,6 +235,7 @@ body {
 								Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
+								session.setAttribute("postID2", post.getAttachments().get(1).getPostID());
 								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
@@ -285,6 +290,7 @@ body {
 									Post post = PostDAO.getInstance().getLastFivePosts();
 									session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 									session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+									session.setAttribute("postID3", post.getAttachments().get(2).getPostID());
 									//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 									String imgName = "C:/";
 									imgName = imgName.concat(post.getAttachments().get(2).getURL());
@@ -339,6 +345,7 @@ body {
 										Post post = PostDAO.getInstance().getLastFivePosts();
 										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										session.setAttribute("postID4", post.getAttachments().get(3).getPostID());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
@@ -393,6 +400,7 @@ body {
 											Post post = PostDAO.getInstance().getLastFivePosts();
 											session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 											session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
+											session.setAttribute("postID5", post.getAttachments().get(4).getPostID());
 											//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 											String imgName = "C:/";
 											imgName = imgName.concat(post.getAttachments().get(4).getURL());
@@ -451,13 +459,16 @@ body {
 	<c:if test="${sessionScope.user == null }">
 		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
+	
 </body>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 var $emotionType = 2;
-var $orders = $('#orders');	
+var $orders = $('#numbers');	
 function addOrder(order) {
 	$orders.replaceWith('<li>emotion ' + order + '</li>');	
-}
+};
 
 /* $(function () { */
 		
@@ -475,7 +486,7 @@ function addOrder(order) {
 	})		
 }); */
 
-	$('#btn').on('click', function() {
+	$('#likeButton').on('click', function() {
 		$.ajax({	
 			type: 'GET',
 			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 84,
@@ -487,6 +498,30 @@ function addOrder(order) {
 			}		
 		})		
 	});
+$('#dislikeButton').on('click', function() {
+	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 84,
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+});
+$('#loveButton').on('click', function() {
+	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 84,
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+});
 
 
 
