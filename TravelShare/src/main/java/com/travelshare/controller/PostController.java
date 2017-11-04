@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.travelshare.model.Attachment;
 import com.travelshare.model.Post;
 import com.travelshare.model.PostDAO;
 import com.travelshare.model.User;
@@ -152,6 +153,49 @@ public class PostController {
 				session.setAttribute("errorRegister", "Your session is inactive, please login!");
 				return "login";
 			}*/
+		}
+		
+		@RequestMapping(value="/deletePost", method = RequestMethod.POST)
+		public String test1(Model model, HttpServletRequest request,HttpSession session) {
+			if(request.getSession().getId() != null) {
+			if(request.getParameter("button1") != null) {
+				//PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID1"));
+				Attachment att = (Attachment) session.getAttribute("attachmentID1");
+				System.err.println(att + " " + att.getAttachmentID());
+				PostDAO.getInstance().deletePost(att.getAttachmentID());
+				System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			if(request.getParameter("button2") != null) {
+				Attachment att = (Attachment) session.getAttribute("attachmentID2");
+				PostDAO.getInstance().deletePost(att.getAttachmentID());
+				System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			if(request.getParameter("button3") != null) {
+				Attachment att = (Attachment) session.getAttribute("attachmentID3");
+				PostDAO.getInstance().deletePost(att.getAttachmentID());
+				System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			if(request.getParameter("button4") != null) {
+				Attachment att = (Attachment) session.getAttribute("attachmentID4");
+				PostDAO.getInstance().deletePost(att.getAttachmentID());
+				System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			if(request.getParameter("button5") != null) {
+				Attachment att = (Attachment) session.getAttribute("attachmentID5");
+				PostDAO.getInstance().deletePost(att.getAttachmentID());
+				System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			if(request.getParameter("button6") != null) {
+				Attachment att = (Attachment) session.getAttribute("attachmentID6");
+				PostDAO.getInstance().deletePost(att.getAttachmentID());
+				System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}
+			
+			return "myPosts";	
+			} else {
+				request.getSession().invalidate();
+				return "login";
+			}
 		}
 		
 

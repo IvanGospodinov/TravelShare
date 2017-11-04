@@ -61,8 +61,9 @@ body {
 	border-radius: 15px 50px 30px 5px:    
 	margin-left: 35px;
 	margin-top: 10px;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	background: transparent;
+	
 }
 
 #likeButton {
@@ -178,19 +179,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+						<div id="numbers"></div>	<div id="numbers"></div><div id="numbers"></div>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -224,19 +222,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -270,19 +265,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -320,19 +312,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 							<%
 								} catch (IOException e) {
@@ -366,19 +355,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 							<%
 								} catch (IOException e) {
@@ -412,19 +398,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 							<%
 								} catch (IOException e) {
@@ -509,4 +492,71 @@ $('#loveButton').on('click', function() {
 		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
 </body>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+var $emotionType = 2;
+var $orders = $('#numbers');	
+function addOrder(order) {
+	$orders.replaceWith(order);	
+};
+
+/* $(function () { */
+		
+	
+	
+/* 	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutt',
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+}); */
+
+	$('#likeButton').on('click', function() {
+		$.ajax({	
+			type: 'GET',
+			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success: function(orders) {
+				
+				$.each(orders, function(i, order)  {
+					addOrder(order)		
+				}) 
+			}		
+		})		
+	});
+$('#dislikeButton').on('click', function() {
+	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+});
+$('#loveButton').on('click', function() {
+	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+});
+
+
+
+</script>
+
 </html>

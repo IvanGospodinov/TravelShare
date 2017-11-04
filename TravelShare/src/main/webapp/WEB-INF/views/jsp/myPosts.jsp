@@ -1,3 +1,4 @@
+<%@page import="com.travelshare.util.UserException"%>
 <%@page import="com.travelshare.model.PostDAO"%>
 <%@page import="com.travelshare.model.Post"%>
 <%@page import="com.travelshare.model.UserDAO"%>
@@ -76,7 +77,7 @@ body {
 								Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
-								session.setAttribute("attachmentID1", post.getAttachments().get(0).getAttachmentID());
+								session.setAttribute("attachmentID1", post.getAttachments().get(0));
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -90,9 +91,12 @@ body {
 					<td style="padding-right: 150px; padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							<form name="button4" method="post" action="deletePost">
+							<button type="submit" name="button1" />Delete this post</button></form>
+							</td>
 					<%
-						} catch (IOException e) {
+						} catch (IOException | UserException e) {
 								System.out.println("Error: " + e);
 							}
 					%>
@@ -101,7 +105,7 @@ body {
 								Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
-								session.setAttribute("attachmentID2", post.getAttachments().get(0).getAttachmentID());
+								session.setAttribute("attachmentID2", post.getAttachments().get(1));
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -115,7 +119,12 @@ body {
 					<td style="padding-right: 150px; padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<form name="button4" method="post" action="deletePost">
+							<button type="submit" name="button2" />Delete this post</button></form>
+							
+							</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -126,7 +135,7 @@ body {
 							Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
-								session.setAttribute("attachmentID3", post.getAttachments().get(0).getAttachmentID());
+								session.setAttribute("attachmentID3", post.getAttachments().get(2));
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -140,7 +149,12 @@ body {
 					<td style="padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<form name="button4" method="post" action="deletePost">
+							<button type="submit" name="button3" />Delete this post</button></form>
+							
+							</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -151,18 +165,6 @@ body {
 				</center>
 				
 						
-		<center>
-			<table>
-				<tr>
-					<th style="padding-right: 340px; padding-bottom: 20px"><form name="button1" method="post" action="deletePost">
-<button type="submit" name="button1" />Delete this post</button></form></th>
-   					 <th style="padding-right: 320px; padding-bottom: 20px"><form name="button2" method="post" action="deletePost">
-<button type="submit" name="button2" />Delete this post</button></form></th> 
-   					 <th style="padding-right: 150px; padding-bottom: 20px"><form name="button3" method="post" action="deletePost">
-<button type="submit" name="button3" />Delete this post</button></form></th>
-  				</tr>
-  			</table>
-  		</center>
 				
 				<center>
 					<table style="margin-top: 100px">
@@ -172,7 +174,7 @@ body {
 									Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
-										session.setAttribute("attachmentID4", post.getAttachments().get(0).getAttachmentID());
+										session.setAttribute("attachmentID4", post.getAttachments().get(3));
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -186,7 +188,12 @@ body {
 							<td style="padding-right: 150px; padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<form name="button4" method="post" action="deletePost">
+							<button type="submit" name="button4" />Delete this post</button></form>
+							
+							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -197,7 +204,7 @@ body {
 									Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
-										session.setAttribute("attachmentID5", post.getAttachments().get(0).getAttachmentID());
+										session.setAttribute("attachmentID5", post.getAttachments().get(4));
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -211,7 +218,12 @@ body {
 							<td style="padding-right: 150px; padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<form name="button4" method="post" action="deletePost">
+							<button type="submit" name="button5" />Delete this post</button></form>
+							
+							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -222,7 +234,7 @@ body {
 									Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
-										session.setAttribute("attachmentID6", post.getAttachments().get(0).getAttachmentID());
+										session.setAttribute("attachmentID6", post.getAttachments().get(5));
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -236,7 +248,12 @@ body {
 							<td padding-bottom: 20px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<form name="button4" method="post" action="deletePost">
+<button type="submit" name="button6" />Delete this post</button></form>
+							
+							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -246,18 +263,7 @@ body {
 					</table>
 				</center>
 				
-				<center>
-			<table>
-				<tr>
-					<th style="padding-right: 340px; padding-bottom: 80px"><form name="button4" method="post" action="deletePost">
-<button type="submit" name="button4" />Delete this post</button></form></th>
-   					 <th style="padding-right: 320px; padding-bottom: 80px"><form name="button5" method="post" action="deletePost">
-<button type="submit" name="button5" />Delete this post</button></form></th> 
-   					 <th style="padding-right: 150px; padding-bottom: 80px"><form name="button6" method="post" action="deletePost">
-<button type="submit" name="button6" />Delete this post</button></form></th>
-  				</tr>
-  			</table>
-  		</center>
+			
 
 				</header>
 				<div class="footer">
@@ -265,7 +271,7 @@ body {
 				</div>
 				<jsp:include page="footer.jsp" />
 	</c:if>
-	<c:if test="${sessionScope.user == null }">
+	<c:if test="${sessionScope.user == null}">
 		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
 </body>

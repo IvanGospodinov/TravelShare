@@ -55,7 +55,7 @@ body {
 	border-radius: 15px 50px 30px 5px:    
 	margin-left: 35px;
 	margin-top: 10px;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	background: transparent;
 }
 
@@ -149,8 +149,9 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-								session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
-								session.setAttribute("postDescription", post.getAttachments().get(0).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
+								session.setAttribute("postID1", post.getAttachments().get(0).getPostID());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -171,19 +172,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -193,8 +191,9 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-								session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
-								session.setAttribute("postDescription", post.getAttachments().get(1).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
+								session.setAttribute("postID2", post.getAttachments().get(1).getPostID());
+								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(1).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -215,19 +214,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -237,8 +233,8 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-								session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
-								session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
+								//session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
+								session.setAttribute("postID3", post.getAttachments().get(2).getPostID());
 								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
@@ -260,19 +256,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -286,8 +279,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-										session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
-										session.setAttribute("postDescription", post.getAttachments().get(3).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
+										session.setAttribute("postID4", post.getAttachments().get(3).getPostID());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
@@ -309,19 +302,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 							<%
 								} catch (IOException e) {
@@ -331,8 +321,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-										session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
-										session.setAttribute("postDescription", post.getAttachments().get(4).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
+										session.setAttribute("postID5", post.getAttachments().get(4).getPostID());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
@@ -354,19 +344,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 							<%
 								} catch (IOException e) {
@@ -376,8 +363,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-										session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
-										session.setAttribute("postDescription", post.getAttachments().get(5).getDescription());
+										//session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
+										session.setAttribute("postID6", post.getAttachments().get(5).getPostID());
 										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
@@ -399,19 +386,16 @@ body {
 						<img id="likeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="dislikeButton"
 							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
 					</button>
-					<p id="numbers"></p>
 					<button class="buttons">
 						<img id="loveButton"
 							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
 					</button>
-					<p id="numbers"></p>
 				</div>
-							
+							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
 							</td>
 							<%
 								} catch (IOException e) {
@@ -430,4 +414,71 @@ body {
 		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
 </body>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+var $emotionType = 2;
+var $orders = $('#numbers');	
+function addOrder(order) {
+	$orders.replaceWith(order);	
+};
+
+/* $(function () { */
+		
+	
+	
+/* 	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutt',
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+}); */
+
+	$('#likeButton').on('click', function() {
+		$.ajax({	
+			type: 'GET',
+			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success: function(orders) {
+				
+				$.each(orders, function(i, order)  {
+					addOrder(order)		
+				}) 
+			}		
+		})		
+	});
+$('#dislikeButton').on('click', function() {
+	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+});
+$('#loveButton').on('click', function() {
+	$.ajax({	
+		type: 'GET',
+		url: '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+		success: function(orders) {
+			
+			$.each(orders, function(i, order)  {
+				addOrder(order)		
+			}) 
+		}		
+	})		
+});
+
+
+
+</script>
+
+
 </html>

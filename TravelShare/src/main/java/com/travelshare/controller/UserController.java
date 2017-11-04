@@ -399,40 +399,6 @@ public class UserController extends HttpServlet{
 
 		return "deletePost";	
 	}
-	@RequestMapping(value="/deletePost", method = RequestMethod.POST)
-	public String test1(Model model, HttpServletRequest request,HttpSession session) {
-		if(request.getSession().getId() != null) {
-		if(request.getParameter("button1") != null) {
-			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID1"));
-			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
-		if(request.getParameter("button2") != null) {
-			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID2"));
-			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
-		if(request.getParameter("button3") != null) {
-			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID3"));
-			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
-		if(request.getParameter("button4") != null) {
-			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID4"));
-			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
-		if(request.getParameter("button5") != null) {
-			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID5"));
-			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
-		if(request.getParameter("button6") != null) {
-			PostDAO.getInstance().deletePost((int)session.getAttribute("attachmentID6"));
-			System.err.println("DELETE POST PLEASE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
-
-		return "home";	
-		} else {
-			request.getSession().invalidate();
-			return "login";
-		}
-	}
 
 	@RequestMapping(value="/forgotPassword", method = RequestMethod.GET)
 	public String forgotPassword(Model model, HttpServletRequest request) {

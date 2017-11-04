@@ -236,9 +236,9 @@ public class PostDAO {
 					rs.getInt("post_id"),
 					rs.getString("attachment_photo_url"));
 			System.err.println("VZIMAM ATACHMENT-TA URL-A E " + attachment.getURL());
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
-			throw new UserException("Error at getting last Five Posts", e);
+			//throw new UserException("Error at getting last Five Posts", e);
 		}
 		
 		return attachment;
