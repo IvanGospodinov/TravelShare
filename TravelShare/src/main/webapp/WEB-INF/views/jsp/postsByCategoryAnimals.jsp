@@ -50,6 +50,81 @@ body {
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
 	transform: scale(1.2);
 }
+
+.buttons {
+	border-radius: 15px 50px 30px 5px:    
+	margin-left: 35px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	background: transparent;
+}
+
+#likeButton {
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
+	transform: rotate(360deg);
+	height: 25px;
+	width: 25px;
+}
+
+#dislikeButton {
+	align: middle;
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
+	transform: rotate(180deg);
+	height: 25px;
+	width: 25px;
+}
+
+#loveButton {
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-left: 0px;
+	transform: rotate(360deg);
+	height: 25px;
+	width: 25px;
+}
+
+.post {
+	border: 1px;
+	border-color: aqua;
+}
+
+.bottomPosts {
+	margin-bottom: 20px;
+	margin-top: 70px;
+}
+
+#title {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.descriptionBox {
+	border: 1px solid;
+	border-color: black;
+	max-height: 80px;
+}
+
+.footerContainer {
+	display: inline;
+}
+
+#numbers {
+	display: inline-table;
+	font-size: 20px;
+}
+
+.text {
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
+	text-align: center;
+	color: black;
+}
+
+
 </style>
 
 
@@ -90,7 +165,27 @@ body {
 					<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers"></p>
+				</div>
+							
+							</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -115,7 +210,27 @@ body {
 					<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers"></p>
+				</div>
+							
+							</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -140,7 +255,27 @@ body {
 					<td style="padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers"></p>
+				</div>
+							
+							</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -169,7 +304,27 @@ body {
 							<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers"></p>
+				</div>
+							
+							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -194,7 +349,27 @@ body {
 							<td style="padding-right: 150px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers"></p>
+				</div>
+							
+							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -219,7 +394,27 @@ body {
 							<td style="padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							src="data:image/jpg;base64, <%=b64%>" /></a>
+							
+							<div class="buttons">
+					<button class="buttons">
+						<img id="likeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="dislikeButton"
+							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+					</button>
+					<p id="numbers"></p>
+					<button class="buttons">
+						<img id="loveButton"
+							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+					</button>
+					<p id="numbers"></p>
+				</div>
+							
+							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);

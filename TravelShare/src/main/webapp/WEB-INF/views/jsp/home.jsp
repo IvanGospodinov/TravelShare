@@ -114,7 +114,7 @@ body {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
 	text-align: center;
-	color: gray;
+	color: #383a3d;
 }
 
 #numbers {
@@ -122,7 +122,10 @@ body {
 	font-size: 20px;
 }
 
-
+img{
+    max-width:200px;
+    max-height:300px;
+}
 
 </style>
 
@@ -193,7 +196,7 @@ body {
 				}
 		%> 
  --%>
-<center>
+		<center>
 			<table style="margin-top: 100px">
 				<tr>
 					<%
@@ -204,6 +207,12 @@ body {
 			button to get started.</h1>
 		<%
 			} else {
+				%>
+				<th class="text" style="font-size: 30px;padding-left: 10px;">Your Latest Post</th>
+				<th class="text" style="font-size: 30px;">The latest post on our site</th>
+				</tr>
+				<tr>
+				<%
 						String imgName = "C:/"
 								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
 						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
@@ -219,7 +228,7 @@ body {
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="200" height="200" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
-					<%
+				<%
 			}
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -238,10 +247,11 @@ body {
 						baos.close();
 						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 			%>
-					<td style="padding-right: 150px; padding-bottom: 300px"><a
+					<td style="padding-right: 100px; padding-bottom: 300px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="200" height="200" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+							
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
