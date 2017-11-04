@@ -48,6 +48,18 @@ public class User {
 	}
 	
 	
+	public User(int userID, String uname, String email, String password, String firstName, String lastName, String pictureURL) {
+		super();
+		this.userID = userID;
+		this.username = uname;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pictureURL = pictureURL;
+		this.followers=new LinkedHashSet<User>();
+	}
+	
 	public User(String email, String password) {
 		super();
 		this.password = password;
