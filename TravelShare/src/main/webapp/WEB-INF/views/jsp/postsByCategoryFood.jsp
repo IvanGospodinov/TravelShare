@@ -30,13 +30,16 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
+
 .text {
 	text-decoration-color: fuchsia;
 	font-family: 'Indie Flower', cursive;
 	text-align: center;
 	color: black;
 }
+
 @import "compass/css3";
+
 .hvr-grow {
 	display: inline-block;
 	transform: translateZ(0);
@@ -47,19 +50,20 @@ body {
 	transition-property: transform;
 	float: left;
 }
+
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
-	transform: scale(1.2);
+	transform: scale(1.4);
 }
 
 .buttons {
-	border-radius: 15px 50px 30px 5px:    
+	border-radius: 15px 50px 30px 5px:     
 	margin-left: 35px;
 	margin-top: 10px;
 	/* margin-bottom: 20px; */
 	background: transparent;
 }
 
-#likeButton {
+#likeButton1, #likeButton2, #likeButton3, #likeButton4, #likeButton5, #likeButton6 {
 	margin-left: 25px;
 	margin-right: 25px;
 	padding-left: 0px;
@@ -68,7 +72,7 @@ body {
 	width: 25px;
 }
 
-#dislikeButton {
+#dislikeButton1, #dislikeButton2, #dislikeButton3, #dislikeButton4, #dislikeButton5, #dislikeButton6 {
 	align: middle;
 	margin-left: 25px;
 	margin-right: 25px;
@@ -78,7 +82,7 @@ body {
 	width: 25px;
 }
 
-#loveButton {
+#loveButton1, #loveButton2, #loveButton3, #loveButton4, #loveButton5, #loveButton6 {
 	margin-left: 25px;
 	margin-right: 25px;
 	padding-left: 0px;
@@ -123,8 +127,6 @@ body {
 	text-align: center;
 	color: black;
 }
-
-
 </style>
 
 
@@ -140,7 +142,11 @@ body {
 			<c:out value="${name}"></c:out>
 		</h1>
 		<br>
-		<h1 class="text" style="color: black">Here are the latest posts from our <c:out value="${category}"></c:out> category</h1>
+		<h1 class="text" style="color: black">
+			Here are the latest posts from our
+			<c:out value="${category}"></c:out>
+			category
+		</h1>
 		<hr class="descriptionBox">
 
 		<center>
@@ -162,27 +168,25 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 300px"><a
+					<td style="padding-right: 150px; padding-bottom: 60px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a>
-							
-							<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-				</div>
-							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
-							</td>
+
+						<div class="buttons">
+							<button class="buttons">
+								<img id="likeButton1"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<button class="buttons">
+								<img id="dislikeButton1"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<button class="buttons">
+								<img id="loveButton1"
+									src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+							</button>
+						</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -204,27 +208,25 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-right: 150px; padding-bottom: 300px"><a
+					<td style="padding-right: 150px; padding-bottom: 60px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a>
-							
-							<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-				</div>
-							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
-							</td>
+
+						<div class="buttons">
+							<button class="buttons">
+								<img id="likeButton2"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<button class="buttons">
+								<img id="dislikeButton2"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<button class="buttons">
+								<img id="loveButton2"
+									src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+							</button>
+					</td>
 					<%
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
@@ -246,26 +248,24 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
-					<td style="padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
+					<td style="padding-bottom: 60px"><a class="hvr-grow"
+						href="TravelShare/home"> <img id="image" width="300"
+							height="300" class="img-responsive"
 							src="data:image/jpg;base64, <%=b64%>" /></a>
-							
-							<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-				</div>
-							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
+
+						<div class="buttons">
+							<button class="buttons">
+								<img id="likeButton3"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<button class="buttons">
+								<img id="dislikeButton3"
+									src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+							</button>
+							<button class="buttons">
+								<img id="loveButton3"
+									src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+							</button>
 							</td>
 					<%
 						} catch (IOException e) {
@@ -293,26 +293,25 @@ body {
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
 							<td style="padding-right: 150px; padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a>
-							
-							<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-				</div>
-							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
-							</td>
+								class="hvr-grow" href="TravelShare/home"> <img id="image"
+									width="300" height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a>
+
+								<div class="buttons">
+									<button class="buttons">
+										<img id="likeButton4"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<button class="buttons">
+										<img id="dislikeButton4"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<button class="buttons">
+										<img id="loveButton4"
+											src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+									</button>
+								</div>
+								</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -335,26 +334,25 @@ body {
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
 							<td style="padding-right: 150px; padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a>
-							
-							<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-				</div>
-							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
-							</td>
+								class="hvr-grow" href="TravelShare/home"> <img id="image"
+									width="300" height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a>
+
+								<div class="buttons">
+									<button class="buttons">
+										<img id="likeButton5"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<button class="buttons">
+										<img id="dislikeButton5"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<button class="buttons">
+										<img id="loveButton5"
+											src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+									</button>
+								</div>
+								</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -376,27 +374,25 @@ body {
 										baos.close();
 										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 							%>
-							<td style="padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="300" height="300" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a>
-							
-							<div class="buttons">
-					<button class="buttons">
-						<img id="likeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="dislikeButton"
-							src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-					</button>
-					<button class="buttons">
-						<img id="loveButton"
-							src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-					</button>
-				</div>
-							<div id="numbers"></div><div id="numbers"></div><div id="numbers"></div>
-							</td>
+							<td style="padding-bottom: 300px"><a class="hvr-grow"
+								href="TravelShare/home"> <img id="image" width="300"
+									height="300" class="img-responsive"
+									src="data:image/jpg;base64, <%=b64%>" /></a>
+
+								<div class="buttons">
+									<button class="buttons">
+										<img id="likeButton6"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<button class="buttons">
+										<img id="dislikeButton6"
+											src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
+									</button>
+									<button class="buttons">
+										<img id="loveButton6"
+											src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
+									</button>
+								</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
@@ -409,40 +405,348 @@ body {
 				<div class="footer">
 					<jsp:include page="footer.jsp" />
 				</div>
-	</c:if>
-	<c:if test="${sessionScope.user == null }">
-		<jsp:forward page="login.jsp"></jsp:forward>
-	</c:if>
+				</c:if>
+				<c:if test="${sessionScope.user == null }">
+					<jsp:forward page="login.jsp"></jsp:forward>
+				</c:if>
 </body>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-var $emotionType = 2;
-var $orders = $('#numbers');	
-function addOrder(order) {
-	$orders.replaceWith(order);	
-};
+	var $emotion1 = $('#likeButton1');
+	function addEmotion1(type) {
+		$emotion1.replaceWith(type);
+	};
 
-/* $(function () { */
-		
-	
-	
-/* 	$.ajax({	
-		type: 'GET',
-		url: '/TravelShare/aboutt',
-		success: function(orders) {
-			
-			$.each(orders, function(i, order)  {
-				addOrder(order)		
-			}) 
-		}		
-	})		
-}); */
+	$('#likeButton1').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success : function(emotion1) {
 
-	$('#likeButton').on('click', function() {
-		$.ajax({	
+				$.each(emotion1, function(i, type) {
+					addEmotion1(type)
+				})
+			}
+		})
+	});
+
+	var $emotion2 = $('#dislikeButton1');
+	function addEmotion2(type) {
+		$emotion2.replaceWith(type);
+	};
+
+	$('#dislikeButton1').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			success : function(emotion2) {
+
+				$.each(emotion2, function(i, type) {
+					addEmotion2(type)
+				})
+			}
+		})
+	});
+	var $emotion3 = $('#loveButton1');
+	function addEmotion3(type) {
+		$emotion3.replaceWith(type);
+	};
+
+	$('#loveButton1').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			success : function(emotion3) {
+
+				$.each(emotion3, function(i, type) {
+					addEmotion3(type)
+				})
+			}
+		})
+	});
+
+	/*SECOND POST*/
+
+	var $emotion4 = $('#likeButton2');
+	function addEmotion4(type) {
+		$emotion4.replaceWith(type);
+	};
+
+	$('#likeButton2').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success : function(emotion4) {
+
+				$.each(emotion4, function(i, type) {
+					addEmotion4(type)
+				})
+			}
+		})
+	});
+
+	var $emotion5 = $('#dislikeButton2');
+	function addEmotion5(type) {
+		$emotion5.replaceWith(type);
+	};
+
+	$('#dislikeButton2').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			success : function(emotion5) {
+
+				$.each(emotion5, function(i, type) {
+					addEmotion5(type)
+				})
+			}
+		})
+	});
+	var $emotion6 = $('#loveButton2');
+	function addEmotion6(type) {
+		$emotion6.replaceWith(type);
+	};
+
+	$('#loveButton2').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			success : function(emotion6) {
+
+				$.each(emotion6, function(i, type) {
+					addEmotion6(type)
+				})
+			}
+		})
+	});
+
+	/*THIRD POST*/
+
+	var $emotion7 = $('#likeButton3');
+	function addEmotion7(type) {
+		$emotion7.replaceWith(type);
+	};
+
+	$('#likeButton3').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success : function(emotion7) {
+
+				$.each(emotion7, function(i, type) {
+					addEmotion7(type)
+				})
+			}
+		})
+	});
+
+	var $emotion8 = $('#dislikeButton3');
+	function addEmotion8(type) {
+		$emotion8.replaceWith(type);
+	};
+
+	$('#dislikeButton3').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			success : function(emotion8) {
+
+				$.each(emotion8, function(i, type) {
+					addEmotion8(type)
+				})
+			}
+		})
+	});
+	var $emotion9 = $('#loveButton3');
+	function addEmotion9(type) {
+		$emotion9.replaceWith(type);
+	};
+
+	$('#loveButton3').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			success : function(emotion9) {
+
+				$.each(emotion9, function(i, type) {
+					addEmotion9(type)
+				})
+			}
+		})
+	});
+
+	/*FOURTH POST*/
+
+	var $emotion10 = $('#likeButton4');
+	function addEmotion10(type) {
+		$emotion10.replaceWith(type);
+	};
+
+	$('#likeButton4').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success : function(emotion10) {
+
+				$.each(emotion10, function(i, type) {
+					addEmotion10(type)
+				})
+			}
+		})
+	});
+
+	var $emotion11 = $('#dislikeButton4');
+	function addEmotion11(type) {
+		$emotion11.replaceWith(type);
+	};
+
+	$('#dislikeButton4').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			success : function(emotion11) {
+
+				$.each(emotion11, function(i, type) {
+					addEmotion11(type)
+				})
+			}
+		})
+	});
+	var $emotion12 = $('#loveButton4');
+	function addEmotion12(type) {
+		$emotion12.replaceWith(type);
+	};
+
+	$('#loveButton4').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			success : function(emotion12) {
+
+				$.each(emotion12, function(i, type) {
+					addEmotion12(type)
+				})
+			}
+		})
+	});
+
+	/*FIFTH POST*/
+
+	var $emotion13 = $('#likeButton5');
+	function addEmotion13(type) {
+		$emotion13.replaceWith(type);
+	};
+
+	$('#likeButton5').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success : function(emotion13) {
+
+				$.each(emotion13, function(i, type) {
+					addEmotion13(type)
+				})
+			}
+		})
+	});
+
+	var $emotion14 = $('#dislikeButton5');
+	function addEmotion14(type) {
+		$emotion14.replaceWith(type);
+	};
+
+	$('#dislikeButton5').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			success : function(emotion14) {
+
+				$.each(emotion14, function(i, type) {
+					addEmotion14(type)
+				})
+			}
+		})
+	});
+	var $emotion15 = $('#loveButton5');
+	function addEmotion15(type) {
+		$emotion15.replaceWith(type);
+	};
+
+	$('#loveButton5').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			success : function(emotion15) {
+
+				$.each(emotion15, function(i, type) {
+					addEmotion15(type)
+				})
+			}
+		})
+	});
+
+	/*SIXTH POST*/
+
+	var $emotion16 = $('#likeButton6');
+	function addEmotion16(type) {
+		$emotion16.replaceWith(type);
+	};
+
+	$('#likeButton6').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			success : function(emotion16) {
+
+				$.each(emotion16, function(i, type) {
+					addEmotion16(type)
+				})
+			}
+		})
+	});
+
+	var $emotion17 = $('#dislikeButton6');
+	function addEmotion17(type) {
+		$emotion17.replaceWith(type);
+	};
+
+	$('#dislikeButton6').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			success : function(emotion17) {
+
+				$.each(emotion17, function(i, type) {
+					addEmotion17(type)
+				})
+			}
+		})
+	});
+	var $emotion18 = $('#loveButton6');
+	function addEmotion18(type) {
+		$emotion18.replaceWith(type);
+	};
+
+	$('#loveButton6').on('click', function() {
+		$.ajax({
+			type : 'GET',
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			success : function(emotion18) {
+
+				$.each(emotion18, function(i, type) {
+					addEmotion18(type)
+				})
+			}
+		})
+	});
+
+	/* $(function () { */
+
+	/* 	$.ajax({	
 			type: 'GET',
-			url: '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url: '/TravelShare/aboutt',
 			success: function(orders) {
 				
 				$.each(orders, function(i, order)  {
@@ -450,35 +754,7 @@ function addOrder(order) {
 				}) 
 			}		
 		})		
-	});
-$('#dislikeButton').on('click', function() {
-	$.ajax({	
-		type: 'GET',
-		url: '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
-		success: function(orders) {
-			
-			$.each(orders, function(i, order)  {
-				addOrder(order)		
-			}) 
-		}		
-	})		
-});
-$('#loveButton').on('click', function() {
-	$.ajax({	
-		type: 'GET',
-		url: '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
-		success: function(orders) {
-			
-			$.each(orders, function(i, order)  {
-				addOrder(order)		
-			}) 
-		}		
-	})		
-});
-
-
-
+	}); */
 </script>
-
 
 </html>

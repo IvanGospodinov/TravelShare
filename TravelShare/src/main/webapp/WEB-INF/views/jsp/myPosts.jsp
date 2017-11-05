@@ -49,7 +49,7 @@ body {
 	float: left;
 }
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
-	transform: scale(1.2);
+	transform: scale(1.4);
 }
 </style>
 
