@@ -148,7 +148,7 @@ body {
 				<tr>
 				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
 				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title <c:out value="${postTitle3}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle3}"></c:out>'</th>
 				</tr>
 				<tr>
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
@@ -285,7 +285,7 @@ body {
 					<tr>
 				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle4}"></c:out>'</th>
 				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle5}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title <c:out value="${postTitle6}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle6}"></c:out>'</th>
 				</tr>
 				<tr>
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription4}"></c:out>'</th>

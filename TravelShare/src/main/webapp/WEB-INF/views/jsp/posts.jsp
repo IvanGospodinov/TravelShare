@@ -209,8 +209,6 @@ body {
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
 							}
-					%>
-					<%
 					try {
 											//Post post = PostDAO.getInstance().getLastFivePosts();
 											session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
@@ -250,8 +248,6 @@ body {
 						} catch (IOException e) {
 								System.out.println("Error: " + e);
 							}
-					%>
-					<%
 					try {
 											//Post post = PostDAO.getInstance().getLastFivePosts();
 											session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
@@ -305,9 +301,7 @@ body {
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription4}"></c:out>'</th>
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription5}"></c:out>'</th>
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription6}"></c:out>'</th>
-				</tr>
-					
-					
+				</tr>		
 						<tr>
 							<%
 							try {
@@ -349,8 +343,6 @@ body {
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
 									}
-							%>
-							<%
 							try {
 								//Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
@@ -390,8 +382,6 @@ body {
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
 									}
-							%>
-							<%
 							try {
 								//Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());

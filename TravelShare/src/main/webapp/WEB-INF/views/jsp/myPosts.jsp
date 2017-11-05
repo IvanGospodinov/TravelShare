@@ -92,7 +92,6 @@ body {
 			
 				<tr>
 					<%
-								//post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 								session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
 								session.setAttribute("postDescription1", post.getAttachments().get(0).getDescription());
 								session.setAttribute("attachmentID1", post.getAttachments().get(0));
@@ -120,7 +119,6 @@ body {
 					%>
 					<%
 						try {
-								//post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 								session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
 								session.setAttribute("postDescription2", post.getAttachments().get(1).getDescription());
 								session.setAttribute("attachmentID2", post.getAttachments().get(1));
@@ -150,7 +148,6 @@ body {
 					%>
 					<%
 						try {
-							//Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 								session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
 								session.setAttribute("postDescription3", post.getAttachments().get(2).getDescription());
 								session.setAttribute("attachmentID3", post.getAttachments().get(2));
@@ -181,10 +178,7 @@ body {
 				</tr>
 				</table>
 				</center>
-				
-						
-				
-				<center>
+			<center>
 					<table style="margin-top: 100px">
 					
 					<tr>
@@ -196,12 +190,10 @@ body {
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription4}"></c:out>'</th>
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription5}"></c:out>'</th>
 				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription6}"></c:out>'</th>
-				</tr>
-					
+				</tr>				
 						<tr>
 							<%
 								try {
-									//Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 										session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
 										session.setAttribute("postDescription4", post.getAttachments().get(3).getDescription());
 										session.setAttribute("attachmentID4", post.getAttachments().get(3));
@@ -228,10 +220,7 @@ body {
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
 									}
-							%>
-							<%
 								try {
-									//Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 										session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
 										session.setAttribute("postDescription5", post.getAttachments().get(4).getDescription());
 										session.setAttribute("attachmentID5", post.getAttachments().get(4));
@@ -251,17 +240,13 @@ body {
 							src="data:image/jpg;base64, <%=b64%>" /></a>
 							
 							<form name="button4" method="post" action="deletePost">
-							<button type="submit" name="button5" />Delete this post</button></form>
-							
+							<button type="submit" name="button5" />Delete this post</button></form>						
 							</td>
 							<%
 								} catch (IOException e) {
 										System.out.println("Error: " + e);
 									}
-							%>
-							<%
 								try {
-									//Post post = PostDAO.getInstance().getMyPosts((int)session.getAttribute("userID"));
 										session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
 										session.setAttribute("postDescription6", post.getAttachments().get(5).getDescription());
 										session.setAttribute("attachmentID6", post.getAttachments().get(5).getAttachmentID());
@@ -281,8 +266,7 @@ body {
 							src="data:image/jpg;base64, <%=b64%>" /></a>
 							
 							<form name="button4" method="post" action="deletePost">
-<button type="submit" name="button6" />Delete this post</button></form>
-							
+							<button type="submit" name="button6" />Delete this post</button></form>			
 							</td>
 							<%
 								} catch (IOException e) {
@@ -298,9 +282,6 @@ body {
 		<%} %>
 					</table>
 				</center>
-				
-			
-
 				</header>
 				<div class="footer">
 					<jsp:include page="footer.jsp" />

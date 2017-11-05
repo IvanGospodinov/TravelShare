@@ -69,7 +69,7 @@ body {
 }
 
 .buttons {
-	border-radius: 15px 50px 30px 5px:  
+	border-radius: 15px 50px 30px 5px:   
 	margin-left: 35px;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -118,15 +118,14 @@ body {
 }
 
 #numbers {
-	display:inline-table;
+	display: inline-table;
 	font-size: 20px;
 }
 
-img{
-    max-width:200px;
-    max-height:300px;
+img {
+	max-width: 200px;
+	max-height: 300px;
 }
-
 </style>
 
 </head>
@@ -139,112 +138,72 @@ img{
 		<h1 class="text">
 			Hello
 			<c:out value="${username}"></c:out>
-		<center>
-			<table style="margin-top: 100px">
+			<center>
+				<table style="margin-top: 100px">
 					<%
-			try {
-					String picPath = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
-					if (picPath == null) {
-		%><h1 class="text">You have no posts yet. Click on the New Post
-			button to get started.</h1>
-		<%
-			} else {
-				%>
-				<th class="text" style="font-size: 30px;padding-left: 10px;padding-bottom: 10px;">Your Latest Post</th>
-				<th class="text" style="font-size: 30px;padding-bottom: 10px;">The latest post on our site</th>
-				</tr>
-				
-				<tr>
-				<th class="text" style="font-size: 25px;color: black;padding-bottom: 7px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;color: black;padding-bottom: 7px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
-				</tr>
-				<tr>
-				<th class="text" style="font-size: 17px; color: black;padding-bottom: 10px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
-				<th class="text" style="font-size: 17px;color: black;padding-bottom: 10px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
-				</tr>
-			
-				<tr>
-				
-				<tr>
-				<%
-						session.setAttribute("postTitle1", PostDAO.getInstance().getLastTitle((int)session.getAttribute("userID")));
-						session.setAttribute("postDescription1", PostDAO.getInstance().getLastDescription((int)session.getAttribute("userID")));
-						String imgName = "C:/"
-								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
-						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
-						BufferedImage bImage = ImageIO.read(new File(imgName));
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						ImageIO.write(bImage, "jpg", baos);
-						baos.flush();
-						byte[] imageInByteArray = baos.toByteArray();
-						baos.close();
-						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-		%>
-					<td style="padding-left: 50px; padding-right: 150px; padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="200" height="200" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
-				<%
-			}
-						} catch (IOException e) {
-								System.out.println("Error: " + e);
-							}
-					%>
-					<%
-					try {
-						session.setAttribute("postTitle2", PostDAO.getInstance().getLastTitleFromOtherUserLastPost((int)session.getAttribute("userID")));
-						session.setAttribute("postDescription2", PostDAO.getInstance().getLastDescriptionFromOtherUserLastPost((int)session.getAttribute("userID")));
-						String imgName = "C:/"
-								+ PostDAO.getInstance().getLastPostFromOtherUserURL((int) session.getAttribute("userID"));
-						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
-						BufferedImage bImage = ImageIO.read(new File(imgName));
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						ImageIO.write(bImage, "jpg", baos);
-						baos.flush();
-						byte[] imageInByteArray = baos.toByteArray();
-						baos.close();
-						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-			%>
-					<td style="padding-right: 100px; padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							width="200" height="200" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
-							
-					<%
-						} catch (IOException e) {
-								System.out.println("Error: " + e);
-							}
-					%>
-					<%-- <%
 						try {
-								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
-								//session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
-								//session.setAttribute("postDescription", post.getAttachments().get(2).getDescription());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
-								String imgName = "C:/";
-								imgName = imgName.concat(post.getAttachments().get(2).getURL());
-								BufferedImage bImage = ImageIO.read(new File(imgName));
-								ByteArrayOutputStream baos = new ByteArrayOutputStream();
-								ImageIO.write(bImage, "jpg", baos);
-								baos.flush();
-								byte[] imageInByteArray = baos.toByteArray();
-								baos.close();
-								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-					%>
-					<td style="padding-right: 50px; padding-bottom: 300px"><a
-						class="hvr-grow" href="TravelShare/home"> <img id="image"
-							"width="200" height="200" class="img-responsive"
-							src="data:image/jpg;base64, <%=b64%>" /></a></td>
+								String picPath = PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+								if (picPath == null) {
+					%><h1 class="text">You have no posts yet. Click on the New Post
+						button to get started.</h1>
 					<%
-						} catch (IOException e) {
-								System.out.println("Error: " + e);
-							}
+						} else {
 					%>
-				</tr> --%>
-				</tr>
+					<th class="text"
+						style="font-size: 30px; padding-left: 10px; padding-bottom: 10px;">Your
+						Latest Post</th>
+					<th class="text" style="font-size: 30px; padding-bottom: 10px;">The
+						latest post on our site</th>
+					</tr>
+
+					<tr>
+						<%
+							String imgName = "C:/"
+												+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+										System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
+										BufferedImage bImage = ImageIO.read(new File(imgName));
+										ByteArrayOutputStream baos = new ByteArrayOutputStream();
+										ImageIO.write(bImage, "jpg", baos);
+										baos.flush();
+										byte[] imageInByteArray = baos.toByteArray();
+										baos.close();
+										String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+						%>
+						<td
+							style="padding-left: 50px; padding-right: 150px; padding-bottom: 300px"><a
+							class="hvr-grow" href="TravelShare/home"> <img id="image"
+								width="200" height="200" class="img-responsive"
+								src="data:image/jpg;base64, <%=b64%>" /></a></td>
+						<%
+							}
+								} catch (IOException e) {
+									System.out.println("Error: " + e);
+								}
+							try {
+									String imgName = "C:/"
+											+ PostDAO.getInstance().getLastPostFromOtherUserURL((int) session.getAttribute("userID"));
+									System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
+									BufferedImage bImage = ImageIO.read(new File(imgName));
+									ByteArrayOutputStream baos = new ByteArrayOutputStream();
+									ImageIO.write(bImage, "jpg", baos);
+									baos.flush();
+									byte[] imageInByteArray = baos.toByteArray();
+									baos.close();
+									String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+						%>
+						<td style="padding-right: 100px; padding-bottom: 300px"><a
+							class="hvr-grow" href="TravelShare/home"> <img id="image"
+								width="200" height="200" class="img-responsive"
+								src="data:image/jpg;base64, <%=b64%>" /></a></td>
+						<%
+							} catch (IOException e) {
+									System.out.println("Error: " + e);
+								}
+						%>
+					</tr>
 				</table>
-				</center>
-				</header>
+			</center>
+		</header>
 		<div class="footer">
 			<jsp:include page="footer.jsp" />
 		</div>
@@ -252,11 +211,6 @@ img{
 	<c:if test="${sessionScope.user == null }">
 		<jsp:forward page="login.jsp"></jsp:forward>
 	</c:if>
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-1.7.1.js"
-		type="text/javascript"></script>
 
 </body>
 </html>

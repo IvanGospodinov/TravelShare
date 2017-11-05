@@ -101,11 +101,10 @@ margin-right:50px;
 }
 
 .postLocation {
-	outline-style: solid;
+	outline-style: groove;
     margin-bottom: 20px;
     margin-top: 20px;
     max-height: 30px;
-    text-align: center;
 }
 
 .postTitle {
