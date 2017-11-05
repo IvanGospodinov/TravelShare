@@ -53,7 +53,7 @@ a {
 		<div class="l-container centered-box">
 			<div class="centered-box__content l-row">
 				<center>
-				<table style="margin-top: 100px">
+				<table style="margin-top: 60px; margin-bottom: 60px">
                 <!--AVATAR-->
                 <tr>
                 <h1>Hello <c:out value="${user.getFirstName()}"></c:out></h1>
