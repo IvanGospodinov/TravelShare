@@ -147,17 +147,8 @@ body {
 
 		<center>
 			<table style="margin-top: 100px">
-			<tr>
-				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title <c:out value="${postTitle3}"></c:out>'</th>
-				</tr>
-				<tr>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription3}"></c:out>'</th>
-				</tr>
-				<tr>
+			
+				
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(2);
@@ -173,6 +164,17 @@ body {
 								baos.close();
 								String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 					%>
+					<tr>
+				<th class="text" style="font-size: 25px;padding-bottom: 10px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;padding-bottom: 10px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;padding-bottom: 10px;">Title <c:out value="${postTitle3}"></c:out>'</th>
+				</tr>
+				<tr>
+				<th class="text" style="font-size: 17px;padding-bottom: 10px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;padding-bottom: 10px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;padding-bottom: 10px;">Description: '<c:out value="${postDescription3}"></c:out>'</th>
+				</tr>
+					<tr>
 					<td style="padding-right: 150px; padding-bottom: 60px"><a
 						class="hvr-grow" href="TravelShare/home"> <img id="image"
 							width="300" height="300" class="img-responsive"
@@ -285,14 +287,14 @@ body {
 				<center>
 					<table style="margin-top: 100px">
 					<tr>
-				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle4}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle5}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title <c:out value="${postTitle6}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;padding-bottom: 10px;">Title '<c:out value="${postTitle4}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;padding-bottom: 10px;">Title '<c:out value="${postTitle5}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;padding-bottom: 10px;">Title <c:out value="${postTitle6}"></c:out>'</th>
 				</tr>
 				<tr>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription4}"></c:out>'</th>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription5}"></c:out>'</th>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription6}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;padding-bottom: 10px;">Description: '<c:out value="${postDescription4}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;padding-bottom: 10px;">Description: '<c:out value="${postDescription5}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;padding-bottom: 10px;">Description: '<c:out value="${postDescription6}"></c:out>'</th>
 				</tr>
 						<tr>
 							<%

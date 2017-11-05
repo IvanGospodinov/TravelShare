@@ -146,12 +146,18 @@ body {
 			<c:out value="${name}"></c:out>
 		</h1>
 		<br>
-		<h1 class="text" style="color: black">These are the latest posts made by our users</h1>
+		
+		<%
+			Post post = PostDAO.getInstance().getLastFivePosts();
+			if (post.getAttachments().size() != 0) {
+				%>
+				<h1 class="text" style="color: black">These are the latest posts made by our users</h1>
 		<hr class="descriptionBox">
-
 		<center>
 			<table style="margin-top: 100px">
-			
+			<%
+					try {
+						%>
 			<tr>
 				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
 				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
@@ -164,9 +170,8 @@ body {
 				</tr>
 			
 				<tr>
-					<%
-					try {
-						Post post = PostDAO.getInstance().getLastFivePosts();
+				<%
+						//Post post = PostDAO.getInstance().getLastFivePosts();
 						session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
 						session.setAttribute("postDescription1", post.getAttachments().get(0).getDescription());
 						String imgName = "C:/";
@@ -207,7 +212,7 @@ body {
 					%>
 					<%
 					try {
-											Post post = PostDAO.getInstance().getLastFivePosts();
+											//Post post = PostDAO.getInstance().getLastFivePosts();
 											session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
 											session.setAttribute("postDescription2", post.getAttachments().get(1).getDescription());
 											String imgName = "C:/";
@@ -248,7 +253,7 @@ body {
 					%>
 					<%
 					try {
-											Post post = PostDAO.getInstance().getLastFivePosts();
+											//Post post = PostDAO.getInstance().getLastFivePosts();
 											session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
 											session.setAttribute("postDescription3", post.getAttachments().get(2).getDescription());
 											String imgName = "C:/";
@@ -306,7 +311,7 @@ body {
 						<tr>
 							<%
 							try {
-								Post post = PostDAO.getInstance().getLastFivePosts();
+								//Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
 								session.setAttribute("postDescription4", post.getAttachments().get(3).getDescription());
 								String imgName = "C:/";
@@ -347,7 +352,7 @@ body {
 							%>
 							<%
 							try {
-								Post post = PostDAO.getInstance().getLastFivePosts();
+								//Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
 								session.setAttribute("postDescription5", post.getAttachments().get(4).getDescription());
 								String imgName = "C:/";
@@ -388,7 +393,7 @@ body {
 							%>
 							<%
 							try {
-								Post post = PostDAO.getInstance().getLastFivePosts();
+								//Post post = PostDAO.getInstance().getLastFivePosts();
 								session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
 								session.setAttribute("postDescription6", post.getAttachments().get(5).getDescription());
 								String imgName = "C:/";
@@ -428,6 +433,14 @@ body {
 									}
 							%>
 						</tr>
+						<%
+			} else {
+		%>	
+						<h1 class="text">There are no posts yet. Click on the New Post
+			button to get started.</h1>
+		<%} %>
+					</table>
+				</center>
 					</table>
 				</center>
 				</header>

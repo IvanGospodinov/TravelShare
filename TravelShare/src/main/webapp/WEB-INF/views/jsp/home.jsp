@@ -139,63 +139,6 @@ img{
 		<h1 class="text">
 			Hello
 			<c:out value="${username}"></c:out>
-		</h1>
-	<%-- 	<%
-			try {
-					String picPath = PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
-					if (picPath == null) {
-		%><h1 class="text">You have no posts yet. Click on the New Post
-			button to get started.</h1>
-		<%
-			} else {
-						String imgName = "C:/"
-								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
-						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
-						BufferedImage bImage = ImageIO.read(new File(imgName));
-						ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						ImageIO.write(bImage, "jpg", baos);
-						baos.flush();
-						byte[] imageInByteArray = baos.toByteArray();
-						baos.close();
-						String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-		%>
-		<h2 class="text">This Is Your Latest Post</h2>
-		<div class="post">
-			<a class="hvr-grow" href="mapTest"><img
-				class="img-responsive" src="data:image/jpg;base64, <%=b64%>" /></a>
-			</h2>
-			<h3 id="description">Description</h3>
-			<div class="descriptionBox">
-				<h4 id="description">Description</h4>
-			</div>
-			<br> <br>
-			<div class="buttons">
-				<button class="buttons">
-					<img id="likeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">543</p>
-				<br>
-				<button class="buttons">
-					<img id="dislikeButton"
-						src="https://cdn0.iconfinder.com/data/icons/winter-lollipop/374/Like.png">
-				</button>
-				<p id="numbers">23</p>
-				<br>
-				<button class="buttons">
-					<img id="loveButton"
-						src="https://cdn2.iconfinder.com/data/icons/christmas-hand-drawn-scribbles-icons/512/86-512.png">
-				</button>
-				<p id="numbers">543</p>
-			</div>
-		</div>
-		<%
-			}
-				} catch (IOException e) {
-					System.out.println("Error: " + e);
-				}
-		%> 
- --%>
 		<center>
 			<table style="margin-top: 100px">
 					<%
@@ -207,17 +150,17 @@ img{
 		<%
 			} else {
 				%>
-				<th class="text" style="font-size: 30px;padding-left: 10px;">Your Latest Post</th>
-				<th class="text" style="font-size: 30px;">The latest post on our site</th>
+				<th class="text" style="font-size: 30px;padding-left: 10px;padding-bottom: 10px;">Your Latest Post</th>
+				<th class="text" style="font-size: 30px;padding-bottom: 10px;">The latest post on our site</th>
 				</tr>
 				
 				<tr>
-				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
-				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;color: black;padding-bottom: 7px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;color: black;padding-bottom: 7px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
 				</tr>
 				<tr>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
-				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
+				<th class="text" style="font-size: 17px; color: black;padding-bottom: 10px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;color: black;padding-bottom: 10px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
 				</tr>
 			
 				<tr>
@@ -249,8 +192,8 @@ img{
 					%>
 					<%
 					try {
-						session.setAttribute("postTitle1", PostDAO.getInstance().getLastTitleFromOtherUserLastPost((int)session.getAttribute("userID")));
-						session.setAttribute("postDescription1", PostDAO.getInstance().getLastDescriptionFromOtherUserLastPost((int)session.getAttribute("userID")));
+						session.setAttribute("postTitle2", PostDAO.getInstance().getLastTitleFromOtherUserLastPost((int)session.getAttribute("userID")));
+						session.setAttribute("postDescription2", PostDAO.getInstance().getLastDescriptionFromOtherUserLastPost((int)session.getAttribute("userID")));
 						String imgName = "C:/"
 								+ PostDAO.getInstance().getLastPostFromOtherUserURL((int) session.getAttribute("userID"));
 						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);

@@ -20,59 +20,23 @@
 <title>My Profile</title>
 <style type="text/css">
 
-	footer {
-	/* position: re */
-	}
-
-.deleteButton {
- /*    display: block;
-    width: 115px;
-    height: 25px;
- */   
-    background: transparent; 
-   
-    padding: 15px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    outline-color: dimgrey;
-   /*  position: relative;
-    left: 120px; */
+	body {
+	text-decoration-color: fuchsia;
+	font-family: 'Indie Flower', cursive;
+	background:
+		url("https://static.pexels.com/photos/229014/pexels-photo-229014.jpeg")
+		no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
-    .backButton {
- /*    display: block;
-    width: 115px;
-    height: 25px;
- */    
-    background: transparent; 
-    color: ghostwhite;
-        
-    padding: 15px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-   /*  position: relative;
-    left: 120px; */
-}
-    .passwordButton {
- /*    display: block;
-    width: 115px;
-    height: 25px;
- */    
-    background: transparent; 
-
-    padding: 15px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-   /*  position: relative;
-    left: 120px; */
+   .centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
 }
 a {
 	padding-bottom: 5px;
@@ -88,9 +52,12 @@ a {
 		<div class="navbar-overlay"></div>
 		<div class="l-container centered-box">
 			<div class="centered-box__content l-row">
-				<h1>Hello <c:out value="${user.getFirstName()}"></c:out></h1>
-                
+				<center>
+				<table style="margin-top: 100px">
                 <!--AVATAR-->
+                <tr>
+                <h1>Hello <c:out value="${user.getFirstName()}"></c:out></h1>
+                <td>
                 <div img class="pull-left avatar-form__img" width="60" height="60">
                  <%
     try{
@@ -111,6 +78,7 @@ a {
     } 
     %>
     </div>
+ <td>
 				<form class="l-row form" action="uploadPicture" accept-charset="UTF-8"method="post" enctype="multipart/form-data">
                    <button type="submit">Update Avatar</button>
                     <label class="form__label" for="picture"></label>
@@ -123,8 +91,10 @@ a {
 								alt="0160dcc0668dfd402690cd54b9d2a5df?s=200&amp;d=mm"/> -->
 						</div>
 					</div>
-                    
+                    </td>
+                   
                     <!--FIRST NAME-->
+                    <td>
 					<div class="l-lg-6 form__group">
                         <form action="updateProfile" method="post">
 						<label class="form__label" for="user_first_name">First
@@ -134,8 +104,9 @@ a {
                             <button type="submit">Change First Name</button>
                         </form>
 					</div>
-                    
+                    </td>
                     <!--LAST NAME-->
+                    <td>
 					<div class="l-lg-6 form__group">
                         <form action="updateProfile" method="post">
 						<label class="form__label" for="user_last_name">Last
@@ -145,8 +116,9 @@ a {
                             <button type="submit">Change Last Name</button>
                         </form>
 					</div>
-                  
+                  </td>
                     <!--EMAIL-->
+                    <td>
                     <div class="l-lg-6 form__group">
                         <form action="updateProfile" method="post">
 						<label for="email">Email</label> 
@@ -155,35 +127,41 @@ a {
                             <button type="submit">Change Email</button>
                         </form>
                     </div>
-                    
+                    </td>
                     <!--USERRNAME-->
+                    <td>
 					<div class="l-lg-6 form__group">
                         <form action="updateProfile" method="post">
 						<label for="username">Username</label> <input autofocus="autofocus" required="required" maxlength="25" size="25" type="text" name="username"/>
                             <button type="submit">Change Username</button>
                         </form>
 					</div>
-                    
-                    <!--PASSWORD-->
+                    </td>
+				</tr>
+				<tr>
+				  <!--PASSWORD-->
+                    <td>
                     <div class="passwordButton">
 				        <form method="get" action="/TravelShare/changePassword">
-                            <button style="color:black" type="submit">Change Password</button>
+                            <button style="color:black; position: fixed;top: 65%; left: 50%;" type="submit">Change Password</button>
 				        </form>
                         </div>
                     <!--BACK BUTTON-->
                 <div class="backButton">
 				<form method="get" action="/TravelShare/home">
-                    <button style="color: black" type="submit">Back</button>
+                    <button style="color: black; position: fixed;top: 75%; left: 50%;" type="submit">Back</button>
 				</form>
                     </div>
-
-                    <!--DELETE PROFILE-->
+					</td>
+					</tr>
+				</table>
+				</center>
+				<!--DELETE PROFILE-->
 				<div class="deleteButton">
-				<a style="color: red" href="/TravelShare/deleteAccount" class="delete" data-confirm="Are you sure to delete this item? HINT if you stay we will send you chocolates!">Delete Profile</a>
+				<a style="color: red; position: fixed;top: 70%; left: 50%;" href="/TravelShare/deleteAccount" class="delete" data-confirm="Are you sure to delete this item? HINT if you stay we will send you chocolates!"><button>Delete Profile</button></a>
 				</div>
 			</div>
-		</div>
-	</div>
+
 	<!--<footer><jsp:include page="footer.jsp" /></footer>-->
    <script>
 var deleteLinks = document.querySelectorAll('.delete');
