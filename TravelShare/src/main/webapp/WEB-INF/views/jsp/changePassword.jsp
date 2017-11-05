@@ -201,28 +201,38 @@ body {
 		</h1>
 	</c:if>
 
-	<form class="register-form" action="changePassword" method="post">
-				 	<input id="oldPassword" type="password" name="oldPassword" placeholder="Current Password" required="required"/> 
+<c:if test="${sessionScope.errorDeleteAccount != null }">
+	<h1 class="error">
+			<c:out value="${errorDeleteAccount}"></c:out>
+		</h1>
+	</c:if>
+	<div class="delete-Account-form">
+		<div class="form">
+	<c:if test="${sessionScope.user != null }">
+
+	<form class="login-form" action="changePassword" method="post">
+		<input id="oldPassword" type="password" name="oldPassword" placeholder="Current Password" required="required"/> 
 				 	<input id="newPassword" type="password" name="newPassword" placeholder="New Password" required="required"/> 
 					<input id="conpassword" type="password" name="conpassword" placeholder="Confirm New Password" required="required" /> 
-					<button type="submit">Change Password</button>
-					<p class="message">
-					</form>
-					<form action="myProfile">
-						 <button type="submit">Go Back</a>
-					</form>	
-
+		<button class="deleteButton" type="submit">Change Password</button>
+            </form>
+        <form class="login-form" action="myProfile" method="get">
+			<button class="backButton" type="submit">Go Back?
+		</button>
+	</form>
+	 </c:if>
+	 
+     <c:if test="${sessionScope.user == null }">
+    	 <jsp:forward page="login.jsp"></jsp:forward>
+     </c:if>
+     </div>
+	</div>
 
 <script
 		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 	<script type="text/javascript">
-		$('.message a').click(function() {
-			$('form').animate({
-				height : "toggle",
-				opacity : "toggle"
-			}, "slow");
-		});
+	
 		var password = document.getElementById("newPassword"), confirm_password = document
 				.getElementById("conpassword");
 
