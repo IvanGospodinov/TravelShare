@@ -24,6 +24,7 @@ public class UserDAO {
 	//private static final String CHECK_FOR_EMAIL = "SELECT user_id from users WHERE user_email LIKE ?%";
 	private static final String SELECT_USER_SQL = "SELECT user_id FROM users WHERE email = ? AND password = ?";
 	private static final String GET_USER_FROM_SQL = "SELECT user_id, username, password, first_name, last_name, avatar_url FROM users WHERE email = ?";
+	private static final String GET_USER_FROM_SQL_BY_ID = "SELECT email, username, password, first_name, last_name, avatar_url FROM users WHERE user_id = ?";
 	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE email = ?";
 	public List<String> users = new ArrayList<String>();
 
@@ -124,6 +125,28 @@ public class UserDAO {
 					rs.getString("first_name"),
 					rs.getString("last_name"),
 					rs.getString("avatar_url"));
+	
+			return user;
+		} else {
+			throw new UserException("Invalid input!");
+		}
+	}
+	
+	
+	public User getUserBID(int userID) throws SQLException, UserException{
+		if(userID > 0){
+			Connection con = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(GET_USER_FROM_SQL_BY_ID);
+			ps.setInt(1, userID);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+	
+			User user = new User(
+					rs.getString("username"), 
+					rs.getString("email"), 
+					rs.getString("first_name"),
+					rs.getString("last_name")
+			);
 	
 			return user;
 		} else {

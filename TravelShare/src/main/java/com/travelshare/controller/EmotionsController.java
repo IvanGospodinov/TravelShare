@@ -50,7 +50,6 @@ public class EmotionsController {
 		response.setCharacterEncoding("UTF-8");
 		
 		String username = request.getParameter("user");
-		//String list = "bla bla";
 		try {
 			numberOfEmotions = EmotionDAO.getInstance().countEmotions(emotionID, postID);
 		} catch (UserException e1) {

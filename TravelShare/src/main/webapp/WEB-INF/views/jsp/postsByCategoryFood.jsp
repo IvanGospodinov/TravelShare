@@ -151,13 +151,24 @@ body {
 
 		<center>
 			<table style="margin-top: 100px">
+			
+			<tr>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title <c:out value="${postTitle3}"></c:out>'</th>
+				</tr>
+				<tr>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription3}"></c:out>'</th>
+				</tr>
+			
 				<tr>
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-								//session.setAttribute("postTitle", post.getAttachments().get(0).getTitle());
-								session.setAttribute("postID1", post.getAttachments().get(0).getPostID());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(0).getTitle());
+								session.setAttribute("postTitle1", post.getAttachments().get(0).getTitle());
+								session.setAttribute("postDescription1", post.getAttachments().get(0).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(0).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -195,9 +206,8 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-								//session.setAttribute("postTitle", post.getAttachments().get(1).getTitle());
-								session.setAttribute("postID2", post.getAttachments().get(1).getPostID());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(1).getTitle());
+								session.setAttribute("postTitle2", post.getAttachments().get(1).getTitle());
+								session.setAttribute("postDescription2", post.getAttachments().get(1).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(1).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -235,9 +245,8 @@ body {
 					<%
 						try {
 								Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-								//session.setAttribute("postTitle", post.getAttachments().get(2).getTitle());
-								session.setAttribute("postID3", post.getAttachments().get(2).getPostID());
-								//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+								session.setAttribute("postTitle3", post.getAttachments().get(2).getTitle());
+								session.setAttribute("postDescription3", post.getAttachments().get(2).getDescription());
 								String imgName = "C:/";
 								imgName = imgName.concat(post.getAttachments().get(2).getURL());
 								BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -275,13 +284,23 @@ body {
 				</tr>
 				<center>
 					<table style="margin-top: 100px">
+				<tr>	
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle4}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle5}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title <c:out value="${postTitle6}"></c:out>'</th>
+				</tr>
+				<tr>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription4}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription5}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription6}"></c:out>'</th>
+				</tr>
+					
 						<tr>
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-										//session.setAttribute("postTitle", post.getAttachments().get(3).getTitle());
-										session.setAttribute("postID4", post.getAttachments().get(3).getPostID());
-										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+										session.setAttribute("postTitle4", post.getAttachments().get(3).getTitle());
+										session.setAttribute("postDescription4", post.getAttachments().get(3).getDescription());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(3).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -320,9 +339,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-										//session.setAttribute("postTitle", post.getAttachments().get(4).getTitle());
-										session.setAttribute("postID5", post.getAttachments().get(4).getPostID());
-										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+										session.setAttribute("postTitle5", post.getAttachments().get(4).getTitle());
+										session.setAttribute("postDescription5", post.getAttachments().get(4).getDescription());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(4).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -361,9 +379,8 @@ body {
 							<%
 								try {
 										Post post = PostDAO.getInstance().getLastThreePostsByCategory(3);
-										//session.setAttribute("postTitle", post.getAttachments().get(5).getTitle());
-										session.setAttribute("postID6", post.getAttachments().get(5).getPostID());
-										//System.err.println("!!!!!!!!!!!!!!!!!!!!!post TITLE " + post.getAttachments().get(4).getTitle());
+										session.setAttribute("postTitle6", post.getAttachments().get(5).getTitle());
+										session.setAttribute("postDescription6", post.getAttachments().get(5).getDescription());
 										String imgName = "C:/";
 										imgName = imgName.concat(post.getAttachments().get(5).getURL());
 										BufferedImage bImage = ImageIO.read(new File(imgName));
@@ -422,7 +439,7 @@ body {
 	$('#likeButton1').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 77,
 			success : function(emotion1) {
 
 				$.each(emotion1, function(i, type) {
@@ -440,7 +457,7 @@ body {
 	$('#dislikeButton1').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 101,
 			success : function(emotion2) {
 
 				$.each(emotion2, function(i, type) {
@@ -457,7 +474,7 @@ body {
 	$('#loveButton1').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 102,
 			success : function(emotion3) {
 
 				$.each(emotion3, function(i, type) {
@@ -477,7 +494,7 @@ body {
 	$('#likeButton2').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 103,
 			success : function(emotion4) {
 
 				$.each(emotion4, function(i, type) {
@@ -495,7 +512,7 @@ body {
 	$('#dislikeButton2').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 104,
 			success : function(emotion5) {
 
 				$.each(emotion5, function(i, type) {
@@ -512,7 +529,7 @@ body {
 	$('#loveButton2').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 105,
 			success : function(emotion6) {
 
 				$.each(emotion6, function(i, type) {
@@ -532,7 +549,7 @@ body {
 	$('#likeButton3').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 67,
 			success : function(emotion7) {
 
 				$.each(emotion7, function(i, type) {
@@ -550,7 +567,7 @@ body {
 	$('#dislikeButton3').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 68,
 			success : function(emotion8) {
 
 				$.each(emotion8, function(i, type) {
@@ -567,7 +584,7 @@ body {
 	$('#loveButton3').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 69,
 			success : function(emotion9) {
 
 				$.each(emotion9, function(i, type) {
@@ -587,7 +604,7 @@ body {
 	$('#likeButton4').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 70,
 			success : function(emotion10) {
 
 				$.each(emotion10, function(i, type) {
@@ -605,7 +622,7 @@ body {
 	$('#dislikeButton4').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 110,
 			success : function(emotion11) {
 
 				$.each(emotion11, function(i, type) {
@@ -622,7 +639,7 @@ body {
 	$('#loveButton4').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 111,
 			success : function(emotion12) {
 
 				$.each(emotion12, function(i, type) {
@@ -642,7 +659,7 @@ body {
 	$('#likeButton5').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 112,
 			success : function(emotion13) {
 
 				$.each(emotion13, function(i, type) {
@@ -660,7 +677,7 @@ body {
 	$('#dislikeButton5').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 113,
 			success : function(emotion14) {
 
 				$.each(emotion14, function(i, type) {
@@ -677,7 +694,7 @@ body {
 	$('#loveButton5').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 114,
 			success : function(emotion15) {
 
 				$.each(emotion15, function(i, type) {
@@ -697,7 +714,7 @@ body {
 	$('#likeButton6').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 1 + '&postID=' + 97,
 			success : function(emotion16) {
 
 				$.each(emotion16, function(i, type) {
@@ -715,7 +732,7 @@ body {
 	$('#dislikeButton6').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 2 + '&postID=' + 98,
 			success : function(emotion17) {
 
 				$.each(emotion17, function(i, type) {
@@ -732,7 +749,7 @@ body {
 	$('#loveButton6').on('click', function() {
 		$.ajax({
 			type : 'GET',
-			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 78,
+			url : '/TravelShare/aboutUSS?emotionType=' + 3 + '&postID=' + 99,
 			success : function(emotion18) {
 
 				$.each(emotion18, function(i, type) {

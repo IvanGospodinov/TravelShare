@@ -60,6 +60,15 @@ public class User {
 		this.followers=new LinkedHashSet<User>();
 	}
 	
+	public User(String uname, String email, String firstName, String lastName) {
+		super();
+		this.username = uname;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.followers=new LinkedHashSet<User>();
+	}
+	
 	public User(String email, String password) {
 		super();
 		this.password = password;

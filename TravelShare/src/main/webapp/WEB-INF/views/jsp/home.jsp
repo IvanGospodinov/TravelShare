@@ -198,10 +198,9 @@ img{
  --%>
 		<center>
 			<table style="margin-top: 100px">
-				<tr>
 					<%
 			try {
-					String picPath = PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
+					String picPath = PostDAO.getInstance().getLastPostURL((int)session.getAttribute("userID"));
 					if (picPath == null) {
 		%><h1 class="text">You have no posts yet. Click on the New Post
 			button to get started.</h1>
@@ -211,8 +210,22 @@ img{
 				<th class="text" style="font-size: 30px;padding-left: 10px;">Your Latest Post</th>
 				<th class="text" style="font-size: 30px;">The latest post on our site</th>
 				</tr>
+				
+				<tr>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle1}"></c:out>'</th>
+				<th class="text" style="font-size: 25px;">Title '<c:out value="${postTitle2}"></c:out>'</th>
+				</tr>
+				<tr>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription1}"></c:out>'</th>
+				<th class="text" style="font-size: 17px;">Description: '<c:out value="${postDescription2}"></c:out>'</th>
+				</tr>
+			
+				<tr>
+				
 				<tr>
 				<%
+						session.setAttribute("postTitle1", PostDAO.getInstance().getLastTitle((int)session.getAttribute("userID")));
+						session.setAttribute("postDescription1", PostDAO.getInstance().getLastDescription((int)session.getAttribute("userID")));
 						String imgName = "C:/"
 								+ PostDAO.getInstance().getLastPostURL((int) session.getAttribute("userID"));
 						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);
@@ -236,6 +249,8 @@ img{
 					%>
 					<%
 					try {
+						session.setAttribute("postTitle1", PostDAO.getInstance().getLastTitleFromOtherUserLastPost((int)session.getAttribute("userID")));
+						session.setAttribute("postDescription1", PostDAO.getInstance().getLastDescriptionFromOtherUserLastPost((int)session.getAttribute("userID")));
 						String imgName = "C:/"
 								+ PostDAO.getInstance().getLastPostFromOtherUserURL((int) session.getAttribute("userID"));
 						System.err.println("!!!!!!!!!!!!!!!!!!!!!path " + imgName);

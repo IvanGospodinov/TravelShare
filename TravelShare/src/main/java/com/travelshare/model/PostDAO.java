@@ -97,6 +97,48 @@ public class PostDAO {
 		return postPic;
 	}
 	
+	public String getLastTitle(int userID) throws UserException {
+		String title = null;
+		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery( "SELECT post_title, post_date_upload AS date FROM posts WHERE user_id="+ userID + " order by date desc limit 1" );
+			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+			if(rs.next()) {
+				title = rs.getString("post_title");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//throw new UserException("Error at getting last Five Posts", e);
+		}
+		return title;
+	}
+	
+	public String getLastDescription(int userID) throws UserException {
+		String description = null;
+		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery( "SELECT post_description, post_date_upload AS date FROM posts WHERE user_id="+ userID + " order by date desc limit 1" );
+			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+			if(rs.next()) {
+				description = rs.getString("post_description");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//throw new UserException("Error at getting last Five Posts", e);
+		}
+		return description;
+	}
+	
 	public String getLastPostFromOtherUserURL(int userID) throws UserException {
 		String postPic = null;
 		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
@@ -122,6 +164,50 @@ public class PostDAO {
 		}
 		return postPic;
 	}
+	
+	public String getLastTitleFromOtherUserLastPost(int userID) throws UserException {
+		String title = null;
+		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery( "SELECT post_title, post_date_upload AS date FROM posts WHERE user_id!="+ userID + " order by date desc limit 1" );
+			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+			if(rs.next()) {
+				title = rs.getString("post_title");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//throw new UserException("Error at getting last Five Posts", e);
+		}
+		return title;
+	}
+	
+	public String getLastDescriptionFromOtherUserLastPost(int userID) throws UserException {
+		String description = null;
+		System.err.println("OTIVAM DA TYRSYA PYTQ DO POST SNIMKATA");
+		Connection connection = DBConnection.getInstance().getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery( "SELECT post_description, post_date_upload AS date FROM posts WHERE user_id!="+ userID + " order by date desc limit 1" );
+			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
+			if(rs.next()) {
+				description = rs.getString("post_description");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//throw new UserException("Error at getting last Five Posts", e);
+		}
+		return description;
+	}
+	
+	
 //	public String getMostLikedPost(int userID) throws UserException {
 //		String postPic = null;
 //		System.err.println("OTIVAM DA TYRSYA PYTQ DO MOST LIKED POST SNIMKATA");

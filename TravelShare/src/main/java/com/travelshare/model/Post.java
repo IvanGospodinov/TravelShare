@@ -10,7 +10,6 @@ import java.util.Set;
 public class Post {
 	
 		private int postId;
-		private String category;
 		private String title;
 		private String location;
 		private String description;	
@@ -18,18 +17,8 @@ public class Post {
 		private int category_id;	
 		private LocalDate upload;
 		private LocalDate modify;		
-		private User user;
 		private List<Attachment> attachments;
-		
-		
-	
 
-//		private Set<Attachment> attachments=new HashSet<Attachment>() ;
-//		private Set<Coment> coments=new HashSet<Coment>() ;
-//		private Map<Emotion, HashSet<User>> emotions=new HashMap<Emotion, HashSet<User>>();
-
-
-	
 
 		public Post(String title, String description, LocalDate a, LocalDate b,int category_id, int user_id, String location) {
 			
