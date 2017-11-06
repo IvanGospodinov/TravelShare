@@ -20,9 +20,11 @@ public class User {
 	private String pictureURL;
 	private List<User> posts;
 	private LinkedHashSet<User> followers;
+	private List<User> users;
 	
 	public User(){
 		posts = new ArrayList<User>();
+		users = new ArrayList<User>();
 	};
 	
 	public User(String username, String password, String email, String firstName, String lastName, String pictureURL) {
@@ -69,6 +71,16 @@ public class User {
 		this.followers=new LinkedHashSet<User>();
 	}
 	
+	public User(String uname, String email, String firstName, String lastName, String pictureURL) {
+		super();
+		this.username = uname;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pictureURL = pictureURL;
+		this.followers=new LinkedHashSet<User>();
+	}
+	
 	public User(String email, String password) {
 		super();
 		this.password = password;
@@ -77,7 +89,9 @@ public class User {
 
 	public User(String email) {
 		super();
-		this.email = email;
+		if(email != null) {
+			this.email = email;
+		} 
 	}
 
 
@@ -95,7 +109,9 @@ public class User {
 		return username;
 	}
 	public void setUsername(String username) {
+		if (validateString(username)) {
 			this.username = username;
+		}
 	}
 	public String getPassword() {
 		return password;
@@ -178,6 +194,9 @@ public class User {
 
 	public List<User> getPosts() {
 		return posts;
+	}
+	public List<User> getUsers() {
+		return users;
 	}
 
 	public void setPosts(Set<Post> posts) {

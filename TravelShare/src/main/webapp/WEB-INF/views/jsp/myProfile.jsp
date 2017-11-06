@@ -42,12 +42,35 @@ a {
 	padding-bottom: 5px;
 
 }
+.error {
+	color: red;
+	font-size: 20px;
+	padding: 0px;
+	padding-bottom: 0px; 
+	font-family : 'Indie Flower', cursive;
+	font-style: italic;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-align: center;
+	text-decoration: blink;
+	text-transform: capitalize;
+	cursor: move;
+	visibility: visible;
+	text-shadow: 0px 1px 0px #800000;
+	font-family: 'Indie Flower', cursive;
+}
  
 </style>
 </head>
 <body>
 <c:if test="${sessionScope.user != null }">
 	<jsp:include page="header.jsp" />
+	
+	<c:if test="${sessionScope.updateProfile != null }">
+		<h1 class="error">
+			<c:out value="${updateProfile}"></c:out>
+		</h1>
+	</c:if>
 	<div class="page-wrap">
 		<div class="navbar-overlay"></div>
 		<div class="l-container centered-box">
@@ -61,9 +84,9 @@ a {
                 <div img class="pull-left avatar-form__img" width="60" height="60">
                  <%
     try{
-      String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
-      imgName = imgName.concat(session.getAttribute("userID")+"-profile-pic.jpeg");
-      BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
+        String imgName="C:\\Users\\Ivan\\Desktop\\images\\";
+        imgName = imgName.concat(session.getAttribute("userID")+"-profile-pic.jpeg");
+     	BufferedImage bImage = ImageIO.read(new File(imgName));//give the path of an image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write( bImage, "jpg", baos );
         baos.flush();

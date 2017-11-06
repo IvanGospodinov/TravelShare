@@ -438,6 +438,9 @@ body {
 					<jsp:include page="footer.jsp" />
 				</div>
 	</c:if>
+	<c:if test="${sessionScope.user == null }">
+		<jsp:forward page="login.jsp"></jsp:forward>
+	</c:if>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

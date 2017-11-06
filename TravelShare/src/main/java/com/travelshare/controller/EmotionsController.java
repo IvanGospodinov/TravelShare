@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.travelshare.model.EmotionDAO;
+import com.travelshare.model.User;
+import com.travelshare.model.UserDAO;
 import com.travelshare.util.UserException;
 
 @Controller
@@ -44,7 +46,6 @@ public class EmotionsController {
 		} catch (UserException e1) {
 			e1.printStackTrace();
 		}
-		//System.err.println("request for SQL EMOTION UPDATE " + emotionID + " " + session.getAttribute("userID") + " " + session.getAttribute("postID"));
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");

@@ -26,10 +26,12 @@ public class UserDAO {
 	private static final String GET_USER_FROM_SQL = "SELECT user_id, username, password, first_name, last_name, avatar_url FROM users WHERE email = ?";
 	private static final String GET_USER_FROM_SQL_BY_ID = "SELECT email, username, password, first_name, last_name, avatar_url FROM users WHERE user_id = ?";
 	private static final String DELETE_USER_ACCOUNT = "DELETE FROM users WHERE email = ?";
-	public List<String> users = new ArrayList<String>();
+	public List<String> users;
 
 	private static UserDAO instance;
-	private UserDAO(){}
+	private UserDAO(){
+		users = new ArrayList<String>();
+	}
 
 	public static synchronized UserDAO getInstance(){
 		if(instance == null){
@@ -117,7 +119,7 @@ public class UserDAO {
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-	
+
 			User user = new User(
 					rs.getInt("user_id"), 
 					rs.getString("username"), 
@@ -125,14 +127,14 @@ public class UserDAO {
 					rs.getString("first_name"),
 					rs.getString("last_name"),
 					rs.getString("avatar_url"));
-	
+
 			return user;
 		} else {
 			throw new UserException("Invalid input!");
 		}
 	}
-	
-	
+
+
 	public User getUserBID(int userID) throws SQLException, UserException{
 		if(userID > 0){
 			Connection con = DBConnection.getInstance().getConnection();
@@ -140,14 +142,14 @@ public class UserDAO {
 			ps.setInt(1, userID);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-	
+
 			User user = new User(
 					rs.getString("username"), 
 					rs.getString("email"), 
 					rs.getString("first_name"),
 					rs.getString("last_name")
-			);
-	
+					);
+
 			return user;
 		} else {
 			throw new UserException("Invalid input!");
@@ -178,22 +180,22 @@ public class UserDAO {
 
 	public boolean checkForUsername(String username) throws UserException {
 		if(username != null && !username.equals("")) {
-		final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE username LIKE '"+ username + "%'";
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps;
-		try {
-			ps = connection.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
-			while (rs.next()) {
-				return true;
+			final String CHECK_FOR_EMAILS = "SELECT user_id from users WHERE username LIKE '"+ username + "%'";
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps;
+			try {
+				ps = connection.prepareStatement(CHECK_FOR_EMAILS, Statement.RETURN_GENERATED_KEYS);
+				Statement stmt = connection.createStatement();
+				ResultSet rs = stmt.executeQuery(CHECK_FOR_EMAILS);
+				while (rs.next()) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new UserException();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new UserException();
-		}
 
-		return false;
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -201,25 +203,21 @@ public class UserDAO {
 
 	public synchronized boolean deleteAccount (String email, String password) throws UserException {
 		if((email != null && !email.equals("")) && password != null && !password.equals("")) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
-		try {
-			if(checkForUser(email, password)) {
-				ps = connection.prepareStatement(DELETE_USER_ACCOUNT);
-				ps.setString(1, email);
-				ps.executeUpdate();
-				//				if(checkForUser(email, password)) {
-				//					System.err.println("Neshto ne se iztri");
-				//					return false;
-				//				}
-				System.err.println("USER DELETED");
-				return true;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
+			try {
+				if(checkForUser(email, password)) {
+					ps = connection.prepareStatement(DELETE_USER_ACCOUNT);
+					ps.setString(1, email);
+					ps.executeUpdate();
+					System.err.println("USER DELETED");
+					return true;
+				}
+			} catch (UserException | SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (UserException | SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			System.err.println("NO SUCH USER");
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -227,22 +225,22 @@ public class UserDAO {
 
 	public int getUserID(String email) throws UserException {
 		if(email != null && !email.equals("")) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
-		int id = 0;
-		try {
-			ps = connection.prepareStatement("SELECT user_id FROM users WHERE email = ?", Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, email);
-			ps.executeQuery();
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			System.err.println("USER ID " + rs.getInt(1));
-			id = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
+			int id = 0;
+			try {
+				ps = connection.prepareStatement("SELECT user_id FROM users WHERE email = ?", Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, email);
+				ps.executeQuery();
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				System.err.println("USER ID " + rs.getInt(1));
+				id = rs.getInt(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
-		return id;
+			return id;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -250,24 +248,24 @@ public class UserDAO {
 
 	public boolean changeFirstName (String name, int userID) throws UserException {
 		if(name != null && !name.equals("")) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
 
-		try {
-			ps = connection.prepareStatement("UPDATE users SET first_name = ? WHERE user_id = ?");
-			ps.setString(1, name);
-			ps.setInt(2, userID);
-			ps.executeUpdate();
-			int result = ps.executeUpdate();
-			if(result > 0) {
-				System.err.println("USER FIRST NAME UPDATED");
-				return true;
+			try {
+				ps = connection.prepareStatement("UPDATE users SET first_name = ? WHERE user_id = ?");
+				ps.setString(1, name);
+				ps.setInt(2, userID);
+				ps.executeUpdate();
+				int result = ps.executeUpdate();
+				if(result > 0) {
+					System.err.println("USER FIRST NAME UPDATED");
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			System.err.println("NO SUCH USER");
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -275,51 +273,53 @@ public class UserDAO {
 
 	public boolean changeLastName (String name, int userID) throws UserException {
 		if(name != null && !name.equals("") && (userID > 0)) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
 
-		try {
-			ps = connection.prepareStatement("UPDATE users SET last_name = ? WHERE user_id = ?");
-			ps.setString(1, name);
-			ps.setInt(2, userID);
-			ps.executeUpdate();
-			int result = ps.executeUpdate();
-			if(result > 0) {
-				System.err.println("USER LAST UPDATED");
-				return true;
+			try {
+				ps = connection.prepareStatement("UPDATE users SET last_name = ? WHERE user_id = ?");
+				ps.setString(1, name);
+				ps.setInt(2, userID);
+				ps.executeUpdate();
+				int result = ps.executeUpdate();
+				if(result > 0) {
+					System.err.println("USER LAST UPDATED");
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			System.err.println("NO SUCH USER");
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
 	}
-		
+
 
 	public boolean changeUsername (String username, int userID) throws UserException {
 		if(username != null && !username.equals("") && (userID > 0)) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
 
-		try {
-			//da napravq proverka syshtestvuva li veche
-			ps = connection.prepareStatement("UPDATE users SET username = ? WHERE user_id = ?");
-			ps.setString(1, username);
-			ps.setInt(2, userID);
-			ps.executeUpdate();
-			int result = ps.executeUpdate();
-			if(result > 0) {
-				System.err.println("USER USERNAME UPDATED");
-				return true;
+			try {
+				if(!checkForUsername(username)) {
+					ps = connection.prepareStatement("UPDATE users SET username = ? WHERE user_id = ?");
+					ps.setString(1, username);
+					ps.setInt(2, userID);
+					ps.executeUpdate();
+					int result = ps.executeUpdate();
+					if(result > 0) {
+						System.err.println("USER USERNAME UPDATED");
+						return true;
+					}
+				} else {
+					return false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -327,25 +327,27 @@ public class UserDAO {
 
 	public boolean changeEmail (String email, int userID) throws UserException {
 		if(email != null && !email.equals("") && (userID > 0)) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
 
-		try {
-			//da proverya syshtestvuva li emaila
-			ps = connection.prepareStatement("UPDATE users SET email = ? WHERE user_id = ?");
-			ps.setString(1, email);
-			ps.setInt(2, userID);
-			ps.executeUpdate();
-			int result = ps.executeUpdate();
-			if(result > 0) {
-				System.err.println("USER EMAIL UPDATED");
-				return true;
+			try {
+				if(!checkForEmail(email)) {
+					ps = connection.prepareStatement("UPDATE users SET email = ? WHERE user_id = ?");
+					ps.setString(1, email);
+					ps.setInt(2, userID);
+					ps.executeUpdate();
+					int result = ps.executeUpdate();
+					if(result > 0) {
+						System.err.println("USER EMAIL UPDATED");
+						return true;
+					}
+				} else {
+					return false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -353,24 +355,22 @@ public class UserDAO {
 
 	public boolean changePassword (String newPassword, int userID) throws UserException {
 		if(newPassword != null && !newPassword.equals("") && (userID > 0)) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
 
-		try {
-			ps = connection.prepareStatement("UPDATE users SET password = ? WHERE user_id = ?");
-			ps.setString(1, Encrypter.encrypt(newPassword));
-			ps.setInt(2, userID);
-			ps.executeUpdate();
-			int result = ps.executeUpdate();
-			if(result > 0) {
-				System.err.println("USER PASSWORD UPDATED");
-				return true;
+			try {
+				ps = connection.prepareStatement("UPDATE users SET password = ? WHERE user_id = ?");
+				ps.setString(1, Encrypter.encrypt(newPassword));
+				ps.setInt(2, userID);
+				ps.executeUpdate();
+				int result = ps.executeUpdate();
+				if(result > 0) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
@@ -378,45 +378,37 @@ public class UserDAO {
 
 	public boolean changeAvatarURL (String URL, int userID) throws UserException {
 		if(URL != null && !URL.equals("") && (userID > 0)) {
-		Connection connection = DBConnection.getInstance().getConnection();
-		PreparedStatement ps = null;
+			Connection connection = DBConnection.getInstance().getConnection();
+			PreparedStatement ps = null;
 
-		try {
-			ps = connection.prepareStatement("UPDATE users SET avatar_url = ? WHERE user_id = ?");
-			ps.setString(1, URL);
-			ps.setInt(2, userID);
-			ps.executeUpdate();
-			int result = ps.executeUpdate();
-			if(result > 0) {
-				System.err.println("USER AVATAR URL UPDATED " + URL);
-				return true;
+			try {
+				ps = connection.prepareStatement("UPDATE users SET avatar_url = ? WHERE user_id = ?");
+				ps.setString(1, URL);
+				ps.setInt(2, userID);
+				ps.executeUpdate();
+				int result = ps.executeUpdate();
+				if(result > 0) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.err.println("NO SUCH USER");
-		return false;
+			return false;
 		} else {
 			throw new UserException("Invalid input!");
 		}
 	}
 
 	public User getTopUsers () throws UserException {
-		System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
 		Connection connection = DBConnection.getInstance().getConnection();
 		User user = new User();
 		Statement stmt = null;
 		ResultSet rs = null;
-
 		try {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery( "SELECT * FROM users ORDER BY avatar_url ASC" );
-			System.err.println("V METODA SYM!!!!!!!!!!!!!!!!");
 			while ( rs.next() || user.getPosts().size()<5) {
-				//System.out.println("USER-A " + UserDAO.getInstance().getUser(rs.getString("email")));
 				user.getPosts().add(UserDAO.getInstance().getUser(rs.getString("email")));
-				//user.getPosts().add(rs.getString("user_pictureURL"));
-				System.out.println("TUKA VLIZA LI IZOBSHTO " + rs.getString("email"));
 			}		 			
 		} catch (SQLException | UserException e) {
 			e.printStackTrace();
@@ -435,12 +427,9 @@ public class UserDAO {
 			ps.setInt(2, followerId);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("NE MOVE DA SE SLEDWA ");
 			e.printStackTrace();
 		}
 	}
-
-
 
 	public synchronized void unfollowUser(int followerId, int followedId){
 		Connection connection = DBConnection.getInstance().getConnection();
@@ -450,9 +439,7 @@ public class UserDAO {
 			ps.setInt(1, followedId);
 			ps.setInt(2, followerId);
 			ps.executeUpdate();
-
 		} catch (SQLException e) {
-			System.out.println("NE MOVE DA SE Premahne SLEDWANE ");
 			e.printStackTrace();
 		}
 	}
@@ -463,56 +450,67 @@ public class UserDAO {
 		PreparedStatement ps = null;
 		LinkedHashSet<User> followers=new LinkedHashSet<>();
 		try {
-
-			System.out.println("Predi PS");
 			ps=connection.prepareStatement("SELECT users.user_id, users.username, users.password, users.email, users.first_name, users.last_name, users.avatar_url FROM users JOIN users_has_followers ON users.user_id=users_has_followers.users_follower_id WHERE users_has_followers.user_id=?;");
-			System.out.println("SLED PS");
 			int id=u.getUserID();
-			System.out.println(id+"ID to");
-				
-				
-				ps.setInt(1,id);
-		ResultSet rs=ps.executeQuery();
-		
-	
-		while(rs.next()){
-			System.out.println("W WHILE RS");
-			
-			followers.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
-					               rs.getString(6),  rs.getString(7)));
-		}
-		return followers;
-		
+			ps.setInt(1,id);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				followers.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
+						rs.getString(6),  rs.getString(7)));
+			}
+			return followers;
+
 
 		} catch (SQLException e) {
-			System.out.println("NE MOVE DA SE VZEMAT POSLEDOVATELITE ");
 			e.printStackTrace();
 		}
 		return followers;
 	}
-	
-	
+
+
 	public List<String> getUsers() {
 		Connection connection = DBConnection.getInstance().getConnection();
 		PreparedStatement ps = null;
 		int id = 0;
 		try {
 			ps = connection.prepareStatement("SELECT first_name FROM users", Statement.RETURN_GENERATED_KEYS);
-			//ps.setString(1, email);
 			ps.executeQuery();
 			ResultSet rs = ps.executeQuery();
-			//rs.next();
-			//System.err.println("USER ID " + rs.getInt(1));
 			while(rs.next()){
 				users.add(rs.getString("first_name"));
 			}
-			//id = rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-				
-				
-				return users;
+
+
+		return users;
+	}
+	
+	
+	public List<User> getUsersObject(String name) {
+		List<User> usersToSend = new ArrayList<User>();
+		Connection connection = DBConnection.getInstance().getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		System.err.println("HEREEEEEEEEEEEEEEEEEEEEE");
+		int id = 0;
+		try {
+			ps = connection.prepareStatement("SELECT * FROM users WHERE username LIKE ?");
+			System.err.println("HEREEEEEEEEEEEEEEEEEEEEE");
+			ps.setString(1, name + "%");
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				User user = new User(rs.getString("username"),rs.getString("email"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("avatar_URL"));
+				usersToSend.add(user);
+				System.err.println(usersToSend.get(0));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+		return usersToSend;
 	}
 
 }
